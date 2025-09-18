@@ -3,545 +3,501 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TAMARA Power Business</title>
+    <title>Tamara Kilpp | Experiência de Estilo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKVBCEG0lV5w6Y9F2nE1z9+t0IG26f0x0xIM+B07jRMXG0gL5FQki71RZV0UN2h4+7kL5sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="widgetheading.css" />
-    <link rel="stylesheet" href="widget-video.css" />
-    <link rel="stylesheet" href="widget-image-carousel.css" />
-    <link rel="stylesheet" href="widget-image-min.cs" />
-    <link rel="stylesheet" href="e-wisper.css" />
-    <script>
-        window.tailwind = window.tailwind || {};
-        window.tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        tamaraBlack: '#000000',
-                        tamaraWhite: '#ffffff',
-                        tamaraPink: '#f78da7',
-                        tamaraPurple: '#9b51e0',
-                        tamaraGold: '#ffcb70',
-                    },
-                    fontFamily: {
-                        primary: ['"Poppins"', 'Inter', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        soft: '0 20px 50px -25px rgba(0, 0, 0, 0.45)',
-                        glow: '0 25px 60px -20px rgba(155, 81, 224, 0.7)',
-                    },
-                },
-            },
-        };
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
     <style>
         :root {
-            color-scheme: dark light;
-        }
-
-        body {
-            background-color: #000000;
+            color-scheme: dark;
+            --bg: radial-gradient(circle at 20% 20%, #1a1030 0%, #07050c 55%, #03020a 100%);
+            --card: rgba(16, 12, 30, 0.75);
+            --card-strong: rgba(20, 16, 42, 0.85);
+            --text: #f9f5ff;
+            --muted: rgba(249, 245, 255, 0.7);
+            --accent: #ffcb70;
+            --accent-2: #c751c0;
+            --accent-3: #6c5dd3;
+            --border: rgba(255, 255, 255, 0.12);
             font-family: 'Poppins', 'Inter', sans-serif;
         }
 
-        .reveal {
-            opacity: 0;
-            transition: opacity 0.6s ease, transform 0.6s ease;
+        * {
+            box-sizing: border-box;
         }
 
-        .reveal[data-animate="fadeInUp"] {
-            transform: translateY(30px);
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Poppins', 'Inter', sans-serif;
+            line-height: 1.65;
+            min-height: 100vh;
         }
 
-        .reveal[data-animate="slideInLeft"] {
-            transform: translateX(-40px);
+        img {
+            max-width: 100%;
+            display: block;
         }
 
-        .reveal[data-animate="bounceIn"] {
-            transform: scale(0.95);
+        header {
+            padding: 32px 24px 16px;
         }
 
-        .animate-fadeInUp {
-            animation: fadeInUp 1s ease forwards;
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            background: rgba(10, 8, 20, 0.65);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px 28px;
+            box-shadow: 0 18px 50px -25px rgba(0, 0, 0, 0.55);
         }
 
-        .animate-slideInLeft {
-            animation: slideInLeft 1s ease forwards;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
-        .animate-bounceIn {
-            animation: bounceIn 1.1s ease forwards;
+        .brand img {
+            width: 70px;
+            height: auto;
+            filter: drop-shadow(0 12px 18px rgba(199, 81, 192, 0.45));
         }
 
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
+        .brand span {
+            font-size: 0.8rem;
+            letter-spacing: 0.45em;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 0.95rem;
+            max-width: 480px;
+            color: var(--muted);
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px 24px 96px;
+            display: flex;
+            flex-direction: column;
+            gap: 96px;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.35em;
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-size: clamp(1.9rem, 4vw, 2.6rem);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .section-lead {
+            font-size: 1.05rem;
+            color: var(--muted);
+            max-width: 720px;
+        }
+
+        .courses-grid {
+            display: grid;
+            gap: 28px;
+        }
+
+        @media (min-width: 900px) {
+            .courses-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
-        @keyframes slideInLeft {
-            0% {
-                opacity: 0;
-                transform: translateX(-60px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.85);
-            }
-
-            60% {
-                opacity: 1;
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .swiper {
-            min-height: 320px;
-        }
-
-        .swiper-slide {
-            opacity: 0;
-            position: absolute;
-            inset: 0;
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            transform: translateX(80px);
-        }
-
-        .swiper-slide.is-active {
-            opacity: 1;
-            transform: translateX(0);
-            position: relative;
-        }
-
-        .swiper-pagination-bullet {
-            height: 12px;
-            width: 12px;
-            border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.35);
-            border: none;
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-
-        .swiper-pagination-bullet.is-active {
-            background: #f78da7;
-            transform: scale(1.3);
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
+        .course-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(18px);
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .reveal {
-                opacity: 1 !important;
-                transform: none !important;
-            }
+        .course-image {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+        }
 
-            .animate-fadeInUp,
-            .animate-slideInLeft,
-            .animate-bounceIn {
-                animation: none !important;
-            }
+        .course-content {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            flex: 1;
+        }
 
-            .swiper-slide {
-                transition: none;
+        .course-title {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .course-description {
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .course-highlights {
+            padding-left: 18px;
+            margin: 0;
+            display: grid;
+            gap: 10px;
+            color: var(--muted);
+        }
+
+        .course-highlights li {
+            list-style: none;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .course-highlights li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        }
+
+        .button {
+            margin-top: auto;
+            align-self: flex-start;
+            padding: 12px 30px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #1e142e;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 12px 30px -18px rgba(255, 203, 112, 0.8);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 40px -18px rgba(199, 81, 192, 0.85);
+        }
+
+        .details-panel {
+            background: var(--card-strong);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 32px;
+            display: grid;
+            gap: 24px;
+            box-shadow: 0 30px 70px -44px rgba(0, 0, 0, 0.75);
+        }
+
+        @media (min-width: 860px) {
+            .details-panel {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
+        }
+
+        .detail-card {
+            background: rgba(10, 8, 25, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 22px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .detail-card h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: var(--accent);
+        }
+
+        .detail-card p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .audience-grid {
+            display: grid;
+            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        }
+
+        .audience-item {
+            background: rgba(13, 10, 26, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 160px;
+        }
+
+        .audience-item strong {
+            font-size: 1rem;
+            color: var(--accent-3);
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            font-weight: 600;
+        }
+
+        .audience-item p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .about-section {
+            background: linear-gradient(120deg, rgba(8, 5, 18, 0.95), rgba(35, 23, 56, 0.9));
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            overflow: hidden;
+            display: grid;
+            gap: 0;
+        }
+
+        @media (min-width: 860px) {
+            .about-section {
+                grid-template-columns: 1fr 1.2fr;
+            }
+        }
+
+        .about-image {
+            position: relative;
+            overflow: hidden;
+            min-height: 320px;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(3, 2, 10, 0.1), rgba(3, 2, 10, 0.75));
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-content {
+            padding: 36px 32px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .about-content h2 {
+            margin: 0;
+            font-size: clamp(1.9rem, 3vw, 2.4rem);
+        }
+
+        .about-content p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .signature {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .signature img {
+            width: 60px;
+            height: auto;
+            opacity: 0.85;
+        }
+
+        .signature span {
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(249, 245, 255, 0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 24px 60px;
+            color: rgba(249, 245, 255, 0.45);
+            font-size: 0.8rem;
         }
     </style>
 </head>
-<body class="font-primary text-tamaraWhite antialiased">
-    <header class="relative overflow-hidden">
-        <div class="absolute inset-0 -z-10 bg-gradient-to-br from-tamaraBlack via-[#9b51e0] via-60% to-[#f78da7] opacity-90"></div>
-        <nav class="container mx-auto flex max-w-7xl items-center justify-between px-6 py-8">
-            <div class="elementor-widget-image reveal" data-animate="slideInLeft">
-                <a href="#hero" class="inline-flex items-center gap-3 text-lg font-semibold">
-                    <img src="logo-TAMARA.png" alt="Logotipo TAMARA" class="h-12 w-auto drop-shadow-xl" />
-                    <span class="uppercase tracking-widest text-sm hidden sm:inline-flex">Power Business</span>
-                </a>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="brand">
+                <img src="logo-TAMARA.png" alt="Logotipo Tamara Kilpp" />
+                <span>Metodo Tamara Kilpp</span>
             </div>
-            <ul class="hidden gap-10 text-sm font-medium uppercase tracking-[0.2em] md:flex">
-                <li><a href="#hero" class="transition-all duration-300 hover:text-tamaraPink">Início</a></li>
-                <li><a href="#sobre" class="transition-all duration-300 hover:text-tamaraPink">Sobre</a></li>
-                <li><a href="#portfolio" class="transition-all duration-300 hover:text-tamaraPink">Projetos</a></li>
-                <li><a href="#video" class="transition-all duration-300 hover:text-tamaraPink">Vídeo</a></li>
-                <li><a href="#contato" class="transition-all duration-300 hover:text-tamaraPink">Contato</a></li>
-            </ul>
-            <button class="glass-panel reveal inline-flex items-center rounded-full px-5 py-2 text-sm font-semibold uppercase tracking-[0.3em] shadow-soft transition-all duration-300 hover:shadow-glow" data-animate="bounceIn">
-                <span class="mr-2 text-xs">Agenda VIP</span>
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        </nav>
-        <section id="hero" class="relative">
-            <div class="container mx-auto grid max-w-7xl items-center gap-12 px-6 pb-24 pt-10 lg:grid-cols-2">
-                <div class="reveal space-y-8" data-animate="fadeInUp">
-                    <p class="text-sm font-semibold uppercase tracking-[0.35em] text-[#ffcb70]">Mentoria estratégica TAMARA</p>
-                    <h1 class="elementor-widget-heading text-4xl font-extrabold leading-tight text-tamaraWhite sm:text-5xl lg:text-[59px]">
-                        Transforme sua expertise na marca premium que o seu público merece.
-                    </h1>
-                    <p class="max-w-xl text-base text-white/80 sm:text-lg">
-                        Estruture sua presença digital com branding, posicionamento e campanhas que comunicam autoridade, personalidade e resultados. Nós desenhamos jornadas completas para negócios femininos que querem dominar o mercado sem perder sua essência.
-                    </p>
-                    <div class="flex flex-wrap items-center gap-4">
-                        <a href="#contato" class="inline-flex items-center rounded-full bg-gradient-to-r from-[#ffcb70] via-[#c751c0] to-[#4158d0] px-7 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-tamaraBlack shadow-lg shadow-[#c751c0]/40 transition-all duration-500 hover:scale-105 hover:shadow-glow">
-                            Começar agora
-                        </a>
-                        <a href="#video" class="inline-flex items-center gap-3 text-sm font-medium uppercase tracking-[0.2em] text-white/80 transition-all duration-300 hover:text-tamaraPink">
-                            <i class="fas fa-play-circle text-2xl text-[#f78da7]"></i>
-                            Ver experiência imersiva
-                        </a>
-                    </div>
-                    <div class="flex flex-wrap items-center gap-6 text-xs uppercase tracking-[0.4em] text-white/70">
-                        <span class="flex items-center gap-2"><i class="fas fa-bolt text-[#f78da7]"></i> Branding</span>
-                        <span class="flex items-center gap-2"><i class="fas fa-magic text-[#9b51e0]"></i> Estratégia</span>
-                        <span class="flex items-center gap-2"><i class="fas fa-chart-line text-[#ffcb70]"></i> Performance</span>
-                    </div>
-                </div>
-                <div class="reveal" data-animate="slideInLeft">
-                    <div class="elementor-widget-image overflow-hidden rounded-[36px] border border-white/10 shadow-2xl">
-                        <img src="tamara.jpg" alt="TAMARA apresentando estratégia de negócios" class="h-full w-full object-cover" />
-                    </div>
-                </div>
-            </div>
-        </section>
+            <p class="tagline">
+                Moda e estratégia para mulheres que desejam um guarda-roupa inteligente, autêntico e alinhado com a rotina real.
+            </p>
+        </div>
     </header>
     <main>
-        <section id="sobre" class="bg-tamaraWhite py-24 text-tamaraBlack">
-            <div class="container mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-2">
-                <div class="reveal" data-animate="slideInLeft">
-                    <div class="elementor-widget-image overflow-hidden rounded-3xl shadow-soft">
-                        <img src="fc4be2da-6c65-461b-a345-f09cd07196b1.png" alt="Equipe TAMARA criando planos personalizados" class="h-full w-full object-cover" />
+        <section id="cursos">
+            <span class="section-label">Cursos em destaque</span>
+            <h1 class="section-title">Escolha o formato que transforma seu estilo de forma imediata</h1>
+            <p class="section-lead">
+                Dois programas completos para organizar seu guarda-roupa, dominar combinações e vestir sua personalidade todos os
+                dias. Cada caminho possui experiências exclusivas e acompanhamento próximo para garantir resultado.
+            </p>
+            <div class="courses-grid">
+                <article class="course-card">
+                    <img src="TAMA-161.jpg" alt="Curso Guarda-roupa Inteligente Online" class="course-image" />
+                    <div class="course-content">
+                        <h2 class="course-title">Guarda-roupa Inteligente Online</h2>
+                        <p class="course-description">
+                            Uma jornada estruturada para você mapear o que tem, entender o que faz sentido permanecer e aprender a
+                            multiplicar looks com propósito, leveza e planejamento.
+                        </p>
+                        <ul class="course-highlights">
+                            <li>Diagnóstico personalizado do armário com planilhas, mapas de cor e guias de compras.</li>
+                            <li>Aulas em vídeo com passo a passo para criar combinações inteligentes e funcionais.</li>
+                            <li>Bônus de organização, lista de essenciais e calendário para manter o estilo em dia.</li>
+                        </ul>
+                        <a class="button" href="#">Comprar agora</a>
                     </div>
-                </div>
-                <div class="reveal space-y-6" data-animate="fadeInUp">
-                    <p class="text-sm font-semibold uppercase tracking-[0.35em] text-[#9b51e0]">Sobre a TAMARA</p>
-                    <h2 class="elementor-widget-heading text-3xl font-extrabold leading-snug text-tamaraBlack sm:text-[39px]">
-                        Uma consultoria que combina branding, tecnologia e experiência feminina.
-                    </h2>
-                    <p class="text-base leading-relaxed text-black/70 sm:text-lg">
-                        A TAMARA nasceu para elevar negócios conduzidos por mulheres que desejam falar com clareza, impacto e sofisticação. A cada projeto, unimos estratégia, storytelling e design sensorial para criar sistemas de marca memoráveis que convertem seguidores em clientes fiéis.
+                </article>
+                <article class="course-card">
+                    <img src="tamara.jpg" alt="Curso Mesa de Estilo Online" class="course-image" />
+                    <div class="course-content">
+                        <h2 class="course-title">Mesa de Estilo Online</h2>
+                        <p class="course-description">
+                            Encontros ao vivo e exercícios guiados para traduzir identidade, vestir emoções e criar propostas de
+                            looks autorais com feedback individual.
+                        </p>
+                        <ul class="course-highlights">
+                            <li>Sessões interativas para montar combinações ao vivo e receber direcionamento imediato.</li>
+                            <li>Construção de moodboards, narrativas visuais e experimentações focadas em autoconhecimento.</li>
+                            <li>Suporte coletivo, materiais complementares e desafios para manter a criatividade pulsando.</li>
+                        </ul>
+                        <a class="button" href="#">Comprar agora</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section id="oque">
+            <span class="section-label">O que é cada um</span>
+            <h2 class="section-title">Entenda a experiência de cada programa</h2>
+            <p class="section-lead">
+                Os dois cursos se complementam para levar você da organização prática à expressão máxima de estilo. Você escolhe o
+                formato que mais conversa com seu momento e pode combinar as duas experiências para acelerar ainda mais sua
+                evolução.
+            </p>
+            <div class="details-panel">
+                <div class="detail-card">
+                    <h3>Guarda-roupa Inteligente</h3>
+                    <p>
+                        Programa digital completo com aulas gravadas, ferramentas estratégicas e módulos liberados por etapas para
+                        que você conquiste autonomia. Ideal para quem quer estudar no próprio ritmo, mas com metodologia testada e
+                        suporte por comunidade exclusiva.
                     </p>
-                    <div class="grid gap-5 sm:grid-cols-2">
-                        <div class="rounded-2xl border border-black/5 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                            <h3 class="text-lg font-semibold text-tamaraPurple">Arquitetura de Marca</h3>
-                            <p class="mt-2 text-sm leading-relaxed text-black/70">Identidade visual, naming e voz da marca alinhados ao posicionamento premium que diferencia o seu negócio.</p>
-                        </div>
-                        <div class="rounded-2xl border border-black/5 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                            <h3 class="text-lg font-semibold text-[#f78da7]">Experiências Digitais</h3>
-                            <p class="mt-2 text-sm leading-relaxed text-black/70">Landing pages, campanhas e funis com foco em performance e relacionamento de longo prazo.</p>
-                        </div>
-                    </div>
-                    <a href="#contato" class="inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.3em] text-tamaraPurple transition-all duration-300 hover:text-[#c751c0]">
-                        <span>Descubra nosso método exclusivo</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                </div>
+                <div class="detail-card">
+                    <h3>Mesa de Estilo</h3>
+                    <p>
+                        Imersão em encontros online com grupo reduzido, onde trabalhamos referências, storytelling pessoal e
+                        combinações inéditas em tempo real. O foco está em explorar sensações, quebrar bloqueios e praticar o olhar
+                        criativo com acompanhamento de perto.
+                    </p>
                 </div>
             </div>
         </section>
-        <section id="portfolio" class="bg-tamaraBlack py-24">
-            <div class="container mx-auto max-w-6xl px-6 text-center">
-                <div class="reveal space-y-4" data-animate="fadeInUp">
-                    <p class="text-sm font-semibold uppercase tracking-[0.35em] text-[#ffcb70]">Portfólio TAMARA</p>
-                    <h2 class="elementor-widget-heading text-3xl font-extrabold sm:text-[39px]">Experiências que unem estética, estratégia e conversão</h2>
-                    <p class="mx-auto max-w-3xl text-base text-white/70 sm:text-lg">
-                        Conheça projetos imersivos desenvolvidos para marcas que desejam encantar, persuadir e vender com consistência. Inspirados pelo efeito Elementor, os destaques a seguir combinam animações fluidas e jornadas digitais inesquecíveis.
-                    </p>
+        <section id="para-quem">
+            <span class="section-label">Para quem é esse conteúdo</span>
+            <h2 class="section-title">Experiências pensadas para mulheres reais</h2>
+            <p class="section-lead">
+                Se você quer vestir sua história com intencionalidade, ocupar espaços com confiança e investir em peças com
+                inteligência, está no lugar certo. Veja se você se identifica:
+            </p>
+            <div class="audience-grid">
+                <div class="audience-item">
+                    <strong>Rotina intensa</strong>
+                    <p>Profissionais que precisam de looks ágeis e coerentes com reuniões, viagens e vida pessoal sem perder estilo.</p>
                 </div>
-                <div class="relative mt-14">
-                    <div class="elementor-element elementor-arrows-position-outside elementor-pagination-position-outside">
-                        <div class="swiper relative overflow-hidden rounded-[32px] border border-white/10 bg-white/5 p-2 shadow-soft">
-                            <div class="swiper-wrapper relative h-full min-h-[360px]">
-                                <div class="swiper-slide is-active">
-                                    <article class="grid h-full gap-6 rounded-[28px] bg-black/40 p-8 text-left shadow-inner lg:grid-cols-[1.1fr_0.9fr]">
-                                        <div class="space-y-5">
-                                            <span class="inline-flex items-center rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-[#ffcb70]">Mentoria Signature</span>
-                                            <h3 class="text-3xl font-bold text-white">Funnel Experience para expert em finanças femininas</h3>
-                                            <p class="text-sm leading-relaxed text-white/70 sm:text-base">
-                                                Do diagnóstico ao lançamento, estruturamos a narrativa visual, automações e conteúdos premium para uma comunidade que valoriza exclusividade. Resultado: aumento de 65% nas conversões e presença digital refinada.
-                                            </p>
-                                            <div class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em] text-white/60">
-                                                <span class="rounded-full border border-white/20 px-3 py-1">Brand System</span>
-                                                <span class="rounded-full border border-white/20 px-3 py-1">Webflow</span>
-                                                <span class="rounded-full border border-white/20 px-3 py-1">Copy Premium</span>
-                                            </div>
-                                        </div>
-                                        <div class="elementor-widget-image overflow-hidden rounded-3xl shadow-lg">
-                                            <img src="tamara.jpg" alt="Layout de landing page premium TAMARA" class="h-full w-full object-cover" />
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="swiper-slide">
-                                    <article class="grid h-full gap-6 rounded-[28px] bg-black/40 p-8 text-left shadow-inner lg:grid-cols-[1.1fr_0.9fr]">
-                                        <div class="space-y-5">
-                                            <span class="inline-flex items-center rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-[#9b51e0]">Branding Lifestyle</span>
-                                            <h3 class="text-3xl font-bold text-white">Universo sensorial para marca de bem-estar</h3>
-                                            <p class="text-sm leading-relaxed text-white/70 sm:text-base">
-                                                Criamos uma estética híbrida entre spa urbano e manifesto feminino, com identidade sonora, moodboards interativos e campanhas com vídeos short-form. A audiência sentiu o impacto e a marca triplicou o ticket médio.
-                                            </p>
-                                            <div class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em] text-white/60">
-                                                <span class="rounded-full border border-white/20 px-3 py-1">Visual Storytelling</span>
-                                                <span class="rounded-full border border-white/20 px-3 py-1">Motion</span>
-                                                <span class="rounded-full border border-white/20 px-3 py-1">Live Experience</span>
-                                            </div>
-                                        </div>
-                                        <div class="elementor-widget-image overflow-hidden rounded-3xl shadow-lg">
-                                            <img src="c71a321a-dd47-43a0-afa5-b528c5cecfa7.png" alt="Apresentação de marca sensorial TAMARA" class="h-full w-full object-cover" />
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="swiper-slide">
-                                    <article class="grid h-full gap-6 rounded-[28px] bg-black/40 p-8 text-left shadow-inner lg:grid-cols-[1.1fr_0.9fr]">
-                                        <div class="space-y-5">
-                                            <span class="inline-flex items-center rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-[#f78da7]">Imersão Boutique</span>
-                                            <h3 class="text-3xl font-bold text-white">Experiência omnichannel para líder em desenvolvimento pessoal</h3>
-                                            <p class="text-sm leading-relaxed text-white/70 sm:text-base">
-                                                Desenvolvemos um ecossistema completo com site, áreas de membros e programa de relacionamento gamificado. O resultado foi uma comunidade ativa com lifetime value elevado e avaliações 5 estrelas.
-                                            </p>
-                                            <div class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em] text-white/60">
-                                                <span class="rounded-full border border-white/20 px-3 py-1">Community Design</span>
-                                                <span class="rounded-full border border-white/20 px-3 py-1">CRM</span>
-                                                <span class="rounded-full border border-white/20 px-3 py-1">Eventos</span>
-                                            </div>
-                                        </div>
-                                        <div class="elementor-widget-image overflow-hidden rounded-3xl shadow-lg">
-                                            <img src="https://placehold.co/600x400/111111/f78da7?text=TAMARA+Experience" alt="Evento exclusivo TAMARA" class="h-full w-full object-cover" />
-                                        </div>
-                                    </article>
-                                </div>
-                            </div>
-                            <button class="elementor-swiper-button elementor-swiper-button-prev" aria-label="Slide anterior">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button class="elementor-swiper-button elementor-swiper-button-next" aria-label="Próximo slide">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                        <div class="swiper-pagination mt-10 flex justify-center gap-3">
-                            <button class="swiper-pagination-bullet is-active" aria-label="Ir para o slide 1"></button>
-                            <button class="swiper-pagination-bullet" aria-label="Ir para o slide 2"></button>
-                            <button class="swiper-pagination-bullet" aria-label="Ir para o slide 3"></button>
-                        </div>
-                    </div>
+                <div class="audience-item">
+                    <strong>Transição de imagem</strong>
+                    <p>Mulheres em mudanças de carreira, maternidade ou novos ciclos que pedem um novo posicionamento visual.</p>
+                </div>
+                <div class="audience-item">
+                    <strong>Autoconhecimento</strong>
+                    <p>Quem deseja traduzir personalidade nas roupas, compreender mensagens das cores e criar narrativas próprias.</p>
+                </div>
+                <div class="audience-item">
+                    <strong>Negócios de moda</strong>
+                    <p>Consultoras, personal stylists e criadoras que querem aperfeiçoar processos, repertório e criatividade aplicada.</p>
                 </div>
             </div>
         </section>
-        <section id="video" class="bg-tamaraWhite py-24 text-tamaraBlack">
-            <div class="container mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-                <div class="reveal space-y-6" data-animate="fadeInUp">
-                    <p class="text-sm font-semibold uppercase tracking-[0.35em] text-[#9b51e0]">Experiência Híbrida</p>
-                    <h2 class="elementor-widget-heading text-3xl font-extrabold sm:text-[39px]">Conheça a jornada Power Business em 120 segundos</h2>
-                    <p class="text-base leading-relaxed text-black/70 sm:text-lg">
-                        Um mergulho audiovisual que demonstra como articulamos branding, copy estratégica e automações inteligentes para construir comunidades apaixonadas. Aperte o play e visualize o próximo nível da sua marca.
+        <section id="quem-sou">
+            <div class="about-section">
+                <figure class="about-image">
+                    <img src="tamara.jpg" alt="Tamara Kilpp" />
+                </figure>
+                <div class="about-content">
+                    <span class="section-label">Quem sou</span>
+                    <h2>Olá, eu sou Tamara Kilpp</h2>
+                    <p>
+                        Especialista em estilo pessoal, comportamento e estratégia de imagem. Minha missão é conectar autenticidade e
+                        funcionalidade para que você vista quem é com clareza, criatividade e autonomia. Há mais de 10 anos atuo com
+                        consultoria individual, cursos e mentorias para mulheres que querem protagonizar a própria história através do
+                        vestir.
                     </p>
-                    <ul class="space-y-3 text-sm text-black/70">
-                        <li class="flex items-start gap-3"><i class="fas fa-check mt-1 text-[#f78da7]"></i> Onboarding consultivo com diagnóstico aprofundado.</li>
-                        <li class="flex items-start gap-3"><i class="fas fa-check mt-1 text-[#9b51e0]"></i> Design e copy co-criados para refletir sua essência.</li>
-                        <li class="flex items-start gap-3"><i class="fas fa-check mt-1 text-[#4158d0]"></i> Lançamentos sustentáveis com automações humanizadas.</li>
-                    </ul>
-                </div>
-                <div class="reveal" data-animate="fadeInUp">
-                    <div class="elementor-widget-video overflow-hidden rounded-[32px] shadow-soft" style="--video-aspect-ratio: 16/9;">
-                        <div class="elementor-wrapper">
-                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Apresentação TAMARA Power Business" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="h-full w-full"></iframe>
-                        </div>
+                    <p>
+                        No Método Tamara, tecnologia, sensibilidade e metodologia caminham juntas para te entregar ferramentas práticas e
+                        um olhar acolhedor sobre o que faz sentido permanecer no seu armário e no seu estilo de vida.
+                    </p>
+                    <div class="signature">
+                        <img src="logo-TAMARA.png" alt="Assinatura visual Tamara Kilpp" />
+                        <span>Estilo com inteligência</span>
                     </div>
-                </div>
-            </div>
-        </section>
-        <section id="contato" class="relative overflow-hidden py-24">
-            <div class="absolute inset-0 -z-10 bg-[linear-gradient(135deg,#ffcb70_0%,#c751c0_50%,#4158d0_100%)]"></div>
-            <div class="container mx-auto max-w-6xl px-6 text-center text-tamaraWhite">
-                <div class="reveal space-y-6" data-animate="fadeInUp">
-                    <p class="text-sm font-semibold uppercase tracking-[0.35em] text-white">Depoimentos &amp; Convite</p>
-                    <h2 class="elementor-widget-heading text-3xl font-extrabold sm:text-[39px]">Histórias reais de transformação premium</h2>
-                    <p class="mx-auto max-w-3xl text-base text-white/80 sm:text-lg">
-                        A mentoria Power Business acompanha visionárias que desejam dominar seu posicionamento, construir autoridade e escalar com leveza. Veja como a TAMARA ressignificou a jornada de marcas que hoje são referência no digital.
-                    </p>
-                </div>
-                <div class="mt-16 grid gap-8 md:grid-cols-3">
-                    <article class="glass-panel reveal flex h-full flex-col rounded-3xl p-8 text-left" data-animate="fadeInUp">
-                        <div class="mb-5 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
-                            <i class="fas fa-crown text-xl text-[#ffcb70]"></i>
-                            Mentoria Elite
-                        </div>
-                        <p class="flex-1 text-sm leading-relaxed text-white/80">
-                            "Passei de uma agenda lotada e desorganizada para um modelo escalável com produtos digitais de alto ticket. A equipe TAMARA traduziu minha essência em um ecossistema de marca que converte todos os dias."</p>
-                        <div class="mt-6 text-xs uppercase tracking-[0.3em] text-white/60">— Helena Prado, CEO Bloom Finanças</div>
-                    </article>
-                    <article class="glass-panel reveal flex h-full flex-col rounded-3xl p-8 text-left" data-animate="fadeInUp">
-                        <div class="mb-5 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
-                            <i class="fas fa-infinity text-xl text-[#9b51e0]"></i>
-                            Estratégia 360º
-                        </div>
-                        <p class="flex-1 text-sm leading-relaxed text-white/80">
-                            "O método Power Business me fez sair do óbvio, criando lançamentos evergreen com narrativa emocional. Hoje meu posicionamento tem consistência, e minha comunidade cresce de forma orgânica e sustentável."</p>
-                        <div class="mt-6 text-xs uppercase tracking-[0.3em] text-white/60">— Júlia Amaral, Fundadora Inner Glow</div>
-                    </article>
-                    <article class="glass-panel reveal flex h-full flex-col rounded-3xl p-8 text-left" data-animate="fadeInUp">
-                        <div class="mb-5 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
-                            <i class="fas fa-moon text-xl text-[#f78da7]"></i>
-                            Branding Sensorial
-                        </div>
-                        <p class="flex-1 text-sm leading-relaxed text-white/80">
-                            "Nunca imaginei que meu público sentiria a minha marca antes mesmo de comprar. As animações, a copy e o design elevam o valor percebido em cada ponto de contato."</p>
-                        <div class="mt-6 text-xs uppercase tracking-[0.3em] text-white/60">— Renata Lins, Criadora do Ritual Delas</div>
-                    </article>
-                </div>
-                <div class="mt-16 flex flex-wrap items-center justify-center gap-4">
-                    <a href="mailto:contato@tamara.com" class="inline-flex items-center rounded-full bg-black/10 px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-lg transition-all duration-500 hover:scale-105 hover:bg-black/20">
-                        Agendar conversa estratégica
-                    </a>
-                    <a href="https://wa.me/5500000000000" class="inline-flex items-center gap-3 rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-tamaraBlack shadow-lg transition-all duration-500 hover:scale-105">
-                        <i class="fab fa-whatsapp text-2xl text-[#25d366]"></i>
-                        WhatsApp VIP
-                    </a>
                 </div>
             </div>
         </section>
     </main>
-    <footer class="bg-tamaraBlack py-12">
-        <div class="container mx-auto flex max-w-6xl flex-col gap-8 px-6 text-sm text-white/70 md:flex-row md:items-center md:justify-between">
-            <div class="flex items-center gap-4">
-                <img src="logo-TAMARA.png" alt="Logotipo TAMARA" class="h-10 w-auto" />
-                <div>
-                    <p class="text-base font-semibold text-white">TAMARA Power Business</p>
-                    <p class="text-xs uppercase tracking-[0.3em]">Branding &amp; Estratégia para visionárias</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-4 text-lg text-white">
-                <a href="https://instagram.com" aria-label="Instagram TAMARA" class="transition-all duration-300 hover:text-[#f78da7]"><i class="fab fa-instagram"></i></a>
-                <a href="https://behance.net" aria-label="Behance TAMARA" class="transition-all duration-300 hover:text-[#9b51e0]"><i class="fab fa-behance"></i></a>
-                <a href="https://www.linkedin.com" aria-label="LinkedIn TAMARA" class="transition-all duration-300 hover:text-[#ffcb70]"><i class="fab fa-linkedin-in"></i></a>
-                <a href="mailto:contato@tamara.com" aria-label="Email TAMARA" class="transition-all duration-300 hover:text-white"><i class="fas fa-envelope"></i></a>
-            </div>
-            <p class="text-xs uppercase tracking-[0.3em] text-white/50">© 2025 TAMARA. Feito com criatividade e performance.</p>
-        </div>
+    <footer>
+        © 2024 Tamara Kilpp · Todos os direitos reservados.
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const revealElements = document.querySelectorAll('.reveal');
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-            if (!prefersReducedMotion && 'IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries, obs) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            const animation = entry.target.dataset.animate;
-                            if (animation) {
-                                entry.target.classList.add(`animate-${animation}`);
-                            }
-                            entry.target.classList.add('opacity-100');
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.2 });
-
-                revealElements.forEach((element) => observer.observe(element));
-            } else {
-                revealElements.forEach((element) => {
-                    const animation = element.dataset.animate;
-                    if (animation) {
-                        element.classList.add(`animate-${animation}`);
-                    }
-                    element.style.opacity = 1;
-                    element.style.transform = 'none';
-                });
-            }
-
-            const slider = document.querySelector('.swiper');
-            if (!slider) return;
-
-            const slides = slider.querySelectorAll('.swiper-slide');
-            const bullets = document.querySelectorAll('.swiper-pagination-bullet');
-            const prevButton = slider.parentElement.querySelector('.elementor-swiper-button-prev');
-            const nextButton = slider.parentElement.querySelector('.elementor-swiper-button-next');
-            let currentIndex = 0;
-            let autoPlayInterval;
-
-            const updateSlides = (index) => {
-                slides.forEach((slide, slideIndex) => {
-                    if (slideIndex === index) {
-                        slide.classList.add('is-active');
-                        slide.style.zIndex = 1;
-                    } else {
-                        slide.classList.remove('is-active');
-                        slide.style.zIndex = 0;
-                    }
-                });
-
-                bullets.forEach((bullet, bulletIndex) => {
-                    if (bulletIndex === index) {
-                        bullet.classList.add('is-active');
-                        bullet.setAttribute('aria-current', 'true');
-                    } else {
-                        bullet.classList.remove('is-active');
-                        bullet.removeAttribute('aria-current');
-                    }
-                });
-            };
-
-            const goToSlide = (index) => {
-                currentIndex = (index + slides.length) % slides.length;
-                updateSlides(currentIndex);
-            };
-
-            const startAutoPlay = () => {
-                stopAutoPlay();
-                autoPlayInterval = setInterval(() => {
-                    goToSlide(currentIndex + 1);
-                }, 6000);
-            };
-
-            const stopAutoPlay = () => {
-                if (autoPlayInterval) {
-                    clearInterval(autoPlayInterval);
-                }
-            };
-
-            prevButton?.addEventListener('click', () => {
-                goToSlide(currentIndex - 1);
-                startAutoPlay();
-            });
-
-            nextButton?.addEventListener('click', () => {
-                goToSlide(currentIndex + 1);
-                startAutoPlay();
-            });
-
-            bullets.forEach((bullet, bulletIndex) => {
-                bullet.addEventListener('click', () => {
-                    goToSlide(bulletIndex);
-                    startAutoPlay();
-                });
-            });
-
-            slider.addEventListener('mouseenter', stopAutoPlay);
-            slider.addEventListener('mouseleave', startAutoPlay);
-
-            updateSlides(currentIndex);
-            startAutoPlay();
-        });
-    </script>
 </body>
 </html>
