@@ -648,6 +648,163 @@
             color: rgba(249, 245, 255, 0.45);
             font-size: 0.8rem;
         }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(3, 2, 10, 0.75);
+            backdrop-filter: blur(8px);
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 2000;
+        }
+
+        .modal-backdrop.is-visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            position: relative;
+            width: min(100%, 420px);
+            border-radius: 18px;
+            background: #ffffff;
+            color: #1a1030;
+            padding: clamp(28px, 6vw, 40px);
+            box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.55);
+        }
+
+        .modal-container h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            line-height: 1.2;
+        }
+
+        .modal-container p {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: rgba(26, 16, 48, 0.76);
+            font-size: 0.95rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(107, 93, 211, 0.12);
+            color: #1a1030;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus-visible {
+            background: rgba(107, 93, 211, 0.24);
+            transform: scale(1.05);
+        }
+
+        .modal-form {
+            display: grid;
+            gap: 16px;
+        }
+
+        .modal-form label {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .modal-form input[type='email'] {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(26, 16, 48, 0.18);
+            padding: 14px 16px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .modal-form input[type='email']:focus {
+            outline: none;
+            border-color: #6c5dd3;
+            box-shadow: 0 0 0 4px rgba(108, 93, 211, 0.2);
+        }
+
+        .modal-form button[type='submit'] {
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ffcb70 0%, #c751c0 100%);
+            color: #0d051a;
+            padding: 14px 22px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .modal-form button[type='submit']:hover,
+        .modal-form button[type='submit']:focus-visible {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 38px -20px rgba(199, 81, 192, 0.65);
+        }
+
+        .modal-form .error-message {
+            min-height: 1.2em;
+            font-size: 0.85rem;
+            color: #d03861;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .modal-actions button {
+            width: 100%;
+        }
+
+        @media (max-width: 520px) {
+            .modal-container {
+                padding: 28px 22px 32px;
+            }
+
+            .modal-close {
+                top: 12px;
+                right: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -713,7 +870,9 @@
                             <li>Aulas em vídeo com passo a passo para criar combinações inteligentes e funcionais.</li>
                             <li>Bônus de organização, lista de essenciais e calendário para manter o estilo em dia.</li>
                         </ul>
-                        <a class="button" href="#">Comprar agora</a>
+                        <a class="button purchase-button" href="/preco-guarda-roupa" data-redirect="/preco-guarda-roupa">
+                            Comprar agora
+                        </a>
                     </div>
                 </article>
                 <article class="course-card">
@@ -729,7 +888,9 @@
                             <li>Construção de moodboards, narrativas visuais e experimentações focadas em autoconhecimento.</li>
                             <li>Suporte coletivo, materiais complementares e desafios para manter a criatividade pulsando.</li>
                         </ul>
-                        <a class="button" href="#">Comprar agora</a>
+                        <a class="button purchase-button" href="/preco-mesa-de-estilo" data-redirect="/preco-mesa-de-estilo">
+                            Comprar agora
+                        </a>
                     </div>
                 </article>
             </div>
@@ -816,6 +977,43 @@
     <footer>
         © 2024 Tamara Kilpp · Todos os direitos reservados.
     </footer>
+    <div
+        class="modal-backdrop"
+        id="email-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+        aria-labelledby="email-modal-title"
+        aria-describedby="email-modal-description"
+        tabindex="-1"
+    >
+        <div class="modal-container" role="document">
+            <button type="button" class="modal-close" aria-label="Fechar modal">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h2 id="email-modal-title">Antes de continuar</h2>
+            <p id="email-modal-description">
+                Preencha seu e-mail para receber novidades e seguir para a página de compra.
+            </p>
+            <form class="modal-form" id="email-capture-form" novalidate>
+                <label for="email-modal-input">E-mail</label>
+                <input
+                    type="email"
+                    id="email-modal-input"
+                    name="email"
+                    placeholder="voce@exemplo.com"
+                    autocomplete="email"
+                    required
+                    aria-invalid="false"
+                    aria-describedby="email-modal-error"
+                />
+                <span class="error-message" id="email-modal-error" role="alert" aria-live="polite"></span>
+                <div class="modal-actions">
+                    <button type="submit">Confirmar e continuar</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <script>
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');
@@ -842,6 +1040,169 @@
                 }
             });
         }
+
+        const purchaseButtons = document.querySelectorAll('.purchase-button');
+        const emailModal = document.getElementById('email-modal');
+        const emailForm = document.getElementById('email-capture-form');
+        const emailInput = document.getElementById('email-modal-input');
+        const closeModalButton = emailModal ? emailModal.querySelector('.modal-close') : null;
+        const errorMessage = document.getElementById('email-modal-error');
+        const focusableSelectors =
+            "a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex='-1'])";
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let pendingRedirectUrl = '';
+        let lastFocusedElement = null;
+
+        const clearError = () => {
+            if (errorMessage) {
+                errorMessage.textContent = '';
+            }
+
+            if (emailInput) {
+                emailInput.setAttribute('aria-invalid', 'false');
+            }
+        };
+
+        const showError = (message) => {
+            if (!errorMessage || !emailInput) {
+                return;
+            }
+
+            errorMessage.textContent = message;
+            emailInput.setAttribute('aria-invalid', 'true');
+        };
+
+        const focusEmailField = () => {
+            if (!emailInput) {
+                return;
+            }
+
+            try {
+                emailInput.focus({ preventScroll: true });
+            } catch (error) {
+                emailInput.focus();
+            }
+        };
+
+        const openModal = (redirectUrl) => {
+            if (!emailModal || !emailForm || !emailInput) {
+                return;
+            }
+
+            pendingRedirectUrl = redirectUrl || '';
+            lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+            emailForm.reset();
+            clearError();
+            emailModal.classList.add('is-visible');
+            emailModal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+
+            if (typeof requestAnimationFrame === 'function') {
+                requestAnimationFrame(focusEmailField);
+            } else {
+                setTimeout(focusEmailField, 0);
+            }
+        };
+
+        const closeModal = ({ restoreFocus = true } = {}) => {
+            if (!emailModal || !emailForm || !emailInput) {
+                return;
+            }
+
+            emailModal.classList.remove('is-visible');
+            emailModal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+            emailForm.reset();
+            clearError();
+
+            if (restoreFocus && lastFocusedElement) {
+                lastFocusedElement.focus({ preventScroll: true });
+            }
+
+            lastFocusedElement = null;
+            pendingRedirectUrl = '';
+        };
+
+        const handleFocusTrap = (event) => {
+            if (!emailModal || event.key !== 'Tab') {
+                return;
+            }
+
+            const focusableElements = emailModal.querySelectorAll(focusableSelectors);
+
+            if (!focusableElements.length) {
+                return;
+            }
+
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (event.shiftKey) {
+                if (document.activeElement === firstElement) {
+                    event.preventDefault();
+                    lastElement.focus();
+                }
+            } else if (document.activeElement === lastElement) {
+                event.preventDefault();
+                firstElement.focus();
+            }
+        };
+
+        if (purchaseButtons.length && emailModal && emailForm && emailInput) {
+            purchaseButtons.forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const redirectUrl = button.dataset.redirect || button.getAttribute('href') || '';
+                    openModal(redirectUrl);
+                });
+            });
+
+            emailForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const emailValue = emailInput.value.trim();
+
+                if (!emailValue) {
+                    showError('Por favor, preencha seu e-mail.');
+                    focusEmailField();
+                    return;
+                }
+
+                if (!emailPattern.test(emailValue)) {
+                    showError('Por favor, insira um e-mail válido.');
+                    focusEmailField();
+                    return;
+                }
+
+                const redirectTarget = pendingRedirectUrl;
+                closeModal({ restoreFocus: false });
+
+                if (redirectTarget) {
+                    window.location.href = redirectTarget;
+                }
+            });
+
+            emailInput.addEventListener('input', clearError);
+
+            if (closeModalButton) {
+                closeModalButton.addEventListener('click', () => {
+                    closeModal();
+                });
+            }
+
+            emailModal.addEventListener('click', (event) => {
+                if (event.target === emailModal) {
+                    closeModal();
+                }
+            });
+
+            emailModal.addEventListener('keydown', handleFocusTrap);
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && emailModal && emailModal.classList.contains('is-visible')) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
