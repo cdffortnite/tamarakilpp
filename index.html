@@ -21,6 +21,8 @@
             --accent: #ffcb70;
             --accent-2: #c751c0;
             --accent-3: #6c5dd3;
+            --cta-gold-light: #f1d27b;
+            --cta-gold-dark: #d9a441;
             --border: rgba(255, 255, 255, 0.12);
             font-family: 'Poppins', 'Inter', sans-serif;
         }
@@ -51,7 +53,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 24px 24px 16px;
+            padding: 16px 16px 12px;
             background: linear-gradient(180deg, rgba(3, 2, 10, 0.92), rgba(3, 2, 10, 0.7));
             backdrop-filter: blur(18px);
             box-shadow: 0 30px 60px -45px rgba(0, 0, 0, 0.85);
@@ -64,11 +66,11 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 24px;
+            gap: 16px;
             background: rgba(10, 8, 20, 0.65);
             border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 20px 28px;
+            padding: 14px 20px;
             box-shadow: 0 18px 50px -25px rgba(0, 0, 0, 0.55);
             position: relative;
         }
@@ -88,14 +90,14 @@
         }
 
         .brand img {
-            width: 70px;
+            width: 56px;
             height: auto;
             filter: drop-shadow(0 12px 18px rgba(199, 81, 192, 0.45));
         }
 
         .brand span {
-            font-size: 0.8rem;
-            letter-spacing: 0.45em;
+            font-size: 0.75rem;
+            letter-spacing: 0.32em;
             text-transform: uppercase;
         }
 
@@ -194,8 +196,8 @@
         .nav-links a {
             color: var(--text);
             text-decoration: none;
-            font-size: 0.78rem;
-            letter-spacing: 0.35em;
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
             text-transform: uppercase;
             transition: color 0.3s ease;
         }
@@ -214,11 +216,39 @@
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                gap: 28px;
+                gap: 20px;
                 padding: 0;
                 background: transparent;
                 border: none;
                 box-shadow: none;
+            }
+        }
+
+        .nav-links .nav-instagram a {
+            border-radius: 12px;
+            padding: 10px 18px;
+            background: rgba(241, 210, 123, 0.12);
+            border: 1px solid rgba(241, 210, 123, 0.35);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links .nav-instagram a:hover {
+            color: var(--accent);
+            border-color: rgba(241, 210, 123, 0.6);
+        }
+
+        .nav-links .nav-instagram span {
+            display: inline-block;
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+        }
+
+        @media (min-width: 840px) {
+            .nav-links .nav-instagram {
+                display: none;
             }
         }
 
@@ -245,7 +275,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(120deg, rgba(3, 2, 10, 0.85), rgba(3, 2, 10, 0.4));
+            background: linear-gradient(120deg, rgba(3, 2, 10, 0.6), rgba(3, 2, 10, 0.25));
             z-index: 2;
         }
 
@@ -260,11 +290,12 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(150deg, rgba(3, 2, 10, 0.35) 0%, rgba(3, 2, 10, 0.1) 55%, rgba(3, 2, 10, 0) 100%);
+            background: linear-gradient(150deg, rgba(3, 2, 10, 0.18) 0%, rgba(3, 2, 10, 0.05) 55%, rgba(3, 2, 10, 0) 100%);
             pointer-events: none;
             z-index: 1;
         }
 
+        .hero-media picture,
         .hero-media img {
             width: 100%;
             height: 100%;
@@ -273,6 +304,9 @@
             display: block;
         }
 
+        .hero-media img {
+            filter: brightness(1.18);
+        }
         .hero-inner {
             position: relative;
             z-index: 3;
@@ -419,8 +453,16 @@
         }
 
         .course-image {
+            position: relative;
             width: 100%;
             height: 260px;
+            display: block;
+            overflow: hidden;
+        }
+
+        .course-image img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
 
@@ -475,19 +517,19 @@
             font-size: 0.85rem;
             letter-spacing: 0.25em;
             text-transform: uppercase;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            color: #1e142e;
+            background: linear-gradient(135deg, var(--cta-gold-light), var(--cta-gold-dark));
+            color: #1a1030;
             border: none;
             cursor: pointer;
             text-decoration: none;
             font-weight: 600;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 12px 30px -18px rgba(255, 203, 112, 0.8);
+            box-shadow: 0 12px 30px -18px rgba(241, 210, 123, 0.75);
         }
 
         .button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 18px 40px -18px rgba(199, 81, 192, 0.85);
+            box-shadow: 0 20px 44px -18px rgba(217, 164, 65, 0.65);
         }
 
         .details-panel {
@@ -546,7 +588,7 @@
 
         .audience-item strong {
             font-size: 1rem;
-            color: var(--accent-3);
+            color: #ffffff;
             text-transform: uppercase;
             letter-spacing: 0.25em;
             font-weight: 600;
@@ -586,6 +628,7 @@
             background: linear-gradient(180deg, rgba(3, 2, 10, 0.1), rgba(3, 2, 10, 0.75));
         }
 
+        .about-image picture,
         .about-image img {
             width: 100%;
             height: 100%;
@@ -617,12 +660,6 @@
             margin-top: 12px;
         }
 
-        .signature img {
-            width: 60px;
-            height: auto;
-            opacity: 0.85;
-        }
-
         .signature span {
             font-size: 0.8rem;
             letter-spacing: 0.3em;
@@ -635,6 +672,33 @@
             padding: 40px 24px 60px;
             color: rgba(249, 245, 255, 0.45);
             font-size: 0.8rem;
+        }
+
+        .whatsapp-floating {
+            position: fixed;
+            right: 20px;
+            bottom: 24px;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.92), rgba(16, 163, 73, 0.92));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 18px 40px -22px rgba(16, 163, 73, 0.85);
+            z-index: 1500;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .whatsapp-floating:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 44px -22px rgba(37, 211, 102, 0.9);
+        }
+
+        .whatsapp-floating img {
+            width: 34px;
+            height: 34px;
         }
 
         .sr-only {
@@ -734,7 +798,7 @@
             font-size: 0.95rem;
         }
 
-        .modal-form input[type='email'] {
+        .modal-form input {
             width: 100%;
             border-radius: 12px;
             border: 1px solid rgba(26, 16, 48, 0.18);
@@ -744,17 +808,17 @@
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .modal-form input[type='email']:focus {
+        .modal-form input:focus {
             outline: none;
-            border-color: #6c5dd3;
-            box-shadow: 0 0 0 4px rgba(108, 93, 211, 0.2);
+            border-color: var(--cta-gold-dark);
+            box-shadow: 0 0 0 4px rgba(217, 164, 65, 0.18);
         }
 
         .modal-form button[type='submit'] {
             border: none;
             border-radius: 12px;
-            background: linear-gradient(135deg, #ffcb70 0%, #c751c0 100%);
-            color: #0d051a;
+            background: linear-gradient(135deg, var(--cta-gold-light) 0%, var(--cta-gold-dark) 100%);
+            color: #1a1030;
             padding: 14px 22px;
             font-size: 1rem;
             font-weight: 600;
@@ -765,7 +829,7 @@
         .modal-form button[type='submit']:hover,
         .modal-form button[type='submit']:focus-visible {
             transform: translateY(-1px);
-            box-shadow: 0 18px 38px -20px rgba(199, 81, 192, 0.65);
+            box-shadow: 0 18px 38px -20px rgba(217, 164, 65, 0.55);
         }
 
         .modal-form .error-message {
@@ -814,13 +878,21 @@
                     <li><a href="#oque">O que é</a></li>
                     <li><a href="#para-quem">Para quem</a></li>
                     <li><a href="#quem-sou">Quem sou</a></li>
+                    <li class="nav-instagram">
+                        <a href="https://www.instagram.com/tamarakilpp" target="_blank" rel="noopener">
+                            <span>ME ACOMPANHE NO INSTAGRAM</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
     <section class="hero" id="inicio">
         <div class="hero-media">
-            <img src="tamara.jpg" alt="Tamara Kilpp apresentando sua experiência de estilo" />
+            <picture>
+                <source srcset="tamaravertical.webp" media="(max-width: 600px)" />
+                <img src="tamara.jpg" alt="Tamara Kilpp apresentando sua experiência de estilo" />
+            </picture>
         </div>
         <div class="hero-inner">
             <div class="hero-content">
@@ -846,7 +918,10 @@
             </p>
             <div class="courses-grid">
                 <article class="course-card">
-                    <img src="TAMA-161.jpg" alt="Curso Guarda-roupa Inteligente Online" class="course-image" />
+                    <picture class="course-image">
+                        <source srcset="TAMA-161.webp" type="image/webp" />
+                        <img src="TAMA-161.jpg" alt="Curso Guarda-roupa Inteligente Online" />
+                    </picture>
                     <div class="course-content">
                         <h2 class="course-title">Guarda-roupa Inteligente Online</h2>
                         <p class="course-description">
@@ -864,7 +939,9 @@
                     </div>
                 </article>
                 <article class="course-card">
-                    <img src="tamara.jpg" alt="Curso Mesa de Estilo Online" class="course-image" />
+                    <picture class="course-image">
+                        <img src="tamara.jpg" alt="Curso Mesa de Estilo Online" />
+                    </picture>
                     <div class="course-content">
                         <h2 class="course-title">Mesa de Estilo Online</h2>
                         <p class="course-description">
@@ -939,7 +1016,10 @@
         <section id="quem-sou">
             <div class="about-section">
                 <figure class="about-image">
-                    <img src="TAMA-161.jpg" alt="Tamara Kilpp" />
+                    <picture>
+                        <source srcset="TAMA-161.webp" type="image/webp" />
+                        <img src="TAMA-161.jpg" alt="Tamara Kilpp" />
+                    </picture>
                 </figure>
                 <div class="about-content">
                     <span class="section-label">Quem sou</span>
@@ -955,7 +1035,6 @@
                         um olhar acolhedor sobre o que faz sentido permanecer no seu armário e no seu estilo de vida.
                     </p>
                     <div class="signature">
-                        <img src="logo-TAMARA.png" alt="Assinatura visual Tamara Kilpp" />
                         <span>Estilo com inteligência</span>
                     </div>
                 </div>
@@ -965,6 +1044,16 @@
     <footer>
         © 2024 Tamara Kilpp · Todos os direitos reservados.
     </footer>
+    <a
+        class="whatsapp-floating"
+        href="https://wa.me/555192602127"
+        target="_blank"
+        rel="noopener"
+        aria-label="Conversar com Tamara Kilpp pelo WhatsApp"
+    >
+        <img src="whats.webp" alt="" aria-hidden="true" />
+        <span class="sr-only">Conversar com Tamara Kilpp pelo WhatsApp</span>
+    </a>
     <div
         class="modal-backdrop"
         id="email-modal"
@@ -981,21 +1070,44 @@
             </button>
             <h2 id="email-modal-title">Antes de continuar</h2>
             <p id="email-modal-description">
-                Preencha seu e-mail para receber novidades e seguir para a página de compra.
+                Preencha seus dados para receber novidades e seguir para a página de compra.
             </p>
             <form class="modal-form" id="email-capture-form" novalidate>
-                <label for="email-modal-input">E-mail</label>
+                <label for="capture-name">Nome</label>
                 <input
-                    type="email"
-                    id="email-modal-input"
-                    name="email"
-                    placeholder="voce@exemplo.com"
-                    autocomplete="email"
+                    type="text"
+                    id="capture-name"
+                    name="name"
+                    placeholder="Seu nome completo"
+                    autocomplete="name"
                     required
                     aria-invalid="false"
-                    aria-describedby="email-modal-error"
+                    aria-describedby="capture-modal-error"
                 />
-                <span class="error-message" id="email-modal-error" role="alert" aria-live="polite"></span>
+                <label for="capture-phone">Telefone</label>
+                <input
+                    type="tel"
+                    id="capture-phone"
+                    name="phone"
+                    placeholder="(51) 9260-2127"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    required
+                    aria-invalid="false"
+                    aria-describedby="capture-modal-error"
+                />
+                <label for="capture-instagram">Instagram</label>
+                <input
+                    type="text"
+                    id="capture-instagram"
+                    name="instagram"
+                    placeholder="@seuusuario"
+                    autocomplete="username"
+                    required
+                    aria-invalid="false"
+                    aria-describedby="capture-modal-error"
+                />
+                <span class="error-message" id="capture-modal-error" role="alert" aria-live="polite"></span>
                 <div class="modal-actions">
                     <button type="submit">Confirmar e continuar</button>
                 </div>
@@ -1030,14 +1142,18 @@
         }
 
         const purchaseButtons = document.querySelectorAll('.purchase-button');
-        const emailModal = document.getElementById('email-modal');
-        const emailForm = document.getElementById('email-capture-form');
-        const emailInput = document.getElementById('email-modal-input');
-        const closeModalButton = emailModal ? emailModal.querySelector('.modal-close') : null;
-        const errorMessage = document.getElementById('email-modal-error');
+        const captureModal = document.getElementById('email-modal');
+        const captureForm = document.getElementById('email-capture-form');
+        const nameInput = document.getElementById('capture-name');
+        const phoneInput = document.getElementById('capture-phone');
+        const instagramInput = document.getElementById('capture-instagram');
+        const closeModalButton = captureModal ? captureModal.querySelector('.modal-close') : null;
+        const errorMessage = document.getElementById('capture-modal-error');
         const focusableSelectors =
-            "a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex='-1'])";
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            "a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]" +
+            ":not([tabindex='-1'])";
+        const inputs = [nameInput, phoneInput, instagramInput].filter(Boolean);
+        const getPhoneDigits = (value = '') => value.replace(/\D/g, '');
         let pendingRedirectUrl = '';
         let lastFocusedElement = null;
 
@@ -1046,61 +1162,68 @@
                 errorMessage.textContent = '';
             }
 
-            if (emailInput) {
-                emailInput.setAttribute('aria-invalid', 'false');
-            }
+            inputs.forEach((input) => {
+                input.setAttribute('aria-invalid', 'false');
+            });
         };
 
-        const showError = (message) => {
-            if (!errorMessage || !emailInput) {
+        const showError = (input, message) => {
+            if (!errorMessage || !input) {
                 return;
             }
 
             errorMessage.textContent = message;
-            emailInput.setAttribute('aria-invalid', 'true');
+            inputs.forEach((field) => {
+                field.setAttribute('aria-invalid', field === input ? 'true' : 'false');
+            });
         };
 
-        const focusEmailField = () => {
-            if (!emailInput) {
+        const focusInput = (input) => {
+            if (!input) {
                 return;
             }
 
             try {
-                emailInput.focus({ preventScroll: true });
+                input.focus({ preventScroll: true });
             } catch (error) {
-                emailInput.focus();
+                input.focus();
             }
         };
 
+        const focusFirstField = () => {
+            const firstField = inputs[0];
+            focusInput(firstField);
+        };
+
         const openModal = (redirectUrl) => {
-            if (!emailModal || !emailForm || !emailInput) {
+            if (!captureModal || !captureForm || !inputs.length) {
                 return;
             }
 
             pendingRedirectUrl = redirectUrl || '';
             lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-            emailForm.reset();
+            captureForm.reset();
             clearError();
-            emailModal.classList.add('is-visible');
-            emailModal.setAttribute('aria-hidden', 'false');
+            captureModal.classList.add('is-visible');
+            captureModal.setAttribute('aria-hidden', 'false');
             document.body.classList.add('modal-open');
 
             if (typeof requestAnimationFrame === 'function') {
-                requestAnimationFrame(focusEmailField);
+                requestAnimationFrame(focusFirstField);
             } else {
-                setTimeout(focusEmailField, 0);
+                setTimeout(focusFirstField, 0);
             }
         };
 
         const closeModal = ({ restoreFocus = true } = {}) => {
-            if (!emailModal || !emailForm || !emailInput) {
+            if (!captureModal || !captureForm || !inputs.length) {
                 return;
             }
 
-            emailModal.classList.remove('is-visible');
-            emailModal.setAttribute('aria-hidden', 'true');
+            captureModal.classList.remove('is-visible');
+            captureModal.setAttribute('aria-hidden', 'true');
             document.body.classList.remove('modal-open');
-            emailForm.reset();
+            captureForm.reset();
             clearError();
 
             if (restoreFocus && lastFocusedElement) {
@@ -1112,11 +1235,11 @@
         };
 
         const handleFocusTrap = (event) => {
-            if (!emailModal || event.key !== 'Tab') {
+            if (!captureModal || event.key !== 'Tab') {
                 return;
             }
 
-            const focusableElements = emailModal.querySelectorAll(focusableSelectors);
+            const focusableElements = captureModal.querySelectorAll(focusableSelectors);
 
             if (!focusableElements.length) {
                 return;
@@ -1136,7 +1259,7 @@
             }
         };
 
-        if (purchaseButtons.length && emailModal && emailForm && emailInput) {
+        if (purchaseButtons.length && captureModal && captureForm && inputs.length) {
             purchaseButtons.forEach((button) => {
                 button.addEventListener('click', (event) => {
                     event.preventDefault();
@@ -1145,19 +1268,27 @@
                 });
             });
 
-            emailForm.addEventListener('submit', (event) => {
+            captureForm.addEventListener('submit', (event) => {
                 event.preventDefault();
-                const emailValue = emailInput.value.trim();
+                const nameValue = nameInput ? nameInput.value.trim() : '';
+                const phoneValue = phoneInput ? phoneInput.value.trim() : '';
+                const instagramValue = instagramInput ? instagramInput.value.trim() : '';
 
-                if (!emailValue) {
-                    showError('Por favor, preencha seu e-mail.');
-                    focusEmailField();
+                if (!nameValue) {
+                    showError(nameInput, 'Por favor, informe seu nome.');
+                    focusInput(nameInput);
                     return;
                 }
 
-                if (!emailPattern.test(emailValue)) {
-                    showError('Por favor, insira um e-mail válido.');
-                    focusEmailField();
+                if (!phoneValue || getPhoneDigits(phoneValue).length < 10) {
+                    showError(phoneInput, 'Por favor, informe um telefone com DDD.');
+                    focusInput(phoneInput);
+                    return;
+                }
+
+                if (!instagramValue) {
+                    showError(instagramInput, 'Por favor, informe seu Instagram.');
+                    focusInput(instagramInput);
                     return;
                 }
 
@@ -1169,7 +1300,9 @@
                 }
             });
 
-            emailInput.addEventListener('input', clearError);
+            inputs.forEach((input) => {
+                input.addEventListener('input', clearError);
+            });
 
             if (closeModalButton) {
                 closeModalButton.addEventListener('click', () => {
@@ -1177,17 +1310,17 @@
                 });
             }
 
-            emailModal.addEventListener('click', (event) => {
-                if (event.target === emailModal) {
+            captureModal.addEventListener('click', (event) => {
+                if (event.target === captureModal) {
                     closeModal();
                 }
             });
 
-            emailModal.addEventListener('keydown', handleFocusTrap);
+            captureModal.addEventListener('keydown', handleFocusTrap);
         }
 
         document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && emailModal && emailModal.classList.contains('is-visible')) {
+            if (event.key === 'Escape' && captureModal && captureModal.classList.contains('is-visible')) {
                 closeModal();
             }
         });
