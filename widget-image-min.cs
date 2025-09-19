@@ -1,3 +1,4 @@
+/* Desenvolvido por _@edsonmonteiro_ na Nf Studio */
 /*! elementor - v3.31.0 - 27-08-2025 */
 .elementor-widget-image {
     text-align: center
