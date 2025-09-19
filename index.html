@@ -246,9 +246,48 @@
             letter-spacing: 0.2em;
         }
 
+        .nav-links .nav-instagram-icon {
+            display: none;
+        }
+
+        .nav-links .nav-instagram-icon a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(241, 210, 123, 0.35);
+            background: linear-gradient(135deg, rgba(241, 210, 123, 0.16) 0%, rgba(217, 164, 65, 0.16) 100%);
+            color: var(--text);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-links .nav-instagram-icon a:hover {
+            transform: translateY(-1px);
+            background: linear-gradient(135deg, var(--cta-gold-light) 0%, var(--cta-gold-dark) 100%);
+            border-color: transparent;
+            color: #1a1030;
+            box-shadow: 0 18px 38px -22px rgba(217, 164, 65, 0.6);
+        }
+
+        .nav-links .nav-instagram-icon svg {
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+
+        .nav-links .nav-instagram-icon svg path {
+            fill: currentColor;
+        }
+
         @media (min-width: 840px) {
             .nav-links .nav-instagram {
                 display: none;
+            }
+
+            .nav-links .nav-instagram-icon {
+                display: block;
             }
         }
 
@@ -506,7 +545,7 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            background: linear-gradient(135deg, var(--cta-gold-light) 0%, var(--cta-gold-dark) 100%);
         }
 
         .button {
@@ -672,6 +711,41 @@
             padding: 40px 24px 60px;
             color: rgba(249, 245, 255, 0.45);
             font-size: 0.8rem;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .footer-inner p {
+            margin: 0;
+        }
+
+        .footer-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 36px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--cta-gold-light) 0%, var(--cta-gold-dark) 100%);
+            color: #1a1030;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 16px 34px -20px rgba(217, 164, 65, 0.65);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .footer-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 24px 44px -20px rgba(241, 210, 123, 0.7);
         }
 
         .whatsapp-floating {
@@ -883,6 +957,13 @@
                             <span>ME ACOMPANHE NO INSTAGRAM</span>
                         </a>
                     </li>
+                    <li class="nav-instagram-icon">
+                        <a href="https://www.instagram.com/tamarakilpp" target="_blank" rel="noopener" aria-label="Instagram Tamara Kilpp">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 2.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zm0 2a3.5 3.5 0 110 7 3.5 3.5 0 010-7zm5.25-2.75a1 1 0 100 2 1 1 0 000-2z" />
+                            </svg>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -1042,7 +1123,17 @@
         </section>
     </main>
     <footer>
-        © 2024 Tamara Kilpp · Todos os direitos reservados.
+        <div class="footer-inner">
+            <a
+                class="footer-cta"
+                href="https://linktr.ee/Tamarakilpp"
+                target="_blank"
+                rel="noopener"
+            >
+                Acesse todos os links da Tamara
+            </a>
+            <p>© 2024 Tamara Kilpp · Todos os direitos reservados.</p>
+        </div>
     </footer>
     <a
         class="whatsapp-floating"
