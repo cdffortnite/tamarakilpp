@@ -939,7 +939,7 @@
             <div class="brand">
                 <a href="#inicio">
                     <img src="logo-TAMARA.png" alt="Logotipo Tamara Kilpp" />
-                    <span>Metodo Tamara Kilpp</span>
+                    <span>Método Tamara Kilpp</span>
                 </a>
             </div>
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Abrir menu de navegação">
@@ -1187,14 +1187,24 @@
                     aria-invalid="false"
                     aria-describedby="capture-modal-error"
                 />
-                <label for="capture-instagram">Instagram</label>
+                <label for="capture-email">E-mail</label>
+                <input
+                    type="email"
+                    id="capture-email"
+                    name="email"
+                    placeholder="seuemail@exemplo.com"
+                    autocomplete="email"
+                    required
+                    aria-invalid="false"
+                    aria-describedby="capture-modal-error"
+                />
+                <label for="capture-instagram">Instagram (opcional)</label>
                 <input
                     type="text"
                     id="capture-instagram"
                     name="instagram"
                     placeholder="@seuusuario"
                     autocomplete="username"
-                    required
                     aria-invalid="false"
                     aria-describedby="capture-modal-error"
                 />
@@ -1237,14 +1247,17 @@
         const captureForm = document.getElementById('email-capture-form');
         const nameInput = document.getElementById('capture-name');
         const phoneInput = document.getElementById('capture-phone');
+        const emailInput = document.getElementById('capture-email');
         const instagramInput = document.getElementById('capture-instagram');
         const closeModalButton = captureModal ? captureModal.querySelector('.modal-close') : null;
         const errorMessage = document.getElementById('capture-modal-error');
         const focusableSelectors =
             "a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]" +
             ":not([tabindex='-1'])";
-        const inputs = [nameInput, phoneInput, instagramInput].filter(Boolean);
+        const inputs = [nameInput, phoneInput, emailInput, instagramInput].filter(Boolean);
         const getPhoneDigits = (value = '') => value.replace(/\D/g, '');
+        const isValidEmail = (value = '') =>
+            /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value);
         let pendingRedirectUrl = '';
         let lastFocusedElement = null;
 
@@ -1363,7 +1376,7 @@
                 event.preventDefault();
                 const nameValue = nameInput ? nameInput.value.trim() : '';
                 const phoneValue = phoneInput ? phoneInput.value.trim() : '';
-                const instagramValue = instagramInput ? instagramInput.value.trim() : '';
+                const emailValue = emailInput ? emailInput.value.trim() : '';
 
                 if (!nameValue) {
                     showError(nameInput, 'Por favor, informe seu nome.');
@@ -1377,9 +1390,9 @@
                     return;
                 }
 
-                if (!instagramValue) {
-                    showError(instagramInput, 'Por favor, informe seu Instagram.');
-                    focusInput(instagramInput);
+                if (!emailValue || !isValidEmail(emailValue)) {
+                    showError(emailInput, 'Por favor, informe um e-mail válido.');
+                    focusInput(emailInput);
                     return;
                 }
 
