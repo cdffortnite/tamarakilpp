@@ -26,11 +26,18 @@
             --cta-gold-light: #f1d27b;
             --cta-gold-dark: #d9a441;
             --border: rgba(255, 255, 255, 0.12);
+            --header-offset: 120px;
             font-family: 'Poppins', 'Inter', sans-serif;
         }
 
         html {
             scroll-behavior: smooth;
+        }
+
+        @media (max-width: 640px) {
+            :root {
+                --header-offset: 96px;
+            }
         }
 
         * {
@@ -55,7 +62,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 16px 16px 12px;
+            padding: 12px 16px 8px;
             background: linear-gradient(180deg, rgba(3, 2, 10, 0.92), rgba(3, 2, 10, 0.7));
             backdrop-filter: blur(18px);
             box-shadow: 0 30px 60px -45px rgba(0, 0, 0, 0.85);
@@ -68,11 +75,11 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            gap: 14px;
             background: rgba(10, 8, 20, 0.65);
             border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 14px 20px;
+            padding: 12px 18px;
             box-shadow: 0 18px 50px -25px rgba(0, 0, 0, 0.55);
             position: relative;
         }
@@ -92,13 +99,13 @@
         }
 
         .brand img {
-            width: 56px;
+            width: 48px;
             height: auto;
             filter: drop-shadow(0 12px 18px rgba(199, 81, 192, 0.45));
         }
 
         .brand span {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 0.32em;
             text-transform: uppercase;
         }
@@ -111,9 +118,9 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.18);
             background: rgba(12, 9, 24, 0.6);
             color: var(--text);
@@ -130,7 +137,7 @@
 
         .nav-toggle span {
             display: block;
-            width: 18px;
+            width: 16px;
             height: 2px;
             background: currentColor;
             position: relative;
@@ -172,14 +179,14 @@
         .nav-links {
             list-style: none;
             margin: 0;
-            padding: 18px 20px;
+            padding: 16px 18px;
             position: absolute;
             top: calc(100% + 12px);
             left: 0;
             right: 0;
             display: none;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             background: rgba(10, 8, 25, 0.92);
             border: 1px solid var(--border);
             border-radius: 18px;
@@ -198,8 +205,8 @@
         .nav-links a {
             color: var(--text);
             text-decoration: none;
-            font-size: 0.72rem;
-            letter-spacing: 0.28em;
+            font-size: 0.68rem;
+            letter-spacing: 0.24em;
             text-transform: uppercase;
             transition: color 0.3s ease;
         }
@@ -218,7 +225,7 @@
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                gap: 20px;
+                gap: 16px;
                 padding: 0;
                 background: transparent;
                 border: none;
@@ -228,7 +235,7 @@
 
         .nav-links .nav-instagram a {
             border-radius: 12px;
-            padding: 10px 18px;
+            padding: 8px 16px;
             background: rgba(241, 210, 123, 0.12);
             border: 1px solid rgba(241, 210, 123, 0.35);
             display: inline-flex;
@@ -244,8 +251,8 @@
 
         .nav-links .nav-instagram span {
             display: inline-block;
-            font-size: 0.68rem;
-            letter-spacing: 0.2em;
+            font-size: 0.64rem;
+            letter-spacing: 0.18em;
         }
 
         .nav-links .nav-instagram-icon {
@@ -256,8 +263,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 1px solid rgba(241, 210, 123, 0.35);
             background: linear-gradient(135deg, rgba(241, 210, 123, 0.16) 0%, rgba(217, 164, 65, 0.16) 100%);
@@ -310,6 +317,7 @@
             background: var(--bg);
             overflow: hidden;
             isolation: isolate;
+            scroll-margin-top: var(--header-offset);
         }
 
         .hero::before {
@@ -450,6 +458,7 @@
             display: flex;
             flex-direction: column;
             gap: 24px;
+            scroll-margin-top: var(--header-offset);
         }
 
         .section-label {
