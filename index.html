@@ -235,7 +235,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: clamp(120px, 18vw, 200px) 24px clamp(100px, 12vw, 160px);
+            padding: clamp(120px, 18vw, 200px) 0 clamp(100px, 12vw, 160px);
             background: var(--bg);
             overflow: hidden;
             isolation: isolate;
@@ -245,27 +245,15 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(120deg, rgba(3, 2, 10, 0.9), rgba(3, 2, 10, 0.45));
-            z-index: 0;
-        }
-
-        .hero-inner {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 1100px;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr);
-            align-items: center;
-            gap: clamp(32px, 6vw, 72px);
+            background: linear-gradient(120deg, rgba(3, 2, 10, 0.85), rgba(3, 2, 10, 0.4));
+            z-index: 2;
         }
 
         .hero-media {
-            position: relative;
-            border-radius: 32px;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
             overflow: hidden;
-            min-height: clamp(320px, 45vh, 520px);
-            box-shadow: 0 40px 90px -48px rgba(0, 0, 0, 0.8);
         }
 
         .hero-media::after {
@@ -274,6 +262,7 @@
             inset: 0;
             background: linear-gradient(150deg, rgba(3, 2, 10, 0.35) 0%, rgba(3, 2, 10, 0.1) 55%, rgba(3, 2, 10, 0) 100%);
             pointer-events: none;
+            z-index: 1;
         }
 
         .hero-media img {
@@ -284,9 +273,20 @@
             display: block;
         }
 
+        .hero-inner {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: center;
+        }
+
         .hero-content {
             width: min(100%, 560px);
-            margin: 0 auto;
+            margin: 0;
             background: rgba(9, 6, 18, 0.72);
             border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 28px;
@@ -325,19 +325,7 @@
 
         @media (min-width: 768px) {
             .hero-inner {
-                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-            }
-
-            .hero-content {
-                margin: 0;
-                justify-self: end;
-            }
-        }
-
-        @media (min-width: 1080px) {
-            .hero-inner {
-                grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-                align-items: center;
+                justify-content: flex-end;
             }
         }
 
@@ -831,10 +819,10 @@
         </div>
     </header>
     <section class="hero" id="inicio">
+        <div class="hero-media">
+            <img src="tamara.jpg" alt="Tamara Kilpp apresentando sua experiência de estilo" />
+        </div>
         <div class="hero-inner">
-            <div class="hero-media">
-                <img src="tamara.jpg" alt="Tamara Kilpp apresentando sua experiência de estilo" />
-            </div>
             <div class="hero-content">
                 <span class="hero-label">Método Tamara Kilpp</span>
                 <h1 class="hero-title">Experiência de estilo para vestir sua história</h1>
