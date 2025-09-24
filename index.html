@@ -370,8 +370,8 @@
         .hero-content {
             width: min(100%, 560px);
             margin: 0;
-            background: rgba(9, 6, 18, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: var(--card);
+            border: 1px solid var(--border);
             border-radius: 28px;
             padding: clamp(36px, 6vw, 64px);
             display: grid;
@@ -731,6 +731,12 @@
             flex-direction: column;
             align-items: center;
             gap: 24px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 32px;
+            box-shadow: 0 30px 70px -44px rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(14px);
         }
 
         .footer-inner p {
