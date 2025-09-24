@@ -16,8 +16,9 @@
         :root {
             color-scheme: dark;
             --bg: radial-gradient(circle at 20% 20%, #333332 0%, #07050c 55%, #5a5a5e 100%);
-            --card: rgba(16, 12, 30, 0.75);
-            --card-strong: rgba(20, 16, 42, 0.85);
+            --card: rgba(94, 94, 104, 0.75);
+            --card-strong: rgba(108, 108, 118, 0.82);
+            --card-soft: rgba(120, 120, 130, 0.45);
             --text: #f9f5ff;
             --muted: rgba(249, 245, 255, 0.7);
             --accent: #ffcb70;
@@ -598,7 +599,7 @@
         }
 
         .detail-card {
-            background: rgba(10, 8, 25, 0.55);
+            background: var(--card-soft);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 22px;
             padding: 24px;
@@ -625,7 +626,7 @@
         }
 
         .audience-item {
-            background: rgba(13, 10, 26, 0.5);
+            background: var(--card-soft);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px;
             padding: 22px;
@@ -650,7 +651,7 @@
         }
 
         .about-section {
-            background: linear-gradient(120deg, rgba(8, 5, 18, 0.95), rgba(35, 23, 56, 0.9));
+            background: linear-gradient(135deg, rgba(108, 108, 118, 0.85), rgba(70, 70, 80, 0.88));
             border: 1px solid var(--border);
             border-radius: 32px;
             overflow: hidden;
