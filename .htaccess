@@ -1,0 +1,18 @@
+# Bloqueia listagem de diretórios
+Options -Indexes
+
+# Restringe o acesso à área administrativa via autenticação básica
+<Files "admin.html">
+    AuthType Basic
+    AuthName "Área restrita"
+    AuthUserFile /caminho/para/.htpasswd
+    Require valid-user
+</Files>
+
+# Garante que eventuais arquivos CSV exportados e enviados ao servidor também fiquem protegidos
+<FilesMatch "\\.(csv)$">
+    Require valid-user
+</FilesMatch>
+
+# Ajusta permissões recomendadas para o servidor web (executar no servidor)
+# chmod 640 .htaccess

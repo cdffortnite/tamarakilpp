@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel restrito | Exportar contatos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+    <style>
+        :root {
+            color-scheme: dark;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --bg: radial-gradient(circle at 20% 20%, #2d2540 0%, #03010e 55%, #2b2249 100%);
+            --card: rgba(18, 13, 35, 0.78);
+            --muted: rgba(255, 255, 255, 0.64);
+            --text: #f7f5ff;
+            --accent: #ffcb70;
+            --danger: #ff6b6b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            color: var(--text);
+            padding: clamp(24px, 5vw, 48px);
+        }
+
+        main {
+            width: min(960px, 100%);
+            display: grid;
+            gap: 32px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: clamp(24px, 5vw, 40px);
+            box-shadow: 0 40px 90px -45px rgba(0, 0, 0, 0.75);
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: clamp(1.6rem, 4vw, 2.1rem);
+            font-weight: 700;
+        }
+
+        p {
+            margin: 0 0 24px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        form {
+            display: grid;
+            gap: 18px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        input[type='text'],
+        input[type='password'] {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(10, 6, 20, 0.6);
+            color: inherit;
+            padding: 14px 16px;
+            font-size: 1rem;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        button {
+            appearance: none;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 14px 18px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        }
+
+        .primary-button {
+            background: linear-gradient(135deg, #f1d27b 0%, #d9a441 100%);
+            color: #1b1232;
+            box-shadow: 0 20px 50px -25px rgba(217, 164, 65, 0.65);
+        }
+
+        .primary-button:hover,
+        .primary-button:focus-visible {
+            transform: translateY(-1px);
+            box-shadow: 0 28px 70px -35px rgba(255, 203, 112, 0.75);
+        }
+
+        .ghost-button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: inherit;
+        }
+
+        .ghost-button:hover,
+        .ghost-button:focus-visible {
+            transform: translateY(-1px);
+            filter: brightness(1.1);
+        }
+
+        .feedback {
+            min-height: 1.2em;
+            color: var(--danger);
+            font-size: 0.9rem;
+        }
+
+        .admin-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .leads-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+
+        .leads-table th,
+        .leads-table td {
+            text-align: left;
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.92rem;
+        }
+
+        .leads-table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .empty-state {
+            border: 1px dashed rgba(255, 255, 255, 0.18);
+            border-radius: 14px;
+            padding: 32px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            margin-top: 18px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 16px;
+            }
+
+            main {
+                gap: 24px;
+            }
+
+            .admin-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="card" id="login-area">
+            <h1>Acesso restrito</h1>
+            <p>Informe as credenciais autorizadas para visualizar e exportar os contatos capturados.</p>
+            <form id="admin-login-form" novalidate>
+                <div>
+                    <label for="admin-username">Usuário</label>
+                    <input
+                        type="text"
+                        id="admin-username"
+                        name="username"
+                        autocomplete="username"
+                        placeholder="ex.: tamara"
+                        required
+                    />
+                </div>
+                <div>
+                    <label for="admin-password">Senha</label>
+                    <input
+                        type="password"
+                        id="admin-password"
+                        name="password"
+                        autocomplete="current-password"
+                        placeholder="Senha de acesso"
+                        required
+                    />
+                </div>
+                <div class="feedback" id="login-feedback" role="alert" aria-live="polite"></div>
+                <button type="submit" class="primary-button">Entrar no painel</button>
+            </form>
+        </section>
+
+        <section class="card hidden" id="protected-area" aria-live="polite">
+            <header>
+                <h1>Exportação de contatos</h1>
+                <p>
+                    Baixe o arquivo CSV compatível com Meta Ads ou visualize rapidamente os dados capturados pelo
+                    formulário do site principal.
+                </p>
+            </header>
+            <div class="admin-actions">
+                <button type="button" class="primary-button" id="export-csv-button">Exportar contatos (.csv)</button>
+                <button type="button" class="ghost-button" id="logout-button">Encerrar sessão</button>
+            </div>
+            <div class="empty-state hidden" id="storage-disabled">
+                O navegador atual não permite armazenamento local. As capturas só poderão ser exportadas a partir de um
+                dispositivo que possua suporte a <code>localStorage</code>.
+            </div>
+            <div class="empty-state hidden" id="no-leads-state">Nenhum contato foi capturado até o momento.</div>
+            <div id="leads-wrapper" class="hidden">
+                <table class="leads-table" aria-describedby="leads-caption">
+                    <caption id="leads-caption" class="sr-only">Lista de contatos capturados</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Instagram</th>
+                            <th scope="col">Capturado em</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leads-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="lead-storage.js"></script>
+    <script>
+        const loginArea = document.getElementById('login-area');
+        const protectedArea = document.getElementById('protected-area');
+        const loginForm = document.getElementById('admin-login-form');
+        const feedback = document.getElementById('login-feedback');
+        const logoutButton = document.getElementById('logout-button');
+        const exportButton = document.getElementById('export-csv-button');
+        const leadsWrapper = document.getElementById('leads-wrapper');
+        const noLeadsState = document.getElementById('no-leads-state');
+        const storageDisabledState = document.getElementById('storage-disabled');
+        const leadsTableBody = document.getElementById('leads-table-body');
+        const sessionKey = 'tk_admin_session';
+        const allowedCredentials = [
+            {
+                username: 'tamara',
+                passwordHash: 'dc0cc4566db8d193a8514a601a6f31efe41de536a0b9a7dbb0c514de2594f46b', // senha padrão: Moda2024!
+            },
+        ];
+
+        const leadStorage = window.tkLeadStorage || {};
+        const {
+            hasLocalStorage = false,
+            loadStoredEntries = () => [],
+            buildCsvContent = () => '',
+            downloadCsvFile = () => {},
+            storageKey = 'tk_prospect_entries',
+        } = leadStorage;
+
+        const textEncoder = new TextEncoder();
+
+        const hashPassword = async (password) => {
+            const data = textEncoder.encode(password);
+
+            if (!(window.crypto && window.crypto.subtle)) {
+                return null;
+            }
+
+            const digest = await window.crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(digest))
+                .map((value) => value.toString(16).padStart(2, '0'))
+                .join('');
+        };
+
+        const setSession = () => {
+            try {
+                sessionStorage.setItem(sessionKey, '1');
+            } catch (error) {
+                console.warn('Não foi possível manter a sessão ativa.', error);
+            }
+        };
+
+        const clearSession = () => {
+            try {
+                sessionStorage.removeItem(sessionKey);
+            } catch (error) {
+                console.warn('Não foi possível encerrar a sessão.', error);
+            }
+        };
+
+        const isAuthenticated = () => {
+            try {
+                return sessionStorage.getItem(sessionKey) === '1';
+            } catch (error) {
+                return false;
+            }
+        };
+
+        const toggleAreas = (shouldShowProtected) => {
+            if (shouldShowProtected) {
+                loginArea.classList.add('hidden');
+                protectedArea.classList.remove('hidden');
+            } else {
+                loginArea.classList.remove('hidden');
+                protectedArea.classList.add('hidden');
+                feedback.textContent = '';
+                loginForm.reset();
+            }
+        };
+
+        const formatDateTime = (isoString) => {
+            if (!isoString) {
+                return '';
+            }
+
+            try {
+                const date = new Date(isoString);
+                return new Intl.DateTimeFormat('pt-BR', {
+                    dateStyle: 'short',
+                    timeStyle: 'short',
+                }).format(date);
+            } catch (error) {
+                return isoString;
+            }
+        };
+
+        const renderLeads = () => {
+            const entries = loadStoredEntries();
+
+            if (!hasLocalStorage) {
+                storageDisabledState.classList.remove('hidden');
+                leadsWrapper.classList.add('hidden');
+                noLeadsState.classList.add('hidden');
+                return;
+            }
+
+            if (!entries.length) {
+                noLeadsState.classList.remove('hidden');
+                leadsWrapper.classList.add('hidden');
+                storageDisabledState.classList.add('hidden');
+                leadsTableBody.innerHTML = '';
+                return;
+            }
+
+            noLeadsState.classList.add('hidden');
+            storageDisabledState.classList.add('hidden');
+            leadsWrapper.classList.remove('hidden');
+
+            leadsTableBody.innerHTML = '';
+
+            entries.forEach((entry) => {
+                const row = document.createElement('tr');
+                const fullName = [entry.fn, entry.ln].filter(Boolean).join(' ');
+                const cells = [
+                    fullName || '—',
+                    entry.email || '—',
+                    entry.phone || '—',
+                    entry.instagram || '—',
+                    formatDateTime(entry.captured_at) || '—',
+                ];
+
+                cells.forEach((value) => {
+                    const cell = document.createElement('td');
+                    cell.textContent = value;
+                    row.appendChild(cell);
+                });
+
+                leadsTableBody.appendChild(row);
+            });
+        };
+
+        const authenticate = async ({ username, password }) => {
+            const credential = allowedCredentials.find((item) => item.username === username.trim().toLowerCase());
+
+            if (!credential) {
+                return false;
+            }
+
+            const hashedPassword = await hashPassword(password);
+            return hashedPassword === credential.passwordHash;
+        };
+
+        const handleLoginSubmit = async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(loginForm);
+            const username = (formData.get('username') || '').toString();
+            const password = (formData.get('password') || '').toString();
+
+            if (!username || !password) {
+                feedback.textContent = 'Informe usuário e senha para continuar.';
+                return;
+            }
+
+            feedback.textContent = 'Validando credenciais…';
+
+            try {
+                const isValid = await authenticate({ username, password });
+
+                if (!isValid) {
+                    feedback.textContent = 'Credenciais inválidas. Tente novamente.';
+                    return;
+                }
+
+                feedback.textContent = '';
+                setSession();
+                toggleAreas(true);
+                renderLeads();
+            } catch (error) {
+                console.error('Erro ao validar credenciais.', error);
+                feedback.textContent = 'Ocorreu um erro ao validar suas credenciais. Tente novamente em instantes.';
+            }
+        };
+
+        const handleExport = () => {
+            if (!hasLocalStorage) {
+                window.alert('O navegador atual não permite exportar os contatos armazenados.');
+                return;
+            }
+
+            const entries = loadStoredEntries();
+
+            if (!entries.length) {
+                window.alert('Nenhum contato disponível para exportação.');
+                return;
+            }
+
+            const csvContent = buildCsvContent(entries);
+            downloadCsvFile(csvContent, { prefix: 'contatos-tamara' });
+        };
+
+        const handleLogout = () => {
+            clearSession();
+            toggleAreas(false);
+        };
+
+        loginForm.addEventListener('submit', handleLoginSubmit);
+        exportButton.addEventListener('click', handleExport);
+        logoutButton.addEventListener('click', handleLogout);
+
+        window.addEventListener('pageshow', () => {
+            if (isAuthenticated()) {
+                toggleAreas(true);
+                renderLeads();
+            }
+        });
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === storageKey && isAuthenticated()) {
+                renderLeads();
+            }
+        });
+
+        if (!window.crypto || !window.crypto.subtle) {
+            feedback.textContent =
+                'O navegador atual não oferece suporte a criptografia necessária para validar a senha. Utilize a proteção por .htaccess no servidor.';
+            loginForm.querySelector('button[type="submit"]').disabled = true;
+        }
+    </script>
+</body>
+</html>
