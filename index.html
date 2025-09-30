@@ -792,6 +792,7 @@
             height: 44px;
         }
 
+
         .sr-only {
             position: absolute;
             width: 1px;
@@ -1233,6 +1234,7 @@
             </form>
         </div>
     </div>
+    <script src="lead-storage.js"></script>
     <script>
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');
@@ -1273,7 +1275,12 @@
             "a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]" +
             ":not([tabindex='-1'])";
         const inputs = [nameInput, phoneInput, emailInput, instagramInput].filter(Boolean);
-        const getPhoneDigits = (value = '') => value.replace(/\D/g, '');
+        const leadStorage = window.tkLeadStorage || {};
+        const {
+            hasLocalStorage = false,
+            getPhoneDigits = (value = '') => value.replace(/\D/g, ''),
+            registerLead = () => {},
+        } = leadStorage;
         const isValidEmail = (value = '') =>
             /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value);
         let pendingRedirectUrl = '';
@@ -1395,6 +1402,7 @@
                 const nameValue = nameInput ? nameInput.value.trim() : '';
                 const phoneValue = phoneInput ? phoneInput.value.trim() : '';
                 const emailValue = emailInput ? emailInput.value.trim() : '';
+                const instagramValue = instagramInput ? instagramInput.value.trim() : '';
 
                 if (!nameValue) {
                     showError(nameInput, 'Por favor, informe seu nome.');
@@ -1413,6 +1421,13 @@
                     focusInput(emailInput);
                     return;
                 }
+
+                registerLead({
+                    name: nameValue,
+                    phone: phoneValue,
+                    email: emailValue,
+                    instagram: instagramValue,
+                });
 
                 const redirectTarget = pendingRedirectUrl;
                 closeModal({ restoreFocus: false });
