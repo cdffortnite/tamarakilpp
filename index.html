@@ -1422,28 +1422,31 @@
                 }
 
                 try {
-                    await registerLead({
-                        name: nameValue,
-                        phone: phoneValue,
-                        email: emailValue,
-                        instagram: instagramValue,
-                    });
+                    await registerLead(
+                        {
+                            name: nameValue,
+                            phone: phoneValue,
+                            email: emailValue,
+                            instagram: instagramValue,
+                        },
+                        {
+                            formElement: captureForm,
+                            messageElement: errorMessage,
+                            redirectUrl: pendingRedirectUrl,
+                            onSuccess: () => {
+                                closeModal({ restoreFocus: false });
+                            },
+                        }
+                    );
                 } catch (error) {
                     console.error('Erro ao registrar o contato.', error);
 
-                    if (errorMessage) {
+                    if (errorMessage && !errorMessage.textContent) {
                         errorMessage.textContent =
                             'Não foi possível enviar suas informações. Tente novamente em instantes.';
                     }
 
                     return;
-                }
-
-                const redirectTarget = pendingRedirectUrl;
-                closeModal({ restoreFocus: false });
-
-                if (redirectTarget) {
-                    window.location.href = redirectTarget;
                 }
             });
 
