@@ -254,9 +254,9 @@
                 <button type="button" class="primary-button" id="export-csv-button">Exportar contatos (.csv)</button>
                 <button type="button" class="ghost-button" id="logout-button">Encerrar sessão</button>
             </div>
-            <div class="empty-state hidden" id="storage-disabled">
-                O navegador atual não permite armazenamento local. As capturas só poderão ser exportadas a partir de um
-                dispositivo que possua suporte a <code>localStorage</code>.
+            <div class="empty-state hidden" id="load-error-state">
+                Não foi possível carregar os contatos do servidor. Certifique-se de que ele está em execução e tente
+                novamente em instantes.
             </div>
             <div class="empty-state hidden" id="no-leads-state">Nenhum contato foi capturado até o momento.</div>
             <div id="leads-wrapper" class="hidden">
@@ -287,7 +287,7 @@
         const exportButton = document.getElementById('export-csv-button');
         const leadsWrapper = document.getElementById('leads-wrapper');
         const noLeadsState = document.getElementById('no-leads-state');
-        const storageDisabledState = document.getElementById('storage-disabled');
+        const loadErrorState = document.getElementById('load-error-state');
         const leadsTableBody = document.getElementById('leads-table-body');
         const sessionKey = 'tk_admin_session';
         const allowedCredentials = [
@@ -299,12 +299,10 @@
 
         const leadStorage = window.tkLeadStorage || {};
         const {
-            hasLocalStorage = false,
-            loadStoredEntries = () => [],
-            buildCsvContent = () => '',
-            downloadCsvFile = () => {},
-            storageKey = 'tk_prospect_entries',
+            fetchLeads = async () => [],
+            downloadLeadsCsv = () => {},
         } = leadStorage;
+        let cachedLeads = [];
 
         const textEncoder = new TextEncoder();
 
@@ -373,49 +371,48 @@
             }
         };
 
-        const renderLeads = () => {
-            const entries = loadStoredEntries();
-
-            if (!hasLocalStorage) {
-                storageDisabledState.classList.remove('hidden');
-                leadsWrapper.classList.add('hidden');
-                noLeadsState.classList.add('hidden');
-                return;
-            }
-
-            if (!entries.length) {
-                noLeadsState.classList.remove('hidden');
-                leadsWrapper.classList.add('hidden');
-                storageDisabledState.classList.add('hidden');
-                leadsTableBody.innerHTML = '';
-                return;
-            }
-
-            noLeadsState.classList.add('hidden');
-            storageDisabledState.classList.add('hidden');
-            leadsWrapper.classList.remove('hidden');
-
+        const renderLeads = async () => {
             leadsTableBody.innerHTML = '';
 
-            entries.forEach((entry) => {
-                const row = document.createElement('tr');
-                const fullName = [entry.fn, entry.ln].filter(Boolean).join(' ');
-                const cells = [
-                    fullName || '—',
-                    entry.email || '—',
-                    entry.phone || '—',
-                    entry.instagram || '—',
-                    formatDateTime(entry.captured_at) || '—',
-                ];
+            try {
+                const entries = await fetchLeads();
+                cachedLeads = Array.isArray(entries) ? entries : [];
 
-                cells.forEach((value) => {
-                    const cell = document.createElement('td');
-                    cell.textContent = value;
-                    row.appendChild(cell);
+                if (!cachedLeads.length) {
+                    noLeadsState.classList.remove('hidden');
+                    leadsWrapper.classList.add('hidden');
+                    loadErrorState.classList.add('hidden');
+                    return;
+                }
+
+                noLeadsState.classList.add('hidden');
+                loadErrorState.classList.add('hidden');
+                leadsWrapper.classList.remove('hidden');
+
+                cachedLeads.forEach((entry) => {
+                    const row = document.createElement('tr');
+                    const cells = [
+                        entry.name || '—',
+                        entry.email || '—',
+                        entry.phone || '—',
+                        entry.instagram || '—',
+                        formatDateTime(entry.captured_at) || '—',
+                    ];
+
+                    cells.forEach((value) => {
+                        const cell = document.createElement('td');
+                        cell.textContent = value;
+                        row.appendChild(cell);
+                    });
+
+                    leadsTableBody.appendChild(row);
                 });
-
-                leadsTableBody.appendChild(row);
-            });
+            } catch (error) {
+                console.error('Erro ao carregar os contatos.', error);
+                loadErrorState.classList.remove('hidden');
+                leadsWrapper.classList.add('hidden');
+                noLeadsState.classList.add('hidden');
+            }
         };
 
         const authenticate = async ({ username, password }) => {
@@ -454,49 +451,54 @@
                 feedback.textContent = '';
                 setSession();
                 toggleAreas(true);
-                renderLeads();
+                await renderLeads();
             } catch (error) {
                 console.error('Erro ao validar credenciais.', error);
                 feedback.textContent = 'Ocorreu um erro ao validar suas credenciais. Tente novamente em instantes.';
             }
         };
 
-        const handleExport = () => {
-            if (!hasLocalStorage) {
-                window.alert('O navegador atual não permite exportar os contatos armazenados.');
-                return;
+        const handleExport = async () => {
+            try {
+                if (!cachedLeads.length) {
+                    const entries = await fetchLeads();
+                    cachedLeads = Array.isArray(entries) ? entries : [];
+                }
+
+                if (!cachedLeads.length) {
+                    window.alert('Nenhum contato disponível para exportação.');
+                    return;
+                }
+
+                downloadLeadsCsv();
+            } catch (error) {
+                console.error('Erro ao exportar os contatos.', error);
+                window.alert('Não foi possível exportar os contatos. Verifique a conexão com o servidor.');
             }
-
-            const entries = loadStoredEntries();
-
-            if (!entries.length) {
-                window.alert('Nenhum contato disponível para exportação.');
-                return;
-            }
-
-            const csvContent = buildCsvContent(entries);
-            downloadCsvFile(csvContent, { prefix: 'contatos-tamara' });
         };
 
         const handleLogout = () => {
             clearSession();
+            cachedLeads = [];
+            leadsTableBody.innerHTML = '';
+            leadsWrapper.classList.add('hidden');
+            noLeadsState.classList.add('hidden');
+            loadErrorState.classList.add('hidden');
             toggleAreas(false);
         };
 
         loginForm.addEventListener('submit', handleLoginSubmit);
-        exportButton.addEventListener('click', handleExport);
+        exportButton.addEventListener('click', () => {
+            handleExport();
+        });
         logoutButton.addEventListener('click', handleLogout);
 
         window.addEventListener('pageshow', () => {
             if (isAuthenticated()) {
                 toggleAreas(true);
-                renderLeads();
-            }
-        });
-
-        window.addEventListener('storage', (event) => {
-            if (event.key === storageKey && isAuthenticated()) {
-                renderLeads();
+                renderLeads().catch((error) => {
+                    console.error('Erro ao atualizar os contatos ao retornar para a página.', error);
+                });
             }
         });
 
