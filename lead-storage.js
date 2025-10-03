@@ -2,6 +2,7 @@
     const API_PATH = '/api/leads';
     const FALLBACK_ENDPOINTS = ['./leads.php', '/leads.php', '/api/leads', '/leads'];
     let cachedRegisterEndpoint = null;
+    let cachedFetchEndpoint = null;
 
     const normalizeUrl = (value) => {
         if (typeof value !== 'string') {
@@ -516,23 +517,163 @@
     };
 
     const fetchLeads = async () => {
-        const data = await request(API_BASE, { method: 'GET' });
+        const endpointsToTry = [];
 
-        if (!data || !Array.isArray(data.leads)) {
-            return [];
+        const appendCandidate = (value) => {
+            if (typeof value !== 'string') {
+                return;
+            }
+
+            const trimmed = value.trim();
+
+            if (!trimmed) {
+                return;
+            }
+
+            if (!endpointsToTry.includes(trimmed)) {
+                endpointsToTry.push(trimmed);
+            }
+        };
+
+        if (cachedFetchEndpoint) {
+            appendCandidate(cachedFetchEndpoint);
         }
 
-        return data.leads;
+        appendCandidate(API_BASE);
+        FALLBACK_ENDPOINTS.forEach(appendCandidate);
+        appendCandidate('./leads.php');
+        appendCandidate('/leads.php');
+
+        let lastError = null;
+
+        for (const endpoint of endpointsToTry) {
+            try {
+                const data = await request(endpoint, { method: 'GET' });
+
+                if (data && Array.isArray(data.leads)) {
+                    cachedFetchEndpoint = endpoint;
+                    return data.leads;
+                }
+            } catch (error) {
+                lastError = error;
+
+                if (error && error.status === 404) {
+                    continue;
+                }
+
+                throw error;
+            }
+        }
+
+        if (lastError) {
+            throw lastError;
+        }
+
+        return [];
     };
 
-    const downloadLeadsCsv = () => {
-        const url = `${API_BASE}.csv?timestamp=${Date.now()}`;
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'leads.csv';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    const downloadLeadsCsv = async () => {
+        const endpointsToTry = [];
+
+        const appendCandidate = (value) => {
+            if (typeof value !== 'string') {
+                return;
+            }
+
+            const trimmed = value.trim();
+
+            if (!trimmed) {
+                return;
+            }
+
+            if (!endpointsToTry.includes(trimmed)) {
+                endpointsToTry.push(trimmed);
+            }
+        };
+
+        const appendVariants = (base) => {
+            if (typeof base !== 'string') {
+                return;
+            }
+
+            const trimmed = base.trim();
+
+            if (!trimmed) {
+                return;
+            }
+
+            const hasQuery = trimmed.includes('?');
+            const appendQueryVariant = (suffix) => {
+                const separator = hasQuery ? '&' : '?';
+                appendCandidate(`${trimmed}${separator}${suffix}`);
+            };
+
+            if (!/\.php(\b|$)/i.test(trimmed)) {
+                appendCandidate(`${trimmed}.csv`);
+            }
+
+            appendQueryVariant('format=csv');
+            appendQueryVariant('download=1');
+        };
+
+        if (cachedFetchEndpoint) {
+            appendVariants(cachedFetchEndpoint);
+        }
+
+        appendVariants(API_BASE);
+        FALLBACK_ENDPOINTS.forEach((endpoint) => {
+            appendVariants(endpoint);
+        });
+        appendVariants('./leads.php');
+        appendVariants('/leads.php');
+        appendCandidate('./leads.csv');
+        appendCandidate('/leads.csv');
+
+        let lastError = null;
+
+        for (const endpoint of endpointsToTry) {
+            try {
+                const url = endpoint.includes('?')
+                    ? `${endpoint}&ts=${Date.now()}`
+                    : `${endpoint}?ts=${Date.now()}`;
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        Accept: 'text/csv, text/plain;q=0.9, */*;q=0.8',
+                    },
+                    cache: 'no-store',
+                });
+
+                if (!response.ok) {
+                    lastError = new Error(`Falha ao baixar CSV (${response.status}).`);
+
+                    if (response.status === 404) {
+                        continue;
+                    }
+
+                    break;
+                }
+
+                const blob = await response.blob();
+                const downloadUrl = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = 'leads.csv';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(downloadUrl);
+                return;
+            } catch (error) {
+                lastError = error;
+            }
+        }
+
+        if (lastError) {
+            throw lastError;
+        }
+
+        throw new Error('Não foi possível gerar o arquivo CSV.');
     };
 
     window.tkLeadStorage = {

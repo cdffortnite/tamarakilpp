@@ -300,7 +300,7 @@
         const leadStorage = window.tkLeadStorage || {};
         const {
             fetchLeads = async () => [],
-            downloadLeadsCsv = () => {},
+            downloadLeadsCsv = async () => {},
         } = leadStorage;
         let cachedLeads = [];
 
@@ -470,7 +470,7 @@
                     return;
                 }
 
-                downloadLeadsCsv();
+                await downloadLeadsCsv();
             } catch (error) {
                 console.error('Erro ao exportar os contatos.', error);
                 window.alert('Não foi possível exportar os contatos. Verifique a conexão com o servidor.');
