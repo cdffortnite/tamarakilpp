@@ -169,7 +169,19 @@
             options.headers['Content-Type'] = 'application/json';
         }
 
-        const response = await fetch(endpoint, options);
+        let response;
+
+        try {
+            response = await fetch(endpoint, options);
+        } catch (networkError) {
+            const error = new Error(
+                'Não foi possível se conectar ao servidor. Verifique sua conexão e tente novamente.'
+            );
+            error.status = 0;
+            error.endpoint = endpoint;
+            error.cause = networkError;
+            throw error;
+        }
 
         if (!response.ok) {
             let errorMessage = 'Erro desconhecido ao comunicar com o servidor.';
@@ -196,6 +208,49 @@
         }
 
         return null;
+    };
+
+    const collectEndpointCandidates = ({ includeCached = false } = {}) => {
+        const endpoints = [];
+        const seen = new Set();
+
+        const appendCandidate = (value) => {
+            if (typeof value !== 'string') {
+                return;
+            }
+
+            const trimmed = value.trim();
+
+            if (!trimmed || seen.has(trimmed)) {
+                return;
+            }
+
+            seen.add(trimmed);
+            endpoints.push(trimmed);
+        };
+
+        appendCandidate('./leads.php');
+
+        if (includeCached && cachedRegisterEndpoint) {
+            appendCandidate(cachedRegisterEndpoint);
+        }
+
+        appendCandidate(API_BASE);
+        FALLBACK_ENDPOINTS.forEach(appendCandidate);
+
+        if (typeof window !== 'undefined' && window.location && window.location.origin) {
+            FALLBACK_ENDPOINTS.forEach((path) => {
+                if (path.startsWith('http://') || path.startsWith('https://')) {
+                    appendCandidate(path);
+                    return;
+                }
+
+                const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+                appendCandidate(`${window.location.origin}${normalizedPath}`);
+            });
+        }
+
+        return endpoints;
     };
 
     const sendLeadRequest = async (endpoint, payload) => {
@@ -391,45 +446,8 @@
 
         setMessage('info', 'Enviando seus dados...');
 
-        const endpointsToTry = [];
-        const appendCandidate = (value) => {
-            if (typeof value !== 'string') {
-                return;
-            }
-
-            const trimmed = value.trim();
-
-            if (!trimmed) {
-                return;
-            }
-
-            if (!endpointsToTry.includes(trimmed)) {
-                endpointsToTry.push(trimmed);
-            }
-        };
-
-        appendCandidate('./leads.php');
-
-        if (cachedRegisterEndpoint) {
-            appendCandidate(cachedRegisterEndpoint);
-        }
-
-        appendCandidate(API_BASE);
-        FALLBACK_ENDPOINTS.forEach(appendCandidate);
-
-        if (typeof window !== 'undefined' && window.location && window.location.origin) {
-            FALLBACK_ENDPOINTS.forEach((path) => {
-                if (path.startsWith('http://') || path.startsWith('https://')) {
-                    appendCandidate(path);
-                    return;
-                }
-
-                const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-                appendCandidate(`${window.location.origin}${normalizedPath}`);
-            });
-        }
-
         const attempts = [];
+        const endpointsToTry = collectEndpointCandidates({ includeCached: true });
 
         for (const endpoint of endpointsToTry) {
             try {
@@ -516,23 +534,151 @@
     };
 
     const fetchLeads = async () => {
-        const data = await request(API_BASE, { method: 'GET' });
+        const attempts = [];
+        const endpoints = collectEndpointCandidates({ includeCached: true });
 
-        if (!data || !Array.isArray(data.leads)) {
-            return [];
+        for (const endpoint of endpoints) {
+            try {
+                const data = await request(endpoint, { method: 'GET' });
+
+                if (data && Array.isArray(data.leads)) {
+                    return data.leads;
+                }
+
+                if (data && Array.isArray(data)) {
+                    return data;
+                }
+
+                throw new Error('Resposta inválida do servidor.');
+            } catch (error) {
+                attempts.push({ endpoint, error });
+
+                const status = error && typeof error === 'object' ? error.status : undefined;
+
+                if (status === 404) {
+                    console.warn(
+                        `[tkLeadStorage] Endpoint ${endpoint} retornou 404 ao carregar leads. Tentando próximo endereço.`
+                    );
+                    continue;
+                }
+
+                console.error(
+                    `[tkLeadStorage] Erro ao carregar leads utilizando a rota ${endpoint}.`,
+                    error
+                );
+            }
         }
 
-        return data.leads;
+        const finalError = new Error('Não foi possível carregar os contatos.');
+        finalError.attempts = attempts;
+        throw finalError;
     };
 
-    const downloadLeadsCsv = () => {
-        const url = `${API_BASE}.csv?timestamp=${Date.now()}`;
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'leads.csv';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    const buildCsvDownloadUrls = (endpoint) => {
+        const urls = [];
+        const seen = new Set();
+        const base = endpoint.split('#')[0];
+        const [withoutQuery, query = ''] = base.split('?');
+        const normalized = withoutQuery.replace(/\/$/, '');
+
+        const withTimestamp = (url) => {
+            const separator = url.includes('?') ? '&' : '?';
+            return `${url}${separator}timestamp=${Date.now()}`;
+        };
+
+        const appendUrl = (value) => {
+            if (!value || seen.has(value)) {
+                return;
+            }
+
+            seen.add(value);
+            urls.push(withTimestamp(value));
+        };
+
+        if (normalized.endsWith('.csv')) {
+            appendUrl(`${normalized}${query ? `?${query}` : ''}`);
+        } else {
+            appendUrl(`${normalized}.csv`);
+
+            if (normalized.endsWith('.php')) {
+                appendUrl(`${normalized}?format=csv`);
+                appendUrl(`${normalized}?download=1`);
+            }
+        }
+
+        return urls;
+    };
+
+    const downloadLeadsCsv = async () => {
+        const endpoints = collectEndpointCandidates({ includeCached: true });
+        const attempts = [];
+
+        for (const endpoint of endpoints) {
+            const candidates = buildCsvDownloadUrls(endpoint);
+
+            for (const candidate of candidates) {
+                try {
+                    const response = await fetch(candidate, {
+                        method: 'GET',
+                        headers: {
+                            Accept: 'text/csv, */*',
+                        },
+                    });
+
+                    if (!response.ok) {
+                        const error = new Error('Não foi possível baixar o arquivo CSV.');
+                        error.status = response.status;
+                        throw error;
+                    }
+
+                    const blob = await response.blob();
+
+                    if (!blob || blob.size === 0) {
+                        throw new Error('O arquivo CSV recebido está vazio.');
+                    }
+
+                    const disposition = response.headers.get('Content-Disposition') || '';
+                    const filenameMatch = disposition.match(/filename\*=UTF-8''([^;]+)|filename="?([^";]+)"?/i);
+                    const decodedFilename = filenameMatch
+                        ? decodeURIComponent(filenameMatch[1] || filenameMatch[2] || 'leads.csv')
+                        : 'leads.csv';
+
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = decodedFilename || 'leads.csv';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    setTimeout(() => {
+                        URL.revokeObjectURL(url);
+                    }, 2000);
+
+                    return { endpoint: candidate, size: blob.size };
+                } catch (error) {
+                    attempts.push({ endpoint: candidate, error });
+
+                    const status = error && typeof error === 'object' ? error.status : undefined;
+
+                    if (status === 404) {
+                        console.warn(
+                            `[tkLeadStorage] CSV não encontrado em ${candidate}. Tentando próximo endereço disponível.`
+                        );
+                        continue;
+                    }
+
+                    console.error(
+                        `[tkLeadStorage] Erro ao baixar o CSV de ${candidate}.`,
+                        error
+                    );
+                }
+            }
+        }
+
+        const finalError = new Error('Não foi possível localizar uma fonte de download do CSV.');
+        finalError.attempts = attempts;
+        throw finalError;
     };
 
     window.tkLeadStorage = {
