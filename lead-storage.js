@@ -1,6 +1,6 @@
 (function () {
     const API_PATH = '/api/leads';
-    const FALLBACK_ENDPOINTS = ['/leads.php', '/api/leads', '/leads'];
+    const FALLBACK_ENDPOINTS = ['./leads.php', '/leads.php', '/api/leads', '/leads'];
     let cachedRegisterEndpoint = null;
 
     const normalizeUrl = (value) => {
@@ -137,7 +137,7 @@
             }
         }
 
-        return API_PATH;
+        return './leads.php';
     };
 
     const API_BASE = resolveApiBase();
@@ -378,11 +378,16 @@
         };
 
         const payload = {
-            name: name.trim(),
-            phone: phone.trim(),
+            nome: name.trim(),
+            telefone: phone.trim(),
             email: email.trim(),
-            instagram: normalizeInstagramHandle(instagram),
         };
+
+        const instagramHandle = normalizeInstagramHandle(instagram);
+
+        if (instagramHandle) {
+            payload.instagram = instagramHandle;
+        }
 
         setMessage('info', 'Enviando seus dados...');
 
@@ -402,6 +407,8 @@
                 endpointsToTry.push(trimmed);
             }
         };
+
+        appendCandidate('./leads.php');
 
         if (cachedRegisterEndpoint) {
             appendCandidate(cachedRegisterEndpoint);
@@ -427,10 +434,18 @@
         for (const endpoint of endpointsToTry) {
             try {
                 console.info(`[tkLeadStorage] Enviando lead para ${endpoint}`);
-                const { status } = await sendLeadRequest(endpoint, payload);
+                const { status, body } = await sendLeadRequest(endpoint, payload);
 
                 cachedRegisterEndpoint = endpoint;
-                setMessage('success', 'Tudo certo! Vamos te direcionar para a próxima etapa.');
+                const serverMessage =
+                    body && typeof body === 'object' && typeof body.message === 'string'
+                        ? body.message.trim()
+                        : '';
+
+                setMessage(
+                    'success',
+                    serverMessage || 'Tudo certo! Vamos te direcionar para a próxima etapa.'
+                );
 
                 if (formElement && typeof formElement.reset === 'function') {
                     formElement.reset();
@@ -441,7 +456,7 @@
 
                 if (typeof onSuccess === 'function') {
                     try {
-                        await onSuccess({ endpoint, status });
+                        await onSuccess({ endpoint, status, response: body });
                     } catch (callbackError) {
                         console.error(
                             '[tkLeadStorage] Erro ao executar ação após o envio dos dados.',
@@ -478,7 +493,10 @@
 
                 const friendlyMessage = getFriendlyErrorMessage(status, message);
                 setMessage('error', friendlyMessage);
-                console.error('[tkLeadStorage] Erro ao registrar o contato.', error);
+                console.error(
+                    `[tkLeadStorage] Erro ao registrar o contato na rota ${endpoint}.`,
+                    error
+                );
                 throw error;
             }
         }
