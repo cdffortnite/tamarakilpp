@@ -1,18 +1,23 @@
 # Bloqueia listagem de diretórios
 Options -Indexes
 
-# Restringe o acesso à área administrativa via autenticação básica
-<Files "admin.html">
-    AuthType Basic
-    AuthName "Área restrita"
-    AuthUserFile /caminho/para/.htpasswd
-    Require valid-user
-</Files>
+# O painel administrativo já conta com autenticação no lado do cliente. Para evitar
+# conflitos em ambientes onde o caminho absoluto do arquivo .htpasswd não está
+# configurado, removemos a autenticação básica do Apache que estava impedindo o
+# carregamento da página.
 
-# Garante que eventuais arquivos CSV exportados e enviados ao servidor também fiquem protegidos
+# Caso deseje reativar a proteção do Apache, crie um arquivo .htpasswd e ajuste a
+# diretiva abaixo com o caminho absoluto do arquivo:
+#
+# <Files "admin.html">
+#     AuthType Basic
+#     AuthName "Área restrita"
+#     AuthUserFile /caminho/absoluto/para/.htpasswd
+#     Require valid-user
+# </Files>
+
+# Impede o acesso público a arquivos CSV que venham a ser enviados ao servidor
+# (por padrão os dados são mantidos apenas no navegador do visitante).
 <FilesMatch "\\.(csv)$">
-    Require valid-user
+    Require all denied
 </FilesMatch>
-
-# Ajusta permissões recomendadas para o servidor web (executar no servidor)
-# chmod 640 .htaccess
