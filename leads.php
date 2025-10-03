@@ -126,13 +126,13 @@ $parseCsv = static function () use (
 
     $header = array_shift($lines);
     $delimiter = $detectDelimiter($header, $lines);
-    $headerColumns = str_getcsv($header, $delimiter);
+    $headerColumns = str_getcsv($header, $delimiter, '"', '\\');
     $headerMap = array_map($resolveHeaderKey, $headerColumns);
 
     $entries = [];
 
     foreach ($lines as $line) {
-        $values = str_getcsv($line, $delimiter);
+        $values = str_getcsv($line, $delimiter, '"', '\\');
         $entry = ['name' => '', 'email' => '', 'phone' => '', 'instagram' => '', 'captured_at' => ''];
 
         foreach ($headerMap as $index => $key) {

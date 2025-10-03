@@ -574,111 +574,47 @@
         throw finalError;
     };
 
-    const buildCsvDownloadUrls = (endpoint) => {
-        const urls = [];
-        const seen = new Set();
-        const base = endpoint.split('#')[0];
-        const [withoutQuery, query = ''] = base.split('?');
-        const normalized = withoutQuery.replace(/\/$/, '');
-
-        const withTimestamp = (url) => {
-            const separator = url.includes('?') ? '&' : '?';
-            return `${url}${separator}timestamp=${Date.now()}`;
-        };
-
-        const appendUrl = (value) => {
-            if (!value || seen.has(value)) {
-                return;
-            }
-
-            seen.add(value);
-            urls.push(withTimestamp(value));
-        };
-
-        if (normalized.endsWith('.csv')) {
-            appendUrl(`${normalized}${query ? `?${query}` : ''}`);
-        } else {
-            appendUrl(`${normalized}.csv`);
-
-            if (normalized.endsWith('.php')) {
-                appendUrl(`${normalized}?format=csv`);
-                appendUrl(`${normalized}?download=1`);
-            }
-        }
-
-        return urls;
-    };
-
     const downloadLeadsCsv = async () => {
-        const endpoints = collectEndpointCandidates({ includeCached: true });
-        const attempts = [];
+        const timestamp = Date.now();
+        const candidate = `./leads.csv?timestamp=${timestamp}`;
 
-        for (const endpoint of endpoints) {
-            const candidates = buildCsvDownloadUrls(endpoint);
+        try {
+            const response = await fetch(candidate, {
+                method: 'GET',
+                headers: {
+                    Accept: 'text/csv, */*',
+                },
+            });
 
-            for (const candidate of candidates) {
-                try {
-                    const response = await fetch(candidate, {
-                        method: 'GET',
-                        headers: {
-                            Accept: 'text/csv, */*',
-                        },
-                    });
-
-                    if (!response.ok) {
-                        const error = new Error('Não foi possível baixar o arquivo CSV.');
-                        error.status = response.status;
-                        throw error;
-                    }
-
-                    const blob = await response.blob();
-
-                    if (!blob || blob.size === 0) {
-                        throw new Error('O arquivo CSV recebido está vazio.');
-                    }
-
-                    const disposition = response.headers.get('Content-Disposition') || '';
-                    const filenameMatch = disposition.match(/filename\*=UTF-8''([^;]+)|filename="?([^";]+)"?/i);
-                    const decodedFilename = filenameMatch
-                        ? decodeURIComponent(filenameMatch[1] || filenameMatch[2] || 'leads.csv')
-                        : 'leads.csv';
-
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = decodedFilename || 'leads.csv';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-
-                    setTimeout(() => {
-                        URL.revokeObjectURL(url);
-                    }, 2000);
-
-                    return { endpoint: candidate, size: blob.size };
-                } catch (error) {
-                    attempts.push({ endpoint: candidate, error });
-
-                    const status = error && typeof error === 'object' ? error.status : undefined;
-
-                    if (status === 404) {
-                        console.warn(
-                            `[tkLeadStorage] CSV não encontrado em ${candidate}. Tentando próximo endereço disponível.`
-                        );
-                        continue;
-                    }
-
-                    console.error(
-                        `[tkLeadStorage] Erro ao baixar o CSV de ${candidate}.`,
-                        error
-                    );
-                }
+            if (!response.ok) {
+                const error = new Error('Não foi possível baixar o arquivo CSV.');
+                error.status = response.status;
+                throw error;
             }
-        }
 
-        const finalError = new Error('Não foi possível localizar uma fonte de download do CSV.');
-        finalError.attempts = attempts;
-        throw finalError;
+            const blob = await response.blob();
+
+            if (!blob || blob.size === 0) {
+                throw new Error('O arquivo CSV recebido está vazio.');
+            }
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'leads.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+            }, 2000);
+
+            return { endpoint: candidate, size: blob.size };
+        } catch (error) {
+            console.error('[tkLeadStorage] Erro ao baixar o arquivo ./leads.csv.', error);
+            throw error;
+        }
     };
 
     window.tkLeadStorage = {
