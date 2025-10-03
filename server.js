@@ -213,23 +213,49 @@ const upsertLead = async (payload) => {
     return normalizedLead;
 };
 
-const sendJson = (res, statusCode, data) => {
+const buildCorsHeaders = (req, additionalHeaders = {}) => {
+    const originHeader = req.headers.origin;
+    const allowOrigin = originHeader && originHeader !== 'null' ? originHeader : '*';
+    const requestedHeaders = req.headers['access-control-request-headers'];
+
+    return {
+        Vary: 'Origin',
+        'Access-Control-Allow-Origin': allowOrigin,
+        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+        'Access-Control-Allow-Headers': requestedHeaders || 'Accept, Content-Type',
+        'Access-Control-Max-Age': '86400',
+        'Access-Control-Expose-Headers': 'Content-Disposition',
+        ...additionalHeaders,
+    };
+};
+
+const sendOptions = (req, res) => {
+    const headers = buildCorsHeaders(req, {
+        'Content-Length': '0',
+        'Cache-Control': 'no-store',
+    });
+
+    res.writeHead(204, headers);
+    res.end();
+};
+
+const sendJson = (req, res, statusCode, data) => {
     const payload = JSON.stringify(data);
-    res.writeHead(statusCode, {
+    res.writeHead(statusCode, buildCorsHeaders(req, {
         'Content-Type': 'application/json; charset=utf-8',
         'Content-Length': Buffer.byteLength(payload),
         'Cache-Control': 'no-store',
-    });
+    }));
     res.end(payload);
 };
 
-const sendText = (res, statusCode, message) => {
+const sendText = (req, res, statusCode, message) => {
     const payload = message;
-    res.writeHead(statusCode, {
+    res.writeHead(statusCode, buildCorsHeaders(req, {
         'Content-Type': 'text/plain; charset=utf-8',
         'Content-Length': Buffer.byteLength(payload),
         'Cache-Control': 'no-store',
-    });
+    }));
     res.end(payload);
 };
 
@@ -257,15 +283,24 @@ const serveStaticFile = async (res, filePath) => {
 };
 
 const handleApiRequest = async (req, res, url) => {
+    if (!url.pathname.startsWith('/api/')) {
+        return false;
+    }
+
+    if (req.method === 'OPTIONS') {
+        sendOptions(req, res);
+        return true;
+    }
+
     if (req.method === 'POST' && url.pathname === '/api/leads') {
         try {
             const body = await parseJsonBody(req);
             await upsertLead(body);
-            sendJson(res, 201, { success: true });
+            sendJson(req, res, 201, { success: true });
         } catch (error) {
             console.error('Erro ao registrar lead:', error);
             const status = error.statusCode && Number.isInteger(error.statusCode) ? error.statusCode : 500;
-            sendJson(res, status, { success: false, message: error.message || 'Erro interno ao salvar o contato.' });
+            sendJson(req, res, status, { success: false, message: error.message || 'Erro interno ao salvar o contato.' });
         }
 
         return true;
@@ -274,10 +309,10 @@ const handleApiRequest = async (req, res, url) => {
     if (req.method === 'GET' && url.pathname === '/api/leads') {
         try {
             const leads = await readLeadsFromCsv();
-            sendJson(res, 200, { leads });
+            sendJson(req, res, 200, { leads });
         } catch (error) {
             console.error('Erro ao ler leads:', error);
-            sendJson(res, 500, { success: false, message: 'Erro ao carregar os contatos.' });
+            sendJson(req, res, 500, { success: false, message: 'Erro ao carregar os contatos.' });
         }
 
         return true;
@@ -287,17 +322,16 @@ const handleApiRequest = async (req, res, url) => {
         try {
             await ensureCsvFile();
             const content = await fs.readFile(CSV_FILE);
-            res.writeHead(200, {
+            res.writeHead(200, buildCorsHeaders(req, {
                 'Content-Type': 'text/csv; charset=utf-8',
                 'Content-Length': content.length,
                 'Content-Disposition': 'attachment; filename="leads.csv"',
                 'Cache-Control': 'no-store',
-            });
+            }));
             res.end(content);
         } catch (error) {
             console.error('Erro ao enviar CSV:', error);
-            res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
-            res.end('Erro ao gerar o arquivo CSV.');
+            sendText(req, res, 500, 'Erro ao gerar o arquivo CSV.');
         }
 
         return true;
@@ -322,7 +356,7 @@ const server = http.createServer(async (req, res) => {
     const filePath = path.join(ROOT_DIR, pathname);
 
     if (!filePath.startsWith(ROOT_DIR)) {
-        sendText(res, 403, 'Acesso negado.');
+        sendText(req, res, 403, 'Acesso negado.');
         return;
     }
 

@@ -1,5 +1,144 @@
 (function () {
-    const API_BASE = '/api/leads';
+    const API_PATH = '/api/leads';
+
+    const normalizeUrl = (value) => {
+        if (typeof value !== 'string') {
+            return null;
+        }
+
+        const trimmed = value.trim();
+
+        if (!trimmed) {
+            return null;
+        }
+
+        try {
+            if (typeof window !== 'undefined' && window.location) {
+                const url = new URL(trimmed, window.location.href);
+                return url.toString().replace(/\/$/, '');
+            }
+
+            const url = new URL(trimmed);
+            return url.toString().replace(/\/$/, '');
+        } catch (error) {
+            return null;
+        }
+    };
+
+    const normalizeApiBase = (value) => {
+        const normalized = normalizeUrl(value);
+
+        if (!normalized) {
+            return null;
+        }
+
+        if (normalized.endsWith(API_PATH)) {
+            return normalized;
+        }
+
+        return `${normalized}${API_PATH}`;
+    };
+
+    const getMetaContent = (name) => {
+        if (typeof document === 'undefined') {
+            return '';
+        }
+
+        const element = document.querySelector(`meta[name="${name}"]`);
+
+        if (!element || typeof element.content !== 'string') {
+            return '';
+        }
+
+        return element.content.trim();
+    };
+
+    const getDatasetOverride = () => {
+        if (typeof document === 'undefined') {
+            return null;
+        }
+
+        const candidates = [];
+
+        if (document.currentScript && document.currentScript.dataset) {
+            candidates.push(document.currentScript.dataset.tkLeadsApiBase);
+            candidates.push(document.currentScript.dataset.tkLeadsApiOrigin);
+        }
+
+        const fallbackScript = document.querySelector('script[data-tk-leads-api-base], script[data-tk-leads-api-origin]');
+
+        if (fallbackScript && fallbackScript.dataset) {
+            candidates.push(fallbackScript.dataset.tkLeadsApiBase);
+            candidates.push(fallbackScript.dataset.tkLeadsApiOrigin);
+        }
+
+        for (const value of candidates) {
+            if (typeof value === 'string' && value.trim()) {
+                return value.trim();
+            }
+        }
+
+        return null;
+    };
+
+    const getWindowOverride = () => {
+        if (typeof window === 'undefined') {
+            return null;
+        }
+
+        const { tkLeadsApiBase, tkLeadsApiOrigin, TK_LEADS_API_BASE, TK_LEADS_API_ORIGIN } = window;
+        const override =
+            (typeof tkLeadsApiBase === 'string' && tkLeadsApiBase.trim()) ||
+            (typeof TK_LEADS_API_BASE === 'string' && TK_LEADS_API_BASE.trim()) ||
+            (typeof tkLeadsApiOrigin === 'string' && tkLeadsApiOrigin.trim()) ||
+            (typeof TK_LEADS_API_ORIGIN === 'string' && TK_LEADS_API_ORIGIN.trim());
+
+        return override ? override.trim() : null;
+    };
+
+    const resolveApiBase = () => {
+        const explicitOverride = getWindowOverride() || getDatasetOverride();
+
+        if (explicitOverride) {
+            const normalized = normalizeApiBase(explicitOverride);
+
+            if (normalized) {
+                return normalized;
+            }
+        }
+
+        const metaBase = getMetaContent('tk:leads-api-base');
+
+        if (metaBase) {
+            const normalized = normalizeApiBase(metaBase);
+
+            if (normalized) {
+                return normalized;
+            }
+        }
+
+        const metaOrigin = getMetaContent('tk:leads-api-origin');
+
+        if (metaOrigin) {
+            const normalized = normalizeApiBase(metaOrigin);
+
+            if (normalized) {
+                return normalized;
+            }
+        }
+
+        if (typeof window !== 'undefined' && window.location) {
+            const normalized = normalizeApiBase(window.location.origin);
+
+            if (normalized) {
+                return normalized;
+            }
+        }
+
+        return API_PATH;
+    };
+
+    const API_BASE = resolveApiBase();
 
     const getPhoneDigits = (value = '') => value.replace(/\D/g, '');
 
@@ -89,6 +228,7 @@
     };
 
     window.tkLeadStorage = {
+        apiBase: API_BASE,
         getPhoneDigits,
         registerLead,
         fetchLeads,
