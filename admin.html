@@ -148,6 +148,7 @@
             border: 1px solid rgba(15, 23, 42, 0.12);
             box-shadow: 0 40px 90px -55px rgba(15, 23, 42, 0.9);
             overflow: hidden;
+            overflow-x: auto;
             color: #0f172a;
             font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
             color-scheme: light;
@@ -190,6 +191,7 @@
             background: #fff;
             font-size: 0.95rem;
             letter-spacing: 0.01em;
+            min-width: 100%;
         }
 
         .leads-table thead th {
@@ -218,6 +220,10 @@
 
         .leads-table tbody td:last-child {
             border-right: none;
+        }
+
+        .leads-table__empty-row {
+            background: transparent;
         }
 
         .leads-table__empty-cell {
@@ -275,6 +281,11 @@
                 gap: 24px;
             }
 
+            #login-area,
+            #protected-area {
+                padding: 24px 20px;
+            }
+
             .admin-actions {
                 flex-direction: column;
                 align-items: stretch;
@@ -284,10 +295,86 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 8px;
+                padding: 20px 20px 12px;
+            }
+
+            .leads-preview-meta {
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
             }
 
             button {
                 width: 100%;
+            }
+
+            #leads-wrapper {
+                margin: 24px -20px 0;
+                border-radius: 16px;
+            }
+
+            .leads-table {
+                display: block;
+                border: 0;
+                background: transparent;
+            }
+
+            .leads-table thead {
+                display: none;
+            }
+
+            .leads-table tbody {
+                display: grid;
+                gap: 12px;
+                padding: 0 20px 20px;
+                background: transparent;
+            }
+
+            .leads-table tbody tr {
+                display: grid;
+                background: #ffffff;
+                border-radius: 16px;
+                border: 1px solid #e2e8f0;
+                box-shadow: 0 18px 42px -28px rgba(15, 23, 42, 0.6);
+                overflow: hidden;
+            }
+
+            .leads-table tbody td {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 14px 16px;
+                border: 0;
+                border-bottom: 1px solid #e2e8f0;
+                font-size: 0.88rem;
+                line-height: 1.4;
+            }
+
+            .leads-table tbody td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                font-size: 0.72rem;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: #1b4332;
+                flex: 0 0 auto;
+            }
+
+            .leads-table tbody td:last-child {
+                border-bottom: none;
+            }
+
+            .leads-table__empty-row {
+                box-shadow: none;
+                border: none;
+            }
+
+            .leads-table__empty-row .leads-table__empty-cell {
+                border: 1px dashed #cbd5f5;
+                border-radius: 14px;
+                background: rgba(226, 232, 240, 0.4);
             }
         }
     </style>
@@ -463,6 +550,14 @@
             }
         };
 
+        const tableColumns = [
+            { label: 'Nome', getValue: (entry) => entry.name || '—' },
+            { label: 'E-mail', getValue: (entry) => entry.email || '—' },
+            { label: 'Telefone', getValue: (entry) => entry.phone || '—' },
+            { label: 'Instagram', getValue: (entry) => entry.instagram || '—' },
+            { label: 'Capturado em', getValue: (entry) => formatDateTime(entry.captured_at) || '—' },
+        ];
+
         const updatePreviewSummary = (count, lastCapturedAt = '') => {
             if (leadsCountElement) {
                 if (!count) {
@@ -503,8 +598,9 @@
                     loadErrorState.classList.add('hidden');
 
                     const emptyRow = document.createElement('tr');
+                    emptyRow.className = 'leads-table__empty-row';
                     const emptyCell = document.createElement('td');
-                    emptyCell.colSpan = 5;
+                    emptyCell.colSpan = tableColumns.length;
                     emptyCell.className = 'leads-table__empty-cell';
                     emptyCell.textContent = 'Nenhum contato disponível no momento.';
                     emptyRow.appendChild(emptyCell);
@@ -543,17 +639,11 @@
 
                 cachedLeads.forEach((entry) => {
                     const row = document.createElement('tr');
-                    const cells = [
-                        entry.name || '—',
-                        entry.email || '—',
-                        entry.phone || '—',
-                        entry.instagram || '—',
-                        formatDateTime(entry.captured_at) || '—',
-                    ];
 
-                    cells.forEach((value) => {
+                    tableColumns.forEach((column) => {
                         const cell = document.createElement('td');
-                        cell.textContent = value;
+                        cell.textContent = column.getValue(entry);
+                        cell.setAttribute('data-label', column.label);
                         row.appendChild(cell);
                     });
 
