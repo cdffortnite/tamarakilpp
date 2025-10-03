@@ -84,7 +84,7 @@ const escapeCsvValue = (value = '') => {
     return normalized;
 };
 
-const parseCsvLine = (line = '') => {
+const parseCsvLine = (line = '', delimiter = ',') => {
     const result = [];
     let current = '';
     let insideQuotes = false;
@@ -101,7 +101,7 @@ const parseCsvLine = (line = '') => {
             } else {
                 insideQuotes = !insideQuotes;
             }
-        } else if (char === ',' && !insideQuotes) {
+        } else if (char === delimiter && !insideQuotes) {
             result.push(current);
             current = '';
         } else {
@@ -122,14 +122,87 @@ const readLeadsFromCsv = async () => {
             return [];
         }
 
-        const [, ...rows] = lines;
+        const [rawHeader, ...rows] = lines;
+        const delimiter = (() => {
+            const firstDataRow = rows[0] || '';
+            const commaCount = (rawHeader.match(/,/g) || []).length + (firstDataRow.match(/,/g) || []).length;
+            const semicolonCount =
+                (rawHeader.match(/;/g) || []).length + (firstDataRow.match(/;/g) || []).length;
+
+            if (semicolonCount > commaCount) {
+                return ';';
+            }
+
+            if (commaCount > 0) {
+                return ',';
+            }
+
+            if (semicolonCount > 0) {
+                return ';';
+            }
+
+            // Default fallback when header does not contain delimiters.
+            return ',';
+        })();
+
+        const normalizeHeaderName = (value = '') =>
+            value
+                .toString()
+                .trim()
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/\s+/g, '_');
+
+        const resolveHeaderKey = (value = '') => {
+            const normalized = normalizeHeaderName(value);
+
+            if (['name', 'nome'].includes(normalized)) {
+                return 'name';
+            }
+
+            if (['email'].includes(normalized)) {
+                return 'email';
+            }
+
+            if (['phone', 'telefone', 'telefone_whatsapp', 'telefone_whats'].includes(normalized)) {
+                return 'phone';
+            }
+
+            if (['instagram', 'instagram_', 'instagram_handle'].includes(normalized)) {
+                return 'instagram';
+            }
+
+            if (
+                ['captured_at', 'data_registro', 'data_de_registro', 'registrado_em', 'capturado_em'].includes(
+                    normalized
+                )
+            ) {
+                return 'captured_at';
+            }
+
+            return null;
+        };
+
+        const headerColumns = parseCsvLine(rawHeader, delimiter);
+        const headerMap = headerColumns.map((column) => resolveHeaderKey(column));
 
         return rows.map((line) => {
-            const values = parseCsvLine(line);
+            const values = parseCsvLine(line, delimiter);
             const entry = {};
 
-            CSV_HEADERS.forEach((key, index) => {
+            headerMap.forEach((key, index) => {
+                if (!key) {
+                    return;
+                }
+
                 entry[key] = values[index] ?? '';
+            });
+
+            CSV_HEADERS.forEach((key) => {
+                if (entry[key] === undefined) {
+                    entry[key] = '';
+                }
             });
 
             return entry;
