@@ -141,26 +141,103 @@
             align-items: center;
         }
 
+        #leads-wrapper {
+            margin-top: 24px;
+            border-radius: 18px;
+            background: #f7f9fc;
+            border: 1px solid rgba(15, 23, 42, 0.12);
+            box-shadow: 0 40px 90px -55px rgba(15, 23, 42, 0.9);
+            overflow: hidden;
+            color: #0f172a;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            color-scheme: light;
+        }
+
+        .leads-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 20px 24px 16px;
+            background: linear-gradient(90deg, rgba(33, 115, 70, 0.08), rgba(33, 115, 70, 0));
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            gap: 16px;
+        }
+
+        .leads-preview-title {
+            margin: 0;
+            font-size: 1.02rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: #1b4332;
+        }
+
+        .leads-preview-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 18px;
+            font-size: 0.85rem;
+            color: #334155;
+        }
+
+        .leads-preview-meta strong {
+            font-weight: 700;
+            color: #0f172a;
+        }
+
         .leads-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 24px;
+            background: #fff;
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
         }
 
-        .leads-table th,
-        .leads-table td {
-            text-align: left;
-            padding: 12px 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            font-size: 0.92rem;
-        }
-
-        .leads-table th {
+        .leads-table thead th {
+            background: linear-gradient(90deg, #217346 0%, #1b5e36 100%);
+            color: #ffffff;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.06em;
             font-size: 0.78rem;
-            color: rgba(255, 255, 255, 0.65);
+            padding: 14px 16px;
+            border-right: 1px solid rgba(255, 255, 255, 0.24);
+            text-align: left;
+        }
+
+        .leads-table thead th:last-child {
+            border-right: none;
+        }
+
+        .leads-table tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #d0d7de;
+            border-right: 1px solid #e2e8f0;
+            color: #1f2937;
+            vertical-align: middle;
+        }
+
+        .leads-table tbody td:last-child {
+            border-right: none;
+        }
+
+        .leads-table__empty-cell {
+            text-align: center;
+            padding: 24px 16px;
+            font-style: italic;
+            color: #475569;
+            background: #f8fafc;
+        }
+
+        .leads-table tbody tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .leads-table tbody tr:nth-child(even) {
+            background: #f3f8fe;
+        }
+
+        .leads-table tbody tr:hover {
+            background: #e1f0ff;
         }
 
         .empty-state {
@@ -201,6 +278,12 @@
             .admin-actions {
                 flex-direction: column;
                 align-items: stretch;
+            }
+
+            .leads-preview-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
             }
 
             button {
@@ -259,7 +342,14 @@
                 novamente em instantes.
             </div>
             <div class="empty-state hidden" id="no-leads-state">Nenhum contato foi capturado até o momento.</div>
-            <div id="leads-wrapper" class="hidden">
+            <div id="leads-wrapper" class="hidden" aria-live="polite">
+                <div class="leads-preview-header">
+                    <p class="leads-preview-title">Pré-visualização do arquivo (formato Excel)</p>
+                    <div class="leads-preview-meta">
+                        <strong id="leads-count">Nenhum contato carregado</strong>
+                        <span id="leads-last-updated">Aguardando atualização</span>
+                    </div>
+                </div>
                 <table class="leads-table" aria-describedby="leads-caption">
                     <caption id="leads-caption" class="sr-only">Lista de contatos capturados</caption>
                     <thead>
@@ -289,6 +379,8 @@
         const noLeadsState = document.getElementById('no-leads-state');
         const loadErrorState = document.getElementById('load-error-state');
         const leadsTableBody = document.getElementById('leads-table-body');
+        const leadsCountElement = document.getElementById('leads-count');
+        const leadsLastUpdatedElement = document.getElementById('leads-last-updated');
         const sessionKey = 'tk_admin_session';
         const allowedCredentials = [
             {
@@ -371,6 +463,33 @@
             }
         };
 
+        const updatePreviewSummary = (count, lastCapturedAt = '') => {
+            if (leadsCountElement) {
+                if (!count) {
+                    leadsCountElement.textContent = 'Nenhum contato disponível';
+                } else {
+                    const suffix = count === 1 ? 'contato carregado' : 'contatos carregados';
+                    leadsCountElement.textContent = `${count} ${suffix}`;
+                }
+            }
+
+            if (leadsLastUpdatedElement) {
+                if (!count) {
+                    leadsLastUpdatedElement.textContent = 'Aguardando novos registros';
+                    return;
+                }
+
+                const formatted = lastCapturedAt ? formatDateTime(lastCapturedAt) : '';
+                if (formatted) {
+                    leadsLastUpdatedElement.textContent = `Último registro em ${formatted}`;
+                    return;
+                }
+
+                const now = new Date();
+                leadsLastUpdatedElement.textContent = `Atualizado em ${formatDateTime(now.toISOString())}`;
+            }
+        };
+
         const renderLeads = async () => {
             leadsTableBody.innerHTML = '';
 
@@ -379,15 +498,48 @@
                 cachedLeads = Array.isArray(entries) ? entries : [];
 
                 if (!cachedLeads.length) {
-                    noLeadsState.classList.remove('hidden');
-                    leadsWrapper.classList.add('hidden');
+                    noLeadsState.classList.add('hidden');
+                    leadsWrapper.classList.remove('hidden');
                     loadErrorState.classList.add('hidden');
-                    return;
+
+                    const emptyRow = document.createElement('tr');
+                    const emptyCell = document.createElement('td');
+                    emptyCell.colSpan = 5;
+                    emptyCell.className = 'leads-table__empty-cell';
+                    emptyCell.textContent = 'Nenhum contato disponível no momento.';
+                    emptyRow.appendChild(emptyCell);
+                    leadsTableBody.appendChild(emptyRow);
+
+                    updatePreviewSummary(0);
+                    return [];
                 }
 
                 noLeadsState.classList.add('hidden');
                 loadErrorState.classList.add('hidden');
                 leadsWrapper.classList.remove('hidden');
+
+                const latestCapture = cachedLeads.reduce((latest, entry) => {
+                    if (!entry || !entry.captured_at) {
+                        return latest;
+                    }
+
+                    const currentTimestamp = Date.parse(entry.captured_at);
+
+                    if (Number.isNaN(currentTimestamp)) {
+                        return latest;
+                    }
+
+                    if (!latest) {
+                        return entry.captured_at;
+                    }
+
+                    const latestTimestamp = Date.parse(latest);
+                    if (Number.isNaN(latestTimestamp) || currentTimestamp > latestTimestamp) {
+                        return entry.captured_at;
+                    }
+
+                    return latest;
+                }, '');
 
                 cachedLeads.forEach((entry) => {
                     const row = document.createElement('tr');
@@ -407,11 +559,17 @@
 
                     leadsTableBody.appendChild(row);
                 });
+
+                updatePreviewSummary(cachedLeads.length, latestCapture);
+                return cachedLeads;
             } catch (error) {
                 console.error('Erro ao carregar os contatos.', error);
                 loadErrorState.classList.remove('hidden');
                 leadsWrapper.classList.add('hidden');
                 noLeadsState.classList.add('hidden');
+                cachedLeads = [];
+                updatePreviewSummary(0);
+                return [];
             }
         };
 
@@ -460,12 +618,9 @@
 
         const handleExport = async () => {
             try {
-                if (!cachedLeads.length) {
-                    const entries = await fetchLeads();
-                    cachedLeads = Array.isArray(entries) ? entries : [];
-                }
+                const leads = await renderLeads();
 
-                if (!cachedLeads.length) {
+                if (!Array.isArray(leads) || !leads.length) {
                     window.alert('Nenhum contato disponível para exportação.');
                     return;
                 }
@@ -484,6 +639,7 @@
             leadsWrapper.classList.add('hidden');
             noLeadsState.classList.add('hidden');
             loadErrorState.classList.add('hidden');
+            updatePreviewSummary(0);
             toggleAreas(false);
         };
 
