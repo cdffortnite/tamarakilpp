@@ -1277,9 +1277,8 @@
         const inputs = [nameInput, phoneInput, emailInput, instagramInput].filter(Boolean);
         const leadStorage = window.tkLeadStorage || {};
         const {
-            hasLocalStorage = false,
             getPhoneDigits = (value = '') => value.replace(/\D/g, ''),
-            registerLead = () => {},
+            registerLead = async () => {},
         } = leadStorage;
         const isValidEmail = (value = '') =>
             /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value);
@@ -1397,7 +1396,7 @@
                 });
             });
 
-            captureForm.addEventListener('submit', (event) => {
+            captureForm.addEventListener('submit', async (event) => {
                 event.preventDefault();
                 const nameValue = nameInput ? nameInput.value.trim() : '';
                 const phoneValue = phoneInput ? phoneInput.value.trim() : '';
@@ -1422,12 +1421,23 @@
                     return;
                 }
 
-                registerLead({
-                    name: nameValue,
-                    phone: phoneValue,
-                    email: emailValue,
-                    instagram: instagramValue,
-                });
+                try {
+                    await registerLead({
+                        name: nameValue,
+                        phone: phoneValue,
+                        email: emailValue,
+                        instagram: instagramValue,
+                    });
+                } catch (error) {
+                    console.error('Erro ao registrar o contato.', error);
+
+                    if (errorMessage) {
+                        errorMessage.textContent =
+                            'Não foi possível enviar suas informações. Tente novamente em instantes.';
+                    }
+
+                    return;
+                }
 
                 const redirectTarget = pendingRedirectUrl;
                 closeModal({ restoreFocus: false });
