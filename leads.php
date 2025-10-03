@@ -12,22 +12,22 @@ if (!$input || !isset($input["nome"]) || !isset($input["telefone"]) || !isset($i
     exit;
 }
 
-$nome = $input["nome"];
-$telefone = $input["telefone"];
-$email = $input["email"];
-$instagram = isset($input["instagram"]) ? $input["instagram"] : "";
+$nome = trim($input["nome"]);
+$telefone = trim($input["telefone"]);
+$email = trim($input["email"]);
+$instagram = isset($input["instagram"]) ? trim($input["instagram"]) : "";
 
 $arquivo = __DIR__ . "/leads.csv";
 
 if (!file_exists($arquivo)) {
-    $cabecalho = ["Nome", "Telefone", "Email", "Instagram", "Data Registro"];
+    $cabecalho = ["NAME", "EMAIL", "PHONE", "INSTAGRAM", "CAPTURED_AT"];
     $fp = fopen($arquivo, "w");
-    fputcsv($fp, $cabecalho, ";");
+    fputcsv($fp, $cabecalho);
     fclose($fp);
 }
 
 $fp = fopen($arquivo, "a");
-fputcsv($fp, [$nome, $telefone, $email, $instagram, date("Y-m-d H:i:s")], ";");
+fputcsv($fp, [$nome, $email, $telefone, $instagram, date("c")]);
 fclose($fp);
 
 http_response_code(201);
