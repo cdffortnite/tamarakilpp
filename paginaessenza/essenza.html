@@ -61,14 +61,14 @@
         overflow: hidden;
         border: 1px solid rgba(255, 255, 255, 0.16);
         box-shadow: 0 35px 90px -45px rgba(0, 0, 0, 0.8);
-        background: linear-gradient(135deg, rgba(6, 4, 12, 0.85), rgba(15, 12, 28, 0.75));
+        background: linear-gradient(135deg, rgba(6, 4, 12, 0.28), rgba(15, 12, 28, 0.22));
       }
 
       .hero::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(120deg, rgba(7, 5, 12, 0.35) 0%, rgba(6, 4, 10, 0.85) 55%, rgba(7, 5, 12, 0.95) 100%);
+        background: linear-gradient(120deg, rgba(7, 5, 12, 0.12) 0%, rgba(6, 4, 10, 0.42) 55%, rgba(7, 5, 12, 0.5) 100%);
         z-index: 1;
       }
 
@@ -77,6 +77,7 @@
         width: 100%;
         height: 100%;
         min-height: 340px;
+        background-color: #050309;
       }
 
       .hero-media picture,
@@ -85,7 +86,11 @@
         inset: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+      }
+
+      .hero-media img {
+        object-fit: contain;
+        object-position: center;
       }
 
       .hero-content {
@@ -276,7 +281,7 @@
 
       @media (max-width: 640px) {
         .hero {
-          background: rgba(7, 5, 12, 0.92);
+          background: rgba(7, 5, 12, 0.82);
           border-radius: 22px;
         }
 
@@ -302,6 +307,28 @@
           width: 100%;
           justify-content: center;
           font-size: 1.02rem;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .benefits,
+        .details {
+          padding: 0 18px;
+          gap: 28px;
+        }
+
+        .benefits-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .details {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .benefit-card,
+        .price-card,
+        .about-card {
+          padding: 22px;
         }
       }
     </style>
