@@ -435,6 +435,10 @@
         }
 
         @media (max-width: 600px) {
+            .hero {
+                min-height: 624px;
+            }
+
             .hero-content {
                 padding: 28px;
                 gap: 18px;
@@ -442,6 +446,44 @@
 
             .hero-actions {
                 gap: 12px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            header {
+                padding-left: clamp(48px, 6vw, 96px);
+                padding-right: clamp(48px, 6vw, 96px);
+            }
+
+            .header-inner {
+                max-width: none;
+                width: 100%;
+            }
+
+            .hero {
+                padding-inline: clamp(48px, 6vw, 96px);
+            }
+
+            .hero-inner {
+                max-width: none;
+            }
+
+            main {
+                max-width: none;
+                width: 100%;
+                padding-left: clamp(48px, 6vw, 96px);
+                padding-right: clamp(48px, 6vw, 96px);
+            }
+
+            section {
+                width: 100%;
+            }
+
+            .footer-inner {
+                max-width: none;
+                width: 100%;
+                padding-left: clamp(48px, 6vw, 96px);
+                padding-right: clamp(48px, 6vw, 96px);
             }
         }
 
