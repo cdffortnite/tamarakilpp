@@ -245,8 +245,8 @@
       .essenza-visual__image {
         position: relative;
         margin: 0 auto;
-        width: min(960px, 100%);
-        padding: 0 2px;
+        width: 100%;
+        padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -254,9 +254,11 @@
       }
 
       .essenza-visual__image img {
-        width: 100%;
+        width: calc(100% - 20px);
+        max-width: 100%;
         height: auto;
         display: block;
+        margin: 0 10px;
       }
 
       .essenza-visual__card {
