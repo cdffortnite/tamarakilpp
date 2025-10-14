@@ -159,6 +159,61 @@
         box-shadow: 0 28px 65px -35px rgba(217, 164, 65, 0.55);
       }
 
+      .essenza-visual {
+        margin: 0;
+        width: 100%;
+      }
+
+      .essenza-visual__title {
+        margin: 0;
+        padding: clamp(16px, 4vw, 32px) clamp(20px, 6vw, 60px) clamp(12px, 3vw, 24px);
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .essenza-visual__image {
+        margin: 0;
+      }
+
+      .essenza-visual__image img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .essenza-visual__card {
+        width: 100%;
+        margin: 0;
+        padding: clamp(28px, 6vw, 56px) clamp(24px, 6vw, 64px);
+        background: linear-gradient(135deg, rgba(20, 17, 30, 0.85), rgba(36, 32, 55, 0.92));
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        justify-content: center;
+      }
+
+      .essenza-visual__card-content {
+        max-width: 1080px;
+        text-align: center;
+        display: grid;
+        gap: 16px;
+      }
+
+      .essenza-visual__card-title {
+        margin: 0;
+        font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .essenza-visual__card-text {
+        margin: 0;
+        color: rgba(249, 245, 255, 0.75);
+        font-size: clamp(1rem, 2.2vw, 1.2rem);
+        line-height: 1.8;
+      }
+
       .tagline {
         margin-top: 18px;
         font-size: 0.92rem;
@@ -301,6 +356,7 @@
         .details {
           margin-top: 48px;
         }
+
       }
 
       @media (max-width: 640px) {
@@ -374,6 +430,7 @@
           justify-content: center;
           max-width: 640px;
         }
+
       }
     </style>
   </head>
@@ -400,6 +457,22 @@
           </div>
         </section>
       </header>
+
+      <section class="essenza-visual" aria-labelledby="essenza-visual-title">
+        <h2 id="essenza-visual-title" class="essenza-visual__title">Dentro e fora do Essenza</h2>
+        <figure class="essenza-visual__image">
+          <img src="./dentro-fora-essenza.png" alt="Comparativo visual sobre estar dentro ou fora do Essenza" loading="lazy" />
+        </figure>
+        <div class="essenza-visual__card">
+          <div class="essenza-visual__card-content">
+            <h3 class="essenza-visual__card-title">resultado essenza</h3>
+            <p class="essenza-visual__card-text">
+              Você passa a vestir sua melhor versão todos os dias, com curadorias estratégicas que conectam desejos, rotina e identidade.
+              O Essenza é o atalho para escolhas inteligentes que refletem a mulher que você já é.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section class="px-4 py-20">
         <div
