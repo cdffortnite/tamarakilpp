@@ -22,6 +22,13 @@
       };
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
       :root {
         color-scheme: dark;
@@ -260,6 +267,14 @@
           padding: 18px 0 0;
         }
 
+        .attention-wrapper {
+          border-radius: 20px;
+        }
+
+        .attention-list--compact {
+          grid-template-columns: 1fr;
+        }
+
         .hero {
           border-radius: 24px;
         }
@@ -381,46 +396,94 @@
         </section>
       </header>
 
-      <section class="px-4 py-16">
-        <div class="mx-auto flex max-w-4xl justify-center">
-          <div
-            class="w-full rounded-3xl border border-[#ffc107] bg-[#831c1c] px-8 py-10 text-white shadow-[0_25px_60px_rgba(0,0,0,0.35)] sm:px-12 sm:py-12"
-          >
-            <div class="space-y-6 font-sans text-left">
-              <h2 class="text-center text-3xl font-extrabold tracking-[0.2em] text-[#ffc107]">ATENÇÃO</h2>
-              <p class="text-base leading-relaxed sm:text-lg">
-                Uma única compra errada que você faz sozinha, custa mais que o investimento no Essenza para fazer escolhas inteligentes.
-              </p>
-              <p class="text-base leading-relaxed sm:text-lg">
-                DESCUBRA O QUE VALE A PENA COMPRAR, ONDE ENCONTRAR E COMO USAR, SEM PERDER TEMPO E DINHEIRO!
-              </p>
-              <p class="text-base leading-relaxed sm:text-lg">
-                Receba catálogos quinzenais com curadoria de moda inteligente, para você comprar com segurança e se vestir com confiança. Pense em quantas vezes você já…
-              </p>
-              <ul class="list-disc space-y-2 pl-6 text-base leading-relaxed sm:text-lg">
-                <li>Gastou em uma peça que nunca usou;</li>
-                <li>Fez compras por impulso;</li>
-                <li>Se deixou levar por modinhas passageiras que logo ficaram esquecidas no armário.</li>
-              </ul>
-              <p class="text-base leading-relaxed sm:text-lg">
+      <section class="px-4 py-20">
+        <div
+          class="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-red-900/30 bg-black/80 shadow-[0_40px_120px_-50px_rgba(0,0,0,0.9)] backdrop-blur"
+        >
+          <div class="bg-red-900 px-6 py-8 text-center sm:px-10 sm:py-10">
+            <p class="text-2xl font-black uppercase tracking-[0.4em] text-yellow-400 sm:text-3xl">ATENÇÃO</p>
+            <p class="mx-auto mt-3 max-w-3xl text-base text-white sm:mt-4 sm:text-lg">
+              Uma única compra errada que você faz sozinha, custa mais que um ano inteiro do Arquivo Fashion para fazer escolhas inteligentes.
+            </p>
+          </div>
+          <div class="bg-black px-6 py-12 sm:px-12 sm:py-16">
+            <div class="mx-auto max-w-3xl space-y-10 text-center">
+              <div class="space-y-4">
+                <h3 class="text-3xl font-bold text-white sm:text-4xl">Pense em quantas vezes você já...</h3>
+                <p class="text-base text-gray-100 sm:text-lg">
+                  Descubra o que vale a pena comprar, onde encontrar e como usar, sem perder tempo e dinheiro.
+                </p>
+                <p class="text-base text-gray-100 sm:text-lg">
+                  Receba catálogos quinzenais com curadoria de moda inteligente para comprar com segurança e se vestir com confiança.
+                </p>
+              </div>
+              <div class="grid gap-4 text-left">
+                <div class="flex items-start gap-4 rounded-2xl border border-red-900/30 bg-neutral-900/80 px-5 py-4">
+                  <span class="mt-1 text-2xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                  <p class="text-base font-medium text-gray-100 sm:text-lg">Gastou em uma peça que nunca usou;</p>
+                </div>
+                <div class="flex items-start gap-4 rounded-2xl border border-red-900/30 bg-neutral-900/80 px-5 py-4">
+                  <span class="mt-1 text-2xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                  <p class="text-base font-medium text-gray-100 sm:text-lg">Fez compras por impulso;</p>
+                </div>
+                <div class="flex items-start gap-4 rounded-2xl border border-red-900/30 bg-neutral-900/80 px-5 py-4">
+                  <span class="mt-1 text-2xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                  <p class="text-base font-medium text-gray-100 sm:text-lg">
+                    Se deixou levar por modinhas passageiras que logo ficaram esquecidas no armário.
+                  </p>
+                </div>
+              </div>
+              <p class="text-base text-gray-100 sm:text-lg">
                 Talvez tenha se frustrado ao perceber que gastou dinheiro em itens que não combinam com nada, e pior ainda, não refletem a imagem que você deseja passar.
               </p>
-              <p class="text-base leading-relaxed sm:text-lg">Cada compra errada custa caro.</p>
-              <p class="text-base leading-relaxed sm:text-lg">
-                Com o ESSENZA, você evita esses arrependimentos, faz escolhas certeiras e transforma cada investimento em moda em algo que realmente vale a pena.
+              <p class="text-lg font-semibold uppercase tracking-[0.2em] text-yellow-400 sm:text-xl">Cada compra errada custa caro.</p>
+              <div class="grid gap-3 text-left sm:grid-cols-2">
+                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
+                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                  <p class="text-sm text-gray-100 sm:text-base">Facilitar suas compras com curadorias certeiras</p>
+                </div>
+                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
+                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                  <p class="text-sm text-gray-100 sm:text-base">Dar segurança na hora de escolher o que vestir</p>
+                </div>
+                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
+                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                  <p class="text-sm text-gray-100 sm:text-base">Oferecer a curadoria de uma especialista em moda</p>
+                </div>
+                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
+                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                  <p class="text-sm text-gray-100 sm:text-base">Ajudar a evitar gastos com compras erradas</p>
+                </div>
+                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
+                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                  <p class="text-sm text-gray-100 sm:text-base">Aperfeiçoar seu estilo com escolhas assertivas</p>
+                </div>
+                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
+                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                  <p class="text-sm text-gray-100 sm:text-base">Fazer você ganhar tempo e economizar dinheiro</p>
+                </div>
+                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4 sm:col-span-2">
+                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                  <p class="text-sm text-gray-100 sm:text-base">Manter você atualizada com conteúdos rápidos e práticos</p>
+                </div>
+              </div>
+              <div>
+                <a
+                  class="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-red-900 via-red-800 to-red-700 px-8 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-white transition-transform duration-200 hover:scale-105 hover:from-red-800 hover:via-red-700 hover:to-red-600 sm:w-auto sm:text-base"
+                  href="https://wa.me/5551999049327"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  CADA COMPRA ERRADA CUSTA CARO.
+                </a>
+              </div>
+              <p class="text-base text-gray-100 sm:text-lg">
+                Com o <span class="font-semibold text-yellow-400">ARQUIVO FASHION</span>, você evita esses arrependimentos, faz escolhas certeiras e transforma cada investimento em moda em algo que realmente vale a pena.
               </p>
-              <p class="text-base leading-relaxed sm:text-lg">
-                Não é sobre gastar mais, e sim sobre investir melhor. E VAI…
+              <p class="text-sm text-gray-200 sm:text-base">
+                Não é sobre gastar mais, é sim sobre
+                <span class="text-yellow-400 underline decoration-2 decoration-yellow-400 underline-offset-4">investir melhor.</span>
               </p>
-              <ul class="list-disc space-y-2 pl-6 text-base leading-relaxed sm:text-lg">
-                <li>Facilitar suas compras com curadorias certeiras;</li>
-                <li>Te dar segurança na hora de escolher o que vestir;</li>
-                <li>Oferecer a curadoria de uma especialista em moda;</li>
-                <li>Te ajudar a evitar gastos com compras erradas;</li>
-                <li>Aperfeiçoar seu estilo com escolhas mais assertivas;</li>
-                <li>Fazer você ganhar tempo e economizar dinheiro;</li>
-                <li>Te manter atualizada com conteúdos rápidos e práticos.</li>
-              </ul>
             </div>
           </div>
         </div>
