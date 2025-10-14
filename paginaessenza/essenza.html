@@ -70,6 +70,69 @@
         flex-direction: column;
       }
 
+      .attention-section {
+        width: 100%;
+        background: linear-gradient(135deg, rgba(76, 14, 18, 0.9), rgba(18, 8, 12, 0.95));
+        padding: clamp(48px, 7vw, 96px) clamp(18px, 9vw, 80px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .attention-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(185, 28, 28, 0.45), transparent 55%),
+          radial-gradient(circle at 80% 10%, rgba(127, 29, 29, 0.35), transparent 60%),
+          radial-gradient(circle at 60% 90%, rgba(40, 0, 4, 0.55), transparent 65%);
+        opacity: 0.75;
+        pointer-events: none;
+      }
+
+      .attention-section__inner {
+        width: min(1120px, 100%);
+        margin: 0 auto;
+        border-radius: 32px;
+        border: 1px solid rgba(127, 29, 29, 0.45);
+        background: rgba(8, 4, 12, 0.88);
+        box-shadow: 0 45px 140px -70px rgba(0, 0, 0, 0.95);
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        backdrop-filter: blur(6px);
+      }
+
+      .attention-section__intro {
+        background: linear-gradient(120deg, rgba(127, 29, 29, 0.95), rgba(76, 14, 18, 0.92));
+        padding: clamp(28px, 7vw, 56px) clamp(22px, 8vw, 72px);
+        text-align: center;
+      }
+
+      .attention-section__content {
+        padding: clamp(36px, 8vw, 96px) clamp(22px, 8vw, 72px) clamp(42px, 8vw, 96px);
+        display: grid;
+        gap: clamp(28px, 6vw, 48px);
+        text-align: center;
+        background: linear-gradient(180deg, rgba(8, 6, 12, 0.9) 0%, rgba(6, 3, 9, 0.92) 100%);
+      }
+
+      .attention-section__list {
+        display: grid;
+        gap: 16px;
+        text-align: left;
+      }
+
+      .attention-section__benefits {
+        display: grid;
+        gap: 16px;
+      }
+
+      @media (min-width: 640px) {
+        .attention-section__benefits {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
       header {
         padding: 24px 0 0;
       }
@@ -96,7 +159,7 @@
       }
 
       .hero-media {
-        
+        position: relative;
         width: 100%;
         min-height: 340px;
         background-color: #050309;
@@ -115,6 +178,22 @@
       .hero-media img {
         object-fit: cover;
         object-position: center;
+      }
+
+      @media (max-width: 640px) {
+        .hero-media {
+          min-height: 420px;
+        }
+
+        .hero-media picture,
+        .hero-media img {
+          top: -32px;
+          height: calc(100% + 32px);
+        }
+
+        .hero-media img {
+          object-position: 50% 18%;
+        }
       }
 
       .hero-content {
@@ -190,21 +269,12 @@
       }
 
       .essenza-visual {
-        margin: clamp(36px, 7vw, 80px) clamp(18px, 6vw, 64px) 0;
+        margin: clamp(48px, 8vw, 120px) 0 0;
         width: 100%;
-        background: linear-gradient(135deg, rgba(77, 59, 15, 0.85), rgba(127, 92, 27, 0.9), rgba(208, 158, 64, 0.85));
-        border-radius: 24px;
-        overflow: hidden;
-        border: 1px solid rgba(241, 210, 123, 0.25);
-        box-shadow: 0 42px 120px -60px rgba(208, 158, 64, 0.65);
-        display: grid;
-        gap: var(--essenza-visual-gap);
-        justify-items: center;
-        align-content: center;
-        text-align: center;
-        padding: clamp(32px, 7vw, 72px) 0 clamp(36px, 8vw, 80px);
+        background: linear-gradient(135deg, rgba(68, 54, 22, 0.9), rgba(20, 16, 8, 0.94));
         position: relative;
-        z-index: 0;
+        overflow: hidden;
+        padding: clamp(52px, 10vw, 128px) clamp(20px, 10vw, 96px);
       }
 
       .essenza-visual::before {
@@ -216,15 +286,21 @@
         z-index: 0;
       }
 
-      .essenza-visual__heading {
-        display: grid;
-        gap: clamp(12px, 3vw, 20px);
-        width: min(960px, 100%);
+      .essenza-visual__container {
+        width: min(1160px, 100%);
         margin: 0 auto;
-        padding: 0 var(--essenza-visual-padding);
+        display: grid;
+        gap: clamp(28px, 6vw, 64px);
         text-align: center;
         position: relative;
         z-index: 1;
+      }
+
+      .essenza-visual__heading {
+        display: grid;
+        gap: clamp(12px, 3vw, 20px);
+        padding: 0 var(--essenza-visual-padding);
+        text-align: center;
       }
 
       .essenza-visual__title {
@@ -245,52 +321,52 @@
       .essenza-visual__image {
         position: relative;
         margin: 0 auto;
-        width: 100%;
+        width: min(100%, 960px);
         padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 1;
       }
 
       .essenza-visual__image img {
         width: calc(100% - 20px);
-        max-width: 100%;
         height: auto;
         display: block;
         margin: 0 10px;
       }
 
       .essenza-visual__card {
-        width: min(960px, 100%);
+        width: min(1040px, 100%);
         margin: 0 auto;
-        padding: clamp(28px, 6vw, 56px) var(--essenza-visual-padding);
-        background: rgba(10, 8, 20, 0.72);
+        padding: clamp(38px, 7vw, 72px) clamp(24px, 7vw, 72px);
+        background: linear-gradient(160deg, rgba(19, 15, 8, 0.92), rgba(44, 32, 12, 0.88));
+        border-radius: 28px;
+        border: 1px solid rgba(241, 210, 123, 0.3);
+        box-shadow: 0 38px 120px -65px rgba(239, 198, 112, 0.65);
         display: grid;
         justify-items: center;
-        position: relative;
-        z-index: 1;
       }
 
       .essenza-visual__card-content {
-        max-width: 1080px;
+        max-width: 880px;
         text-align: center;
         display: grid;
-        gap: 16px;
+        gap: clamp(18px, 4vw, 28px);
       }
 
       .essenza-visual__card-title {
         margin: 0;
-        font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-        letter-spacing: 0.12em;
+        font-size: clamp(1.65rem, 3.8vw, 2.4rem);
+        letter-spacing: 0.18em;
         text-transform: uppercase;
+        color: #f8e3ad;
       }
 
       .essenza-visual__card-text {
         margin: 0;
-        color: rgba(249, 245, 255, 0.75);
-        font-size: clamp(1rem, 2.2vw, 1.2rem);
-        line-height: 1.8;
+        color: rgba(249, 245, 255, 0.82);
+        font-size: clamp(1.02rem, 2.2vw, 1.24rem);
+        line-height: 1.85;
       }
 
       .tagline {
@@ -553,23 +629,20 @@
         </section>
       </header>
 
-      <section class="px-4 py-20">
-        <div
-          class="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-red-900/30 bg-black/80 shadow-[0_40px_120px_-50px_rgba(0,0,0,0.9)] backdrop-blur"
-        >
-          <div class="bg-red-900 px-6 py-8 text-center sm:px-10 sm:py-10">
+      <section class="attention-section" aria-labelledby="attention-title">
+        <div class="attention-section__inner">
+          <div class="attention-section__intro">
             <p class="text-2xl font-black uppercase tracking-[0.4em] text-yellow-400 sm:text-3xl">ATENÇÃO</p>
             <p class="mx-auto mt-3 max-w-3xl text-base text-white sm:mt-4 sm:text-lg">
               Uma única compra errada que você faz sozinha, custa mais que um ano inteiro do ESSENZA para fazer escolhas inteligentes.
             </p>
           </div>
-          <div class="bg-black px-6 py-12 sm:px-12 sm:py-16">
-            <div class="mx-auto max-w-3xl space-y-10 text-center">
+          <div class="attention-section__content">
+            <div class="mx-auto max-w-3xl space-y-10">
               <div class="space-y-4">
-                <h3 class="text-3xl font-bold text-white sm:text-4xl">Pense em quantas vezes você já...</h3>
-
+                <h3 id="attention-title" class="text-3xl font-bold text-white sm:text-4xl">Pense em quantas vezes você já...</h3>
               </div>
-              <div class="grid gap-4 text-left">
+              <div class="attention-section__list">
                 <div class="flex items-start gap-4 rounded-2xl border border-red-900/30 bg-neutral-900/80 px-5 py-4">
                   <span class="mt-1 text-2xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
                   <p class="text-base font-medium text-gray-100 sm:text-lg">Gastou em uma peça que nunca usou;</p>
@@ -586,10 +659,11 @@
                 </div>
               </div>
               <p class="text-base text-gray-100 sm:text-lg">
-                Talvez tenha se frustrado ao perceber que gastou dinheiro em itens que não combinam com nada, e pior ainda, não refletem a imagem que você deseja passar.
+                Talvez tenha se frustrado ao perceber que gastou dinheiro em itens que não combinam com nada, e pior ainda, não
+                refletem a imagem que você deseja passar.
               </p>
               <p class="text-lg font-semibold uppercase tracking-[0.2em] text-yellow-400 sm:text-xl">Cada compra errada custa caro.</p>
-              <div class="grid gap-3 text-left sm:grid-cols-2">
+              <div class="attention-section__benefits">
                 <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
                   <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
                   <p class="text-sm text-gray-100 sm:text-base">Facilitar suas compras com curadorias certeiras</p>
@@ -642,26 +716,28 @@
       </section>
 
       <section class="essenza-visual" aria-labelledby="essenza-visual-title">
-        <div class="essenza-visual__heading">
-          <h2 id="essenza-visual-title" class="essenza-visual__title">
-            ESSENZA, É DIFERENTE DE TUDO QUE VOCÊ JÁ VIU!
-          </h2>
-          <p class="essenza-visual__subtitle">Essa é a diferença entre quem está fora ou dentro do grupo:</p>
-        </div>
-        <figure class="essenza-visual__image">
-          <img
-            src="./dentroefora.png"
-            alt="Comparativo visual sobre estar dentro ou fora do Essenza"
-            loading="lazy"
-          />
-        </figure>
-        <div class="essenza-visual__card">
-          <div class="essenza-visual__card-content">
-            <h3 class="essenza-visual__card-title">Resultado Essenza</h3>
-            <p class="essenza-visual__card-text">
-              Você passa a vestir sua melhor versão todos os dias, com curadorias estratégicas que conectam desejos, rotina e identidade.
-              O Essenza é o atalho para escolhas inteligentes que refletem a mulher que você já é.
-            </p>
+        <div class="essenza-visual__container">
+          <div class="essenza-visual__heading">
+            <h2 id="essenza-visual-title" class="essenza-visual__title">
+              ESSENZA, É DIFERENTE DE TUDO QUE VOCÊ JÁ VIU!
+            </h2>
+            <p class="essenza-visual__subtitle">Essa é a diferença entre quem está fora ou dentro do grupo:</p>
+          </div>
+          <figure class="essenza-visual__image">
+            <img
+              src="./dentroefora.png"
+              alt="Comparativo visual sobre estar dentro ou fora do Essenza"
+              loading="lazy"
+            />
+          </figure>
+          <div class="essenza-visual__card">
+            <div class="essenza-visual__card-content">
+              <h3 class="essenza-visual__card-title">Resultado Essenza</h3>
+              <p class="essenza-visual__card-text">
+                Você passa a vestir sua melhor versão todos os dias, com curadorias estratégicas que conectam desejos, rotina e identidade.
+                O Essenza é o atalho para escolhas inteligentes que refletem a mulher que você já é.
+              </p>
+            </div>
           </div>
         </div>
       </section>
