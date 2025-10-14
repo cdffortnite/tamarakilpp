@@ -191,10 +191,24 @@
         margin: clamp(36px, 7vw, 80px) clamp(18px, 6vw, 64px) 0;
         width: 100%;
         background: linear-gradient(135deg, rgba(77, 59, 15, 0.85), rgba(127, 92, 27, 0.9), rgba(208, 158, 64, 0.85));
-        border-radius: 34px;
+        border-radius: 24px;
         overflow: hidden;
         border: 1px solid rgba(241, 210, 123, 0.25);
         box-shadow: 0 42px 120px -60px rgba(208, 158, 64, 0.65);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 0;
+      }
+
+      .essenza-visual::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(140deg, rgba(239, 198, 112, 0.22), rgba(160, 113, 32, 0.16) 45%, rgba(85, 61, 18, 0.24));
+        pointer-events: none;
+        z-index: 0;
       }
 
       .essenza-visual__heading {
@@ -202,6 +216,8 @@
         gap: 10px;
         padding: clamp(20px, 5vw, 48px) clamp(24px, 6vw, 64px) clamp(12px, 3vw, 28px);
         text-align: center;
+        position: relative;
+        z-index: 1;
       }
 
       .essenza-visual__title {
@@ -220,7 +236,12 @@
       }
 
       .essenza-visual__image {
+        position: relative;
         margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
       }
 
       .essenza-visual__image img {
@@ -236,6 +257,8 @@
         background: rgba(10, 8, 20, 0.72);
         display: flex;
         justify-content: center;
+        position: relative;
+        z-index: 1;
       }
 
       .essenza-visual__card-content {
@@ -519,27 +542,6 @@
         </section>
       </header>
 
-      <section class="essenza-visual" aria-labelledby="essenza-visual-title">
-        <div class="essenza-visual__heading">
-          <h2 id="essenza-visual-title" class="essenza-visual__title">
-            ESSENZA, É DIFERENTE DE TUDO QUE VOCÊ JÁ VIU!
-          </h2>
-          <p class="essenza-visual__subtitle">Essa é a diferença entre quem está fora ou dentro do grupo:</p>
-        </div>
-        <figure class="essenza-visual__image">
-          <img src="./dentroefora.png" alt="Comparativo visual sobre estar dentro ou fora do Essenza" loading="lazy" />
-        </figure>
-        <div class="essenza-visual__card">
-          <div class="essenza-visual__card-content">
-            <h3 class="essenza-visual__card-title">Resultado Essenza</h3>
-            <p class="essenza-visual__card-text">
-              Você passa a vestir sua melhor versão todos os dias, com curadorias estratégicas que conectam desejos, rotina e identidade.
-              O Essenza é o atalho para escolhas inteligentes que refletem a mulher que você já é.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <section class="px-4 py-20">
         <div
           class="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-red-900/30 bg-black/80 shadow-[0_40px_120px_-50px_rgba(0,0,0,0.9)] backdrop-blur"
@@ -624,6 +626,31 @@
                 <span class="text-yellow-400 underline decoration-2 decoration-yellow-400 underline-offset-4">investir melhor.</span>
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="essenza-visual" aria-labelledby="essenza-visual-title">
+        <div class="essenza-visual__heading">
+          <h2 id="essenza-visual-title" class="essenza-visual__title">
+            ESSENZA, É DIFERENTE DE TUDO QUE VOCÊ JÁ VIU!
+          </h2>
+          <p class="essenza-visual__subtitle">Essa é a diferença entre quem está fora ou dentro do grupo:</p>
+        </div>
+        <figure class="essenza-visual__image">
+          <img
+            src="./dentro-fora-essenza.png"
+            alt="Comparativo visual sobre estar dentro ou fora do Essenza"
+            loading="lazy"
+          />
+        </figure>
+        <div class="essenza-visual__card">
+          <div class="essenza-visual__card-content">
+            <h3 class="essenza-visual__card-title">Resultado Essenza</h3>
+            <p class="essenza-visual__card-text">
+              Você passa a vestir sua melhor versão todos os dias, com curadorias estratégicas que conectam desejos, rotina e identidade.
+              O Essenza é o atalho para escolhas inteligentes que refletem a mulher que você já é.
+            </p>
           </div>
         </div>
       </section>
