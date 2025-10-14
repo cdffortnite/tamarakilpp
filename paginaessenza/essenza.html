@@ -763,6 +763,14 @@
           max-width: 640px;
         }
 
+        .attention-band__benefits-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .attention-band__benefit:nth-last-child(1):nth-child(3n + 1) {
+          grid-column: 2;
+        }
+
       }
     </style>
   </head>
