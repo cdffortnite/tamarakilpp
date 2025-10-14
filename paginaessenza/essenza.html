@@ -189,107 +189,317 @@
         box-shadow: 0 28px 65px -35px rgba(217, 164, 65, 0.55);
       }
 
-      .essenza-visual {
-        width: 100%;
-        background: linear-gradient(135deg, rgba(77, 59, 15, 0.85), rgba(127, 92, 27, 0.9), rgba(208, 158, 64, 0.85));
-        border-radius: 24px;
-        overflow: hidden;
-        border: 1px solid rgba(241, 210, 123, 0.25);
-        box-shadow: 0 42px 120px -60px rgba(208, 158, 64, 0.65);
-        display: grid;
-        gap: var(--essenza-visual-gap);
-        justify-items: center;
-        align-content: center;
-        text-align: center;
-        padding: clamp(32px, 7vw, 72px) 0 clamp(36px, 8vw, 80px);
+      .attention-band {
         position: relative;
-        z-index: 0;
+        width: 100%;
+        background: linear-gradient(135deg, rgba(44, 11, 16, 0.95), rgba(92, 22, 33, 0.92) 45%, rgba(148, 34, 34, 0.88));
+        padding: clamp(72px, 12vw, 132px) 0;
+        border-top: 1px solid rgba(248, 113, 113, 0.3);
+        border-bottom: 1px solid rgba(248, 113, 113, 0.25);
+        box-shadow: 0 70px 160px -90px rgba(0, 0, 0, 0.85);
+        overflow: hidden;
+      }
+
+      .attention-band::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top left, rgba(248, 113, 113, 0.32), transparent 55%),
+          radial-gradient(circle at bottom right, rgba(249, 168, 212, 0.22), transparent 65%);
+        pointer-events: none;
+        opacity: 0.8;
+      }
+
+      .attention-band__inner {
+        position: relative;
+        z-index: 1;
+        width: min(1180px, 100%);
+        margin: 0 auto;
+        padding: 0 clamp(24px, 6vw, 72px);
+        display: grid;
+        gap: clamp(40px, 7vw, 72px);
+      }
+
+      .attention-band__headline {
+        display: grid;
+        gap: clamp(16px, 3vw, 24px);
+        text-align: center;
+      }
+
+      .attention-band__kicker {
+        justify-self: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 28px;
+        border-radius: 999px;
+        background: rgba(12, 8, 20, 0.35);
+        border: 1px solid rgba(250, 204, 21, 0.45);
+        color: #fcd34d;
+        font-size: clamp(0.8rem, 0.9vw, 0.95rem);
+        font-weight: 700;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+      }
+
+      .attention-band__intro {
+        margin: 0 auto;
+        max-width: 780px;
+        font-size: clamp(1rem, 1.9vw, 1.25rem);
+        color: rgba(255, 255, 255, 0.92);
+        line-height: 1.7;
+      }
+
+      .attention-band__body {
+        display: grid;
+        gap: clamp(32px, 6vw, 56px);
+        text-align: center;
+      }
+
+      .attention-band__prompt {
+        display: grid;
+        gap: 12px;
+      }
+
+      .attention-band__prompt-title {
+        margin: 0;
+        font-size: clamp(2.1rem, 4vw, 3rem);
+        font-weight: 700;
+        color: #fff;
+      }
+
+      .attention-band__list,
+      .attention-band__benefits-grid {
+        width: min(960px, 100%);
+        margin: 0 auto;
+        display: grid;
+        gap: 18px;
+        text-align: left;
+      }
+
+      .attention-band__list {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .attention-band__item {
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+        padding: clamp(18px, 3.2vw, 26px);
+        border-radius: 22px;
+        border: 1px solid rgba(248, 113, 113, 0.3);
+        background: linear-gradient(160deg, rgba(12, 8, 20, 0.72), rgba(30, 12, 18, 0.62));
+        box-shadow: 0 30px 90px -55px rgba(0, 0, 0, 0.85);
+      }
+
+      .attention-band__item-icon {
+        flex: 0 0 auto;
+        font-size: clamp(1.6rem, 2.1vw, 2.2rem);
+        color: #f87171;
+        margin-top: 4px;
+      }
+
+      .attention-band__item-text {
+        margin: 0;
+        font-size: clamp(1rem, 1.8vw, 1.1rem);
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        line-height: 1.6;
+      }
+
+      .attention-band__description {
+        margin: 0 auto;
+        max-width: 820px;
+        font-size: clamp(1rem, 1.8vw, 1.15rem);
+        color: rgba(255, 255, 255, 0.88);
+        line-height: 1.8;
+      }
+
+      .attention-band__accent {
+        margin: 0;
+        font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #fde68a;
+      }
+
+      .attention-band__benefits-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+      }
+
+      .attention-band__benefit {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: clamp(16px, 3vw, 22px) clamp(18px, 3.4vw, 26px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(15, 10, 22, 0.65);
+        box-shadow: 0 26px 80px -60px rgba(0, 0, 0, 0.8);
+      }
+
+      .attention-band__benefit .attention-band__item-icon {
+        font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+        margin-top: 2px;
+      }
+
+      .attention-band__benefit-text {
+        margin: 0;
+        font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .attention-band__cta {
+        display: flex;
+        justify-content: center;
+      }
+
+      .cta--attention {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(16px, 3.4vw, 20px) clamp(32px, 6vw, 44px);
+        border-radius: 999px;
+        font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        text-decoration: none;
+        color: #fff;
+        background: linear-gradient(135deg, rgba(185, 28, 28, 0.95), rgba(220, 38, 38, 0.92));
+        box-shadow: 0 35px 95px -55px rgba(220, 38, 38, 0.8);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .cta--attention:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 40px 110px -60px rgba(239, 68, 68, 0.75);
+      }
+
+      .attention-band__footer {
+        display: grid;
+        gap: 12px;
+        max-width: 780px;
+        margin: 0 auto;
+        color: rgba(255, 255, 255, 0.88);
+        font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+        line-height: 1.8;
+      }
+
+      .attention-band__footer strong {
+        color: #fcd34d;
+        font-weight: 600;
+      }
+
+      .attention-band__emphasis {
+        color: #facc15;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 6px;
+      }
+
+      .essenza-visual {
+        position: relative;
+        width: 100%;
+        background: linear-gradient(160deg, rgba(19, 12, 28, 0.95), rgba(26, 17, 36, 0.9) 50%, rgba(63, 28, 36, 0.88));
+        padding: clamp(80px, 14vw, 148px) 0;
+        border-top: 1px solid rgba(241, 210, 123, 0.08);
+        border-bottom: 1px solid rgba(241, 210, 123, 0.08);
+        overflow: hidden;
       }
 
       .essenza-visual::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(140deg, rgba(239, 198, 112, 0.22), rgba(160, 113, 32, 0.16) 45%, rgba(85, 61, 18, 0.24));
+        background: radial-gradient(circle at top right, rgba(241, 210, 123, 0.22), transparent 60%),
+          radial-gradient(circle at bottom left, rgba(244, 114, 182, 0.18), transparent 65%);
         pointer-events: none;
-        z-index: 0;
+        opacity: 0.9;
+      }
+
+      .essenza-visual__inner {
+        position: relative;
+        z-index: 1;
+        width: min(1180px, 100%);
+        margin: 0 auto;
+        padding: 0 clamp(24px, 6vw, 72px);
+        display: grid;
+        gap: clamp(44px, 7vw, 80px);
       }
 
       .essenza-visual__heading {
         display: grid;
-        gap: clamp(12px, 3vw, 20px);
-        width: min(960px, 100%);
-        margin: 0 auto;
-        padding: 0 var(--essenza-visual-padding);
+        gap: clamp(14px, 3vw, 22px);
         text-align: center;
-        position: relative;
-        z-index: 1;
       }
 
       .essenza-visual__title {
         margin: 0;
-        font-size: clamp(2rem, 5vw, 3rem);
-        letter-spacing: 0.08em;
+        font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+        letter-spacing: 0.1em;
         text-transform: uppercase;
       }
 
       .essenza-visual__subtitle {
-        margin: 0;
-        font-size: clamp(1.05rem, 3vw, 1.35rem);
-        letter-spacing: 0.08em;
+        margin: 0 auto;
+        max-width: 720px;
+        font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+        letter-spacing: 0.12em;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.88);
+        line-height: 1.6;
+      }
+
+      .essenza-visual__media {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        padding: clamp(28px, 6vw, 56px);
+        border-radius: 28px;
+        background: linear-gradient(140deg, rgba(14, 10, 24, 0.85), rgba(28, 18, 36, 0.78));
+        border: 1px solid rgba(241, 210, 123, 0.16);
+        box-shadow: 0 45px 140px -80px rgba(0, 0, 0, 0.85);
       }
 
       .essenza-visual__image {
-        position: relative;
-        margin: 0 auto;
-        width: 100%;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1;
+        margin: 0;
+        width: min(960px, 100%);
       }
 
       .essenza-visual__image img {
-        width: calc(100% + 20px);
-        max-width: 100%;
-        height: auto;
         display: block;
-        margin: 0 10px;
+        width: 100%;
+        height: auto;
+        border-radius: 16px;
       }
 
       .essenza-visual__card {
-        width: min(960px, 100%);
-        margin: 0 auto;
-        padding: clamp(28px, 6vw, 56px) var(--essenza-visual-padding);
-        background: rgba(10, 8, 20, 0.72);
         display: grid;
-        justify-items: center;
-        position: relative;
-        z-index: 1;
-      }
-
-      .essenza-visual__card-content {
-        max-width: 1080px;
+        gap: clamp(18px, 3vw, 26px);
+        padding: clamp(32px, 6vw, 58px);
+        border-radius: 28px;
+        border: 1px solid rgba(241, 210, 123, 0.2);
+        background: linear-gradient(150deg, rgba(25, 18, 36, 0.82), rgba(38, 20, 28, 0.76));
+        box-shadow: 0 48px 140px -88px rgba(0, 0, 0, 0.85);
         text-align: center;
-        display: grid;
-        gap: 16px;
       }
 
       .essenza-visual__card-title {
         margin: 0;
-        font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-        letter-spacing: 0.12em;
+        font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+        letter-spacing: 0.16em;
         text-transform: uppercase;
       }
 
       .essenza-visual__card-text {
-        margin: 0;
-        color: rgba(249, 245, 255, 0.75);
-        font-size: clamp(1rem, 2.2vw, 1.2rem);
-        line-height: 1.8;
+        margin: 0 auto;
+        max-width: 780px;
+        color: rgba(249, 245, 255, 0.78);
+        font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+        line-height: 1.9;
       }
 
       .tagline {
@@ -405,12 +615,13 @@
           padding: 18px 0 0;
         }
 
-        .attention-wrapper {
-          border-radius: 20px;
+        .attention-band__list,
+        .attention-band__benefits-grid {
+          grid-template-columns: minmax(0, 1fr);
         }
 
-        .attention-list--compact {
-          grid-template-columns: 1fr;
+        .attention-band__accent {
+          letter-spacing: 0.18em;
         }
 
         .hero {
@@ -452,6 +663,14 @@
           padding: clamp(28px, 9vw, 56px) clamp(18px, 8vw, 40px);
         }
 
+        .attention-band__kicker {
+          letter-spacing: 0.35em;
+        }
+
+        .cta--attention {
+          width: 100%;
+        }
+
         .hero-title {
           font-size: clamp(1.9rem, 8vw, 2.5rem);
         }
@@ -472,6 +691,15 @@
       }
 
       @media (max-width: 520px) {
+        .attention-band__inner {
+          padding: 0 clamp(18px, 8vw, 32px);
+        }
+
+        .attention-band__item,
+        .attention-band__benefit {
+          padding: 18px;
+        }
+
         .benefits,
         .details {
           padding: 0 18px;
@@ -552,88 +780,79 @@
         </section>
       </header>
 
-      <section class="px-4 py-20">
-        <div
-          class="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-red-900/30 bg-black/80 shadow-[0_40px_120px_-50px_rgba(0,0,0,0.9)] backdrop-blur"
-        >
-          <div class="bg-red-900 px-6 py-8 text-center sm:px-10 sm:py-10">
-            <p class="text-2xl font-black uppercase tracking-[0.4em] text-yellow-400 sm:text-3xl">ATENÇÃO</p>
-            <p class="mx-auto mt-3 max-w-3xl text-base text-white sm:mt-4 sm:text-lg">
+      <section class="attention-band" aria-labelledby="attention-title">
+        <div class="attention-band__inner">
+          <header class="attention-band__headline">
+            <p class="attention-band__kicker">ATENÇÃO</p>
+            <p class="attention-band__intro">
               Uma única compra errada que você faz sozinha, custa mais que um ano inteiro do ESSENZA para fazer escolhas inteligentes.
             </p>
-          </div>
-          <div class="bg-black px-6 py-12 sm:px-12 sm:py-16">
-            <div class="mx-auto max-w-3xl space-y-10 text-center">
-              <div class="space-y-4">
-                <h3 class="text-3xl font-bold text-white sm:text-4xl">Pense em quantas vezes você já...</h3>
-
-              </div>
-              <div class="grid gap-4 text-left">
-                <div class="flex items-start gap-4 rounded-2xl border border-red-900/30 bg-neutral-900/80 px-5 py-4">
-                  <span class="mt-1 text-2xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
-                  <p class="text-base font-medium text-gray-100 sm:text-lg">Gastou em uma peça que nunca usou;</p>
-                </div>
-                <div class="flex items-start gap-4 rounded-2xl border border-red-900/30 bg-neutral-900/80 px-5 py-4">
-                  <span class="mt-1 text-2xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
-                  <p class="text-base font-medium text-gray-100 sm:text-lg">Fez compras por impulso;</p>
-                </div>
-                <div class="flex items-start gap-4 rounded-2xl border border-red-900/30 bg-neutral-900/80 px-5 py-4">
-                  <span class="mt-1 text-2xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
-                  <p class="text-base font-medium text-gray-100 sm:text-lg">
-                    Se deixou levar por modinhas passageiras que logo ficaram esquecidas no armário.
-                  </p>
-                </div>
-              </div>
-              <p class="text-base text-gray-100 sm:text-lg">
-                Talvez tenha se frustrado ao perceber que gastou dinheiro em itens que não combinam com nada, e pior ainda, não refletem a imagem que você deseja passar.
+          </header>
+          <div class="attention-band__body">
+            <div class="attention-band__prompt">
+              <h3 id="attention-title" class="attention-band__prompt-title">Pense em quantas vezes você já...</h3>
+            </div>
+            <div class="attention-band__list">
+              <article class="attention-band__item">
+                <span class="attention-band__item-icon" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                <p class="attention-band__item-text">Gastou em uma peça que nunca usou;</p>
+              </article>
+              <article class="attention-band__item">
+                <span class="attention-band__item-icon" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                <p class="attention-band__item-text">Fez compras por impulso;</p>
+              </article>
+              <article class="attention-band__item">
+                <span class="attention-band__item-icon" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                <p class="attention-band__item-text">
+                  Se deixou levar por modinhas passageiras que logo ficaram esquecidas no armário.
+                </p>
+              </article>
+            </div>
+            <p class="attention-band__description">
+              Talvez tenha se frustrado ao perceber que gastou dinheiro em itens que não combinam com nada, e pior ainda, não refletem a imagem que você deseja passar.
+            </p>
+            <p class="attention-band__accent">Cada compra errada custa caro.</p>
+            <div class="attention-band__benefits-grid">
+              <article class="attention-band__benefit">
+                <span class="attention-band__item-icon" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                <p class="attention-band__benefit-text">Facilitar suas compras com curadorias certeiras</p>
+              </article>
+              <article class="attention-band__benefit">
+                <span class="attention-band__item-icon" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                <p class="attention-band__benefit-text">Dar segurança na hora de escolher o que vestir</p>
+              </article>
+              <article class="attention-band__benefit">
+                <span class="attention-band__item-icon" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                <p class="attention-band__benefit-text">Oferecer a curadoria de uma especialista em moda</p>
+              </article>
+              <article class="attention-band__benefit">
+                <span class="attention-band__item-icon" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                <p class="attention-band__benefit-text">Ajudar a evitar gastos com compras erradas</p>
+              </article>
+              <article class="attention-band__benefit">
+                <span class="attention-band__item-icon" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                <p class="attention-band__benefit-text">Aperfeiçoar seu estilo com escolhas assertivas</p>
+              </article>
+              <article class="attention-band__benefit">
+                <span class="attention-band__item-icon" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                <p class="attention-band__benefit-text">Fazer você ganhar tempo e economizar dinheiro</p>
+              </article>
+              <article class="attention-band__benefit">
+                <span class="attention-band__item-icon" aria-hidden="true"><i class="fas fa-check-square"></i></span>
+                <p class="attention-band__benefit-text">Manter você atualizada com conteúdos rápidos e práticos</p>
+              </article>
+            </div>
+            <div class="attention-band__cta">
+              <a class="cta--attention" href="https://wa.me/5551999049327" target="_blank" rel="noopener">
+                CADA COMPRA ERRADA CUSTA CARO.
+              </a>
+            </div>
+            <div class="attention-band__footer">
+              <p>
+                Com o <strong>ESSENZA</strong>, você evita esses arrependimentos, faz escolhas certeiras e transforma cada investimento em moda em algo que realmente vale a pena.
               </p>
-              <p class="text-lg font-semibold uppercase tracking-[0.2em] text-yellow-400 sm:text-xl">Cada compra errada custa caro.</p>
-              <div class="grid gap-3 text-left sm:grid-cols-2">
-                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
-                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
-                  <p class="text-sm text-gray-100 sm:text-base">Facilitar suas compras com curadorias certeiras</p>
-                </div>
-                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
-                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
-                  <p class="text-sm text-gray-100 sm:text-base">Dar segurança na hora de escolher o que vestir</p>
-                </div>
-                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
-                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
-                  <p class="text-sm text-gray-100 sm:text-base">Oferecer a curadoria de uma especialista em moda</p>
-                </div>
-                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
-                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
-                  <p class="text-sm text-gray-100 sm:text-base">Ajudar a evitar gastos com compras erradas</p>
-                </div>
-                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
-                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
-                  <p class="text-sm text-gray-100 sm:text-base">Aperfeiçoar seu estilo com escolhas assertivas</p>
-                </div>
-                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4">
-                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
-                  <p class="text-sm text-gray-100 sm:text-base">Fazer você ganhar tempo e economizar dinheiro</p>
-                </div>
-                <div class="flex items-start gap-3 rounded-xl border border-white/10 bg-neutral-900/70 px-5 py-4 sm:col-span-2">
-                  <span class="mt-1 text-xl text-red-500" aria-hidden="true"><i class="fas fa-check-square"></i></span>
-                  <p class="text-sm text-gray-100 sm:text-base">Manter você atualizada com conteúdos rápidos e práticos</p>
-                </div>
-              </div>
-              <div>
-                <a
-                  class="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-red-900 via-red-800 to-red-700 px-8 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-white transition-transform duration-200 hover:scale-105 hover:from-red-800 hover:via-red-700 hover:to-red-600 sm:w-auto sm:text-base"
-                  href="https://wa.me/5551999049327"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  CADA COMPRA ERRADA CUSTA CARO.
-                </a>
-              </div>
-              <p class="text-base text-gray-100 sm:text-lg">
-                Com o <span class="font-semibold text-yellow-400">ESSENZA</span>, você evita esses arrependimentos, faz escolhas certeiras e transforma cada investimento em moda em algo que realmente vale a pena.
-              </p>
-              <p class="text-sm text-gray-200 sm:text-base">
-                Não é sobre gastar mais, é sim sobre
-                <span class="text-yellow-400 underline decoration-2 decoration-yellow-400 underline-offset-4">investir melhor.</span>
+              <p>
+                Não é sobre gastar mais, é sim sobre <span class="attention-band__emphasis">investir melhor.</span>
               </p>
             </div>
           </div>
@@ -641,21 +860,23 @@
       </section>
 
       <section class="essenza-visual" aria-labelledby="essenza-visual-title">
-        <div class="essenza-visual__heading">
-          <h2 id="essenza-visual-title" class="essenza-visual__title">
-            ESSENZA, É DIFERENTE DE TUDO QUE VOCÊ JÁ VIU!
-          </h2>
-          <p class="essenza-visual__subtitle">Essa é a diferença entre quem está fora ou dentro do grupo:</p>
-        </div>
-        <figure class="essenza-visual__image">
-          <img
-            src="./dentroefora.png"
-            alt="Comparativo visual sobre estar dentro ou fora do Essenza"
-            loading="lazy"
-          />
-        </figure>
-        <div class="essenza-visual__card">
-          <div class="essenza-visual__card-content">
+        <div class="essenza-visual__inner">
+          <div class="essenza-visual__heading">
+            <h2 id="essenza-visual-title" class="essenza-visual__title">
+              ESSENZA, É DIFERENTE DE TUDO QUE VOCÊ JÁ VIU!
+            </h2>
+            <p class="essenza-visual__subtitle">Essa é a diferença entre quem está fora ou dentro do grupo:</p>
+          </div>
+          <div class="essenza-visual__media">
+            <figure class="essenza-visual__image">
+              <img
+                src="./dentroefora.png"
+                alt="Comparativo visual sobre estar dentro ou fora do Essenza"
+                loading="lazy"
+              />
+            </figure>
+          </div>
+          <div class="essenza-visual__card">
             <h3 class="essenza-visual__card-title">Resultado Essenza</h3>
             <p class="essenza-visual__card-text">
               Você passa a vestir sua melhor versão todos os dias, com curadorias estratégicas que conectam desejos, rotina e identidade.
