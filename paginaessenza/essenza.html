@@ -119,23 +119,51 @@
         position: relative;
         z-index: 2;
         padding: 48px clamp(24px, 7vw, 80px) 72px;
-        max-width: 560px;
+        max-width: 580px;
         margin: 0 auto;
       }
 
-      .hero-title {
-        margin: 26px 0 20px;
-        font-size: clamp(2.25rem, 4vw, 3.8rem);
-        font-weight: 700;
-        letter-spacing: 0.08em;
+      .hero-kicker {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(241, 210, 123, 0.12);
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.32em;
         text-transform: uppercase;
-        line-height: 1.1;
+      }
+
+      .hero-title {
+        margin: 20px 0 18px;
+        font-size: clamp(2rem, 4vw, 3.1rem);
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        line-height: 1.18;
+      }
+
+      .hero-title__emphasis {
+        color: var(--accent);
       }
 
       .hero-description {
-        font-size: 1.05rem;
+        font-size: clamp(0.98rem, 2.6vw, 1.05rem);
         color: var(--muted);
         margin-bottom: 32px;
+        line-height: 1.7;
+      }
+
+      .hero-description__highlight {
+        color: #f8e3ad;
+        font-weight: 500;
+      }
+
+      .hero-cta-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
       }
 
       .cta {
@@ -160,17 +188,35 @@
       }
 
       .essenza-visual {
-        margin: 0;
+        margin: clamp(36px, 7vw, 80px) clamp(18px, 6vw, 64px) 0;
         width: 100%;
+        background: linear-gradient(135deg, rgba(77, 59, 15, 0.85), rgba(127, 92, 27, 0.9), rgba(208, 158, 64, 0.85));
+        border-radius: 34px;
+        overflow: hidden;
+        border: 1px solid rgba(241, 210, 123, 0.25);
+        box-shadow: 0 42px 120px -60px rgba(208, 158, 64, 0.65);
+      }
+
+      .essenza-visual__heading {
+        display: grid;
+        gap: 10px;
+        padding: clamp(20px, 5vw, 48px) clamp(24px, 6vw, 64px) clamp(12px, 3vw, 28px);
+        text-align: center;
       }
 
       .essenza-visual__title {
         margin: 0;
-        padding: clamp(16px, 4vw, 32px) clamp(20px, 6vw, 60px) clamp(12px, 3vw, 24px);
-        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        font-size: clamp(2rem, 5vw, 3rem);
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        text-align: center;
+      }
+
+      .essenza-visual__subtitle {
+        margin: 0;
+        font-size: clamp(1.05rem, 3vw, 1.35rem);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.88);
       }
 
       .essenza-visual__image {
@@ -187,8 +233,7 @@
         width: 100%;
         margin: 0;
         padding: clamp(28px, 6vw, 56px) clamp(24px, 6vw, 64px);
-        background: linear-gradient(135deg, rgba(20, 17, 30, 0.85), rgba(36, 32, 55, 0.92));
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(10, 8, 20, 0.72);
         display: flex;
         justify-content: center;
       }
@@ -348,8 +393,13 @@
           padding: clamp(32px, 10vw, 64px);
         }
 
+        .hero-kicker {
+          font-size: 0.72rem;
+          letter-spacing: 0.28em;
+        }
+
         .hero-title {
-          letter-spacing: 0.04em;
+          font-size: clamp(2.1rem, 6vw, 3.1rem);
         }
 
         .benefits,
@@ -370,11 +420,15 @@
         }
 
         .hero-title {
-          font-size: clamp(1.9rem, 8vw, 2.6rem);
+          font-size: clamp(1.9rem, 8vw, 2.5rem);
         }
 
         .hero-description {
           font-size: 1rem;
+        }
+
+        .hero-cta-wrapper {
+          align-items: stretch;
         }
 
         .cta {
@@ -445,28 +499,39 @@
             </picture>
           </div>
           <div class="hero-content">
-            <h1 class="hero-title">DESCUBRA O QUE VALE A PENA COMPRAR, ONDE ENCONTRAR E COMO USAR, SEM PERDER TEMPO E DINHEIRO!</h1>
+            <span class="hero-kicker">Essenza por Tamara Kilpp</span>
+            <h1 class="hero-title">
+              Descubra o que realmente vale comprar, onde encontrar e como usar cada peça —
+              <span class="hero-title__emphasis">sem desperdiçar tempo nem dinheiro.</span>
+            </h1>
             <p class="hero-description">
-              Receba curadoria de moda inteligente, para você comprar com segurança e se vestir com confiança.
-              Assine o Essenza hoje e ganhe todas as curadorias já realizadas (só este mês).
+              Receba curadorias de moda inteligentes para comprar com segurança e vestir-se com confiança todos os dias.
+              <span class="hero-description__highlight">Assine o Essenza hoje e garanta todas as curadorias já realizadas — oferta válida somente neste mês.</span>
             </p>
-            
-            <a class="cta" href="https://wa.me/5551999049327" target="_blank" rel="noopener">
-              Quero entrar para o Essenza
-            </a>
-            <p class="tagline">Acesso recorrente por apenas R$ 69,90 mensais.</p>
+
+            <div class="hero-cta-wrapper">
+              <a class="cta" href="https://wa.me/5551999049327" target="_blank" rel="noopener">
+                Quero entrar para o Essenza
+              </a>
+              <p class="tagline">Acesso recorrente por apenas R$ 69,90 mensais.</p>
+            </div>
           </div>
         </section>
       </header>
 
       <section class="essenza-visual" aria-labelledby="essenza-visual-title">
-        <h2 id="essenza-visual-title" class="essenza-visual__title">Dentro e fora do Essenza</h2>
+        <div class="essenza-visual__heading">
+          <h2 id="essenza-visual-title" class="essenza-visual__title">
+            ESSENZA, É DIFERENTE DE TUDO QUE VOCÊ JÁ VIU!
+          </h2>
+          <p class="essenza-visual__subtitle">Essa é a diferença entre quem está fora ou dentro do grupo:</p>
+        </div>
         <figure class="essenza-visual__image">
           <img src="./dentroefora.png" alt="Comparativo visual sobre estar dentro ou fora do Essenza" loading="lazy" />
         </figure>
         <div class="essenza-visual__card">
           <div class="essenza-visual__card-content">
-            <h3 class="essenza-visual__card-title">resultado essenza</h3>
+            <h3 class="essenza-visual__card-title">Resultado Essenza</h3>
             <p class="essenza-visual__card-text">
               Você passa a vestir sua melhor versão todos os dias, com curadorias estratégicas que conectam desejos, rotina e identidade.
               O Essenza é o atalho para escolhas inteligentes que refletem a mulher que você já é.
