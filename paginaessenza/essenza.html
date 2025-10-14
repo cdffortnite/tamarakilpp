@@ -322,17 +322,16 @@
         position: relative;
         margin: 0 auto;
         width: min(100%, 960px);
-        padding: 0;
+        padding: 0 clamp(12px, 3vw, 24px);
         display: flex;
         justify-content: center;
         align-items: center;
       }
 
       .essenza-visual__image img {
-        width: calc(100% - 20px);
+        width: 100%;
         height: auto;
         display: block;
-        margin: 0 10px;
       }
 
       .essenza-visual__card {
