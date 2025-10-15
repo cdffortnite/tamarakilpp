@@ -161,6 +161,26 @@
         font-weight: 500;
       }
 
+      @media (min-width: 1024px) and (max-width: 1365px) {
+        .hero-title {
+          font-size: clamp(1.9rem, 3.1vw, 2.6rem);
+        }
+
+        .hero-description {
+          font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+        }
+      }
+
+      @media (min-width: 1366px) and (max-width: 1600px) {
+        .hero-title {
+          font-size: clamp(2.1rem, 3.3vw, 2.8rem);
+        }
+
+        .hero-description {
+          font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+        }
+      }
+
       .hero-cta-wrapper {
         display: flex;
         flex-direction: column;
