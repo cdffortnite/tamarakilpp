@@ -464,7 +464,7 @@
 
       .essenza-visual__subtitle {
         margin: 0 auto;
-        width: 1000px;
+        width: min(100%, 1000px);
         font-size: clamp(1.1rem, 2.4vw, 1.35rem);
         letter-spacing: 0.12em;
         text-transform: uppercase;
@@ -486,10 +486,83 @@
         max-width: 1600px;
       }
 
-      .essenza-visual__image img {
+      .essenza-visual__slider {
+        position: relative;
+        width: 100%;
+      }
+
+      .essenza-visual__slides {
+        display: flex;
+        width: 100%;
+        transition: transform 0.6s ease;
+        will-change: transform;
+        touch-action: pan-y;
+      }
+
+      .essenza-visual__slide {
+        flex: 0 0 100%;
+      }
+
+      .essenza-visual__slide img {
         display: block;
         width: 100%;
         height: auto;
+        border-radius: 28px;
+        box-shadow: 0 36px 120px -80px rgba(0, 0, 0, 0.85);
+      }
+
+      .essenza-visual__nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(5, 3, 9, 0.68);
+        border: 1px solid rgba(241, 210, 123, 0.35);
+        color: #fff;
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        z-index: 2;
+      }
+
+      .essenza-visual__nav:hover,
+      .essenza-visual__nav:focus-visible {
+        background: rgba(241, 210, 123, 0.22);
+        border-color: rgba(241, 210, 123, 0.55);
+        outline: none;
+      }
+
+      .essenza-visual__nav:active {
+        transform: translateY(-50%) scale(0.96);
+      }
+
+      .essenza-visual__nav--prev {
+        left: 16px;
+      }
+
+      .essenza-visual__nav--next {
+        right: 16px;
+      }
+
+      .essenza-visual__slider[data-slider-active="true"] {
+        overflow: hidden;
+        border-radius: 28px;
+      }
+
+      .essenza-visual__slider[data-slider-active="true"] .essenza-visual__slides {
+        gap: 0;
+      }
+
+      .essenza-visual__slider[data-slider-active="true"] .essenza-visual__nav {
+        display: inline-flex;
+      }
+
+      .essenza-visual__slider:not([data-slider-active="true"]) .essenza-visual__nav {
+        display: none;
       }
 
       .essenza-visual__card {
@@ -716,6 +789,59 @@
         }
       }
 
+      @media (min-width: 769px) {
+        .essenza-visual__slider {
+          overflow: visible;
+        }
+
+        .essenza-visual__slides {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: clamp(18px, 4vw, 28px);
+          transform: none !important;
+          transition: none;
+        }
+
+        .essenza-visual__slide {
+          width: auto;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .essenza-visual__title {
+          font-size: clamp(1.8rem, 7vw, 2.5rem);
+          letter-spacing: 0.08em;
+        }
+
+        .essenza-visual__subtitle {
+          width: 100%;
+          font-size: clamp(1rem, 4vw, 1.2rem);
+          letter-spacing: 0.06em;
+        }
+
+        .essenza-visual__slider[data-slider-active="true"] {
+          border-radius: 24px;
+        }
+
+        .essenza-visual__slide img {
+          border-radius: 24px;
+        }
+
+        .essenza-visual__nav {
+          width: 40px;
+          height: 40px;
+        }
+
+        .essenza-visual__card {
+          text-align: left;
+          padding: clamp(18px, 6vw, 28px);
+        }
+
+        .essenza-visual__card-text {
+          font-size: clamp(1rem, 4vw, 1.15rem);
+        }
+      }
+
       @media (max-width: 520px) {
         .essenza-visual__inner {
           padding: 0 clamp(12px, 5vw, 20px);
@@ -748,6 +874,16 @@
         .price-card,
         .about-card {
           padding: 22px;
+        }
+        .essenza-visual__nav {
+          width: 36px;
+          height: 36px;
+        }
+        .essenza-visual__nav--prev {
+          left: 10px;
+        }
+        .essenza-visual__nav--next {
+          right: 10px;
         }
         .essenza-visual__media {
           width: 100%;
@@ -916,12 +1052,23 @@ Assim, você toma decisões seguras, valoriza cada escolha e constrói um estilo
 Confira a diferença:</p>
           </div>
           <div class="essenza-visual__media">
-            <figure class="essenza-visual__image">
-              <img
-                src="./dentroefora.png"
-                alt="Comparativo visual sobre estar dentro ou fora do Essenza"
-                loading="lazy"
-              />
+            <figure class="essenza-visual__image" role="group" aria-label="Comparativo visual sobre estar dentro ou fora do Essenza">
+              <div class="essenza-visual__slider" data-mobile-slider data-slider-active="false">
+                <div class="essenza-visual__slides" data-slides>
+                  <div class="essenza-visual__slide" data-slide-index="0">
+                    <img src="./dentro.png" alt="Exemplo de resultado de quem está dentro do Essenza" loading="lazy" />
+                  </div>
+                  <div class="essenza-visual__slide" data-slide-index="1">
+                    <img src="./fora.png" alt="Exemplo de resultado de quem está fora do Essenza" loading="lazy" />
+                  </div>
+                </div>
+                <button class="essenza-visual__nav essenza-visual__nav--prev" type="button" data-prev aria-label="Ver imagem anterior">
+                  <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <button class="essenza-visual__nav essenza-visual__nav--next" type="button" data-next aria-label="Ver próxima imagem">
+                  <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </button>
+              </div>
             </figure>
           </div>
           <div class="essenza-visual__card">
@@ -986,6 +1133,242 @@ Cancelamento sem burocracia, você no controle.</p>
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      (function () {
+        const slider = document.querySelector("[data-mobile-slider]");
+        if (!slider) {
+          return;
+        }
+
+        const slidesContainer = slider.querySelector("[data-slides]");
+        const slides = slidesContainer ? Array.from(slidesContainer.children) : [];
+        const prevButton = slider.querySelector("[data-prev]");
+        const nextButton = slider.querySelector("[data-next]");
+        const mobileQuery = window.matchMedia("(max-width: 768px)");
+
+        if (!slidesContainer || slides.length < 2) {
+          return;
+        }
+
+        let currentIndex = 0;
+        let autoTimer = null;
+        let sliderActive = false;
+        let isPointerDown = false;
+        let pointerId = null;
+        let startX = 0;
+        let currentX = 0;
+        let containerWidth = slider.offsetWidth || 1;
+
+        function setSliderState(active) {
+          sliderActive = active;
+          slider.setAttribute("data-slider-active", active ? "true" : "false");
+        }
+
+        function normalizeIndex(index) {
+          const total = slides.length;
+          return (index + total) % total;
+        }
+
+        function applyTransform(index, animate = true) {
+          if (!sliderActive) {
+            return;
+          }
+
+          if (!animate) {
+            slidesContainer.style.transition = "none";
+          } else {
+            slidesContainer.style.transition = "";
+          }
+
+          const offset = index * -100;
+          slidesContainer.style.transform = `translateX(${offset}%)`;
+
+          if (!animate) {
+            requestAnimationFrame(() => {
+              slidesContainer.style.transition = "";
+            });
+          }
+        }
+
+        function goTo(index, animate = true) {
+          currentIndex = normalizeIndex(index);
+          applyTransform(currentIndex, animate);
+        }
+
+        function startAutoAdvance() {
+          stopAutoAdvance();
+          autoTimer = window.setInterval(() => {
+            goTo(currentIndex + 1);
+          }, 5000);
+        }
+
+        function stopAutoAdvance() {
+          if (autoTimer) {
+            window.clearInterval(autoTimer);
+            autoTimer = null;
+          }
+        }
+
+        function enableSlider() {
+          if (sliderActive) {
+            return;
+          }
+          containerWidth = slider.offsetWidth || 1;
+          setSliderState(true);
+          goTo(currentIndex, false);
+          startAutoAdvance();
+        }
+
+        function disableSlider() {
+          if (!sliderActive) {
+            return;
+          }
+          setSliderState(false);
+          stopAutoAdvance();
+          slidesContainer.style.transition = "";
+          slidesContainer.style.transform = "";
+        }
+
+        function onMediaChange(event) {
+          if (event.matches) {
+            enableSlider();
+          } else {
+            disableSlider();
+          }
+        }
+
+        function updateWidth() {
+          if (!sliderActive) {
+            return;
+          }
+          containerWidth = slider.offsetWidth || 1;
+          goTo(currentIndex, false);
+        }
+
+        function onPrevClick() {
+          if (!sliderActive) {
+            return;
+          }
+          stopAutoAdvance();
+          goTo(currentIndex - 1);
+          startAutoAdvance();
+        }
+
+        function onNextClick() {
+          if (!sliderActive) {
+            return;
+          }
+          stopAutoAdvance();
+          goTo(currentIndex + 1);
+          startAutoAdvance();
+        }
+
+        function onPointerDown(event) {
+          if (!sliderActive || isPointerDown) {
+            return;
+          }
+          isPointerDown = true;
+          pointerId = event.pointerId;
+          startX = event.clientX;
+          currentX = startX;
+          containerWidth = slider.offsetWidth || 1;
+          slidesContainer.style.transition = "none";
+          stopAutoAdvance();
+          try {
+            slidesContainer.setPointerCapture(pointerId);
+          } catch (error) {
+            /* pointer capture may fail on unsupported browsers */
+          }
+        }
+
+        function onPointerMove(event) {
+          if (!sliderActive || !isPointerDown || event.pointerId !== pointerId) {
+            return;
+          }
+          currentX = event.clientX;
+          const delta = currentX - startX;
+          const percent = (delta / (containerWidth || 1)) * 100;
+          const offset = -currentIndex * 100 + percent;
+          slidesContainer.style.transform = `translateX(${offset}%)`;
+        }
+
+        function finalizePointerInteraction(event) {
+          if (!isPointerDown || event.pointerId !== pointerId) {
+            return;
+          }
+          isPointerDown = false;
+          pointerId = null;
+
+          try {
+            slidesContainer.releasePointerCapture(event.pointerId);
+          } catch (error) {
+            /* ignore */
+          }
+
+          const delta = currentX - startX;
+          const threshold = (containerWidth || 1) * 0.2;
+
+          if (Math.abs(delta) > threshold) {
+            if (delta < 0) {
+              currentIndex += 1;
+            } else {
+              currentIndex -= 1;
+            }
+          }
+
+          goTo(currentIndex);
+          startAutoAdvance();
+        }
+
+        function cancelPointerInteraction(event) {
+          if (!isPointerDown || (pointerId !== null && event.pointerId !== pointerId)) {
+            return;
+          }
+          isPointerDown = false;
+          pointerId = null;
+          try {
+            slidesContainer.releasePointerCapture(event.pointerId);
+          } catch (error) {
+            /* ignore */
+          }
+          goTo(currentIndex);
+          startAutoAdvance();
+        }
+
+        if (mobileQuery.addEventListener) {
+          mobileQuery.addEventListener("change", onMediaChange);
+        } else if (mobileQuery.addListener) {
+          mobileQuery.addListener(onMediaChange);
+        }
+
+        window.addEventListener("resize", updateWidth);
+        document.addEventListener("visibilitychange", () => {
+          if (!sliderActive) {
+            return;
+          }
+          if (document.hidden) {
+            stopAutoAdvance();
+          } else {
+            startAutoAdvance();
+          }
+        });
+
+        if (prevButton) {
+          prevButton.addEventListener("click", onPrevClick);
+        }
+
+        if (nextButton) {
+          nextButton.addEventListener("click", onNextClick);
+        }
+
+        slidesContainer.addEventListener("pointerdown", onPointerDown);
+        slidesContainer.addEventListener("pointermove", onPointerMove);
+        slidesContainer.addEventListener("pointerup", finalizePointerInteraction);
+        slidesContainer.addEventListener("pointercancel", cancelPointerInteraction);
+        slidesContainer.addEventListener("pointerleave", cancelPointerInteraction);
+
+        onMediaChange(mobileQuery);
+      })();
     </script>
   </body>
 </html>
