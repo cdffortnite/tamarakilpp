@@ -16,25 +16,34 @@
         theme: {
           extend: {
             colors: {
-              brandBeige: '#f4eadc',
-              brandGreen: '#5c9100',
-              brandRed: '#8b0d0d',
+              brandBeige: '#050309',
+              brandGreen: '#ffcb70',
+              brandRed: '#c751c0',
+              brandPurple: '#6c5dd3',
             },
             fontFamily: {
               display: ['Playfair Display', 'serif'],
               body: ['Inter', 'sans-serif'],
             },
             boxShadow: {
-              card: '0 12px 30px rgba(139, 13, 13, 0.08)',
+              card: '0 24px 60px -30px rgba(0, 0, 0, 0.65)',
             },
           },
         },
       };
     </script>
     <style>
+      :root {
+        --bg: radial-gradient(circle at 20% 20%, #333332 0%, #07050c 55%, #5a5a5e 100%);
+        --card-bg: rgba(51, 51, 50, 0.65);
+        --card-soft: rgba(34, 33, 40, 0.55);
+        --text: #f9f5ff;
+      }
+
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #f4eadc;
+        background: var(--bg);
+        color: var(--text);
       }
       h1,
       h2,
@@ -47,21 +56,21 @@
       }
       .btn-interaction.button-active {
         transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 18px 30px rgba(92, 145, 0, 0.28);
+        box-shadow: 0 24px 45px rgba(255, 203, 112, 0.28);
       }
     </style>
   </head>
-  <body class="bg-brandBeige text-neutral-900">
+  <body class="bg-brandBeige text-white">
     <header class="px-6 sm:px-10 lg:px-20 py-10">
       <div class="max-w-5xl mx-auto text-center">
         <p class="text-xs uppercase tracking-[0.3em] text-brandRed font-semibold">
           Método Tamara Kilpp
         </p>
-        <h1 class="mt-6 text-2xl sm:text-3xl lg:text-4xl leading-snug font-semibold text-neutral-900">
+        <h1 class="mt-6 text-2xl sm:text-3xl lg:text-4xl leading-snug font-semibold text-white">
           VOCÊ <span class="font-bold">NÃO</span> PRECISA DE MUITAS ROUPAS, VOCÊ SÓ PRECISA DAS
           <span class="text-brandGreen font-semibold">PEÇAS CERTAS</span> PARA VOCÊ
         </h1>
-        <div class="mt-6 h-px w-24 bg-neutral-900 mx-auto"></div>
+        <div class="mt-6 h-px w-24 bg-white/30 mx-auto"></div>
       </div>
     </header>
 
@@ -70,22 +79,22 @@
       <section class="px-6 sm:px-10 lg:px-20">
         <div class="max-w-6xl mx-auto">
           <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-            <article class="col-span-1 lg:col-span-2 bg-white/80 rounded-3xl p-6 shadow-card">
+            <article class="col-span-1 lg:col-span-2 bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 shadow-card">
               <p class="font-display text-xl text-brandRed leading-snug">
                 AUMENTE SUA AUTOESTIMA E AUTOCONFIANÇA
               </p>
             </article>
-            <article class="bg-white/80 rounded-3xl p-6 shadow-card">
-              <p class="text-base font-medium">
+            <article class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 shadow-card">
+              <p class="text-base font-medium text-white/90">
                 MULTIPLIQUE SEUS LOOKS E TRANSFORME PEÇAS BÁSICAS EM PRODUÇÕES INCRÍVEIS
               </p>
             </article>
-            <article class="bg-white/80 rounded-3xl p-6 shadow-card">
-              <p class="text-base font-medium">
+            <article class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 shadow-card">
+              <p class="text-base font-medium text-white/90">
                 TENHA SEGURANÇA E AUTONOMIA PARA ESCOLHER AS SUAS PEÇAS SEM INSEGURANÇA
               </p>
             </article>
-            <article class="row-span-2 lg:row-span-2 bg-white/80 rounded-3xl p-0 overflow-hidden shadow-card flex flex-col">
+            <article class="row-span-2 lg:row-span-2 bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-0 overflow-hidden shadow-card flex flex-col">
               <img
                 src="https://placehold.co/600x800?text=Estilo+Autêntico"
                 alt="Mulher estilosa"
@@ -97,33 +106,33 @@
                 </p>
               </div>
             </article>
-            <article class="col-span-1 lg:col-span-2 bg-white/80 rounded-3xl p-6 shadow-card">
-              <p class="text-base font-medium">
+            <article class="col-span-1 lg:col-span-2 bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 shadow-card">
+              <p class="text-base font-medium text-white/90">
                 TRANSMITA A IMAGEM QUE VOCÊ QUER EM QUALQUER OCASIÃO
               </p>
             </article>
-            <article class="bg-white/80 rounded-3xl p-6 shadow-card">
-              <p class="text-base font-medium">
+            <article class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 shadow-card">
+              <p class="text-base font-medium text-white/90">
                 CRIE SEU GUARDA-ROUPA INTELIGENTE SEM EXCESSOS
               </p>
             </article>
-            <article class="bg-white/80 rounded-3xl p-6 shadow-card">
-              <p class="text-base font-medium">
+            <article class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 shadow-card">
+              <p class="text-base font-medium text-white/90">
                 DESCUBRA COMO COMPRAR MENOS E AINDA ASSIM SE VESTIR MELHOR
               </p>
             </article>
-            <article class="bg-white/80 rounded-3xl p-6 shadow-card">
-              <p class="text-base font-medium">
+            <article class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 shadow-card">
+              <p class="text-base font-medium text-white/90">
                 DESENVOLVA UM ESTILO QUE COMUNICA QUEM VOCÊ É
               </p>
             </article>
-            <article class="bg-white/80 rounded-3xl p-6 shadow-card">
-              <p class="text-base font-medium">
+            <article class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 shadow-card">
+              <p class="text-base font-medium text-white/90">
                 ORGANIZE SUA ROTINA DE LOOKS COM PRATICIDADE
               </p>
             </article>
-            <article class="bg-white/80 rounded-3xl p-6 shadow-card">
-              <p class="text-base font-medium">
+            <article class="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 shadow-card">
+              <p class="text-base font-medium text-white/90">
                 SINTA-SE SEGURA NA HORA DE SE OLHAR NO ESPELHO TODOS OS DIAS
               </p>
             </article>
@@ -134,31 +143,31 @@
       <!-- Bullet Section -->
       <section class="px-6 sm:px-10 lg:px-20">
         <div class="max-w-6xl mx-auto">
-          <div class="bg-white/70 rounded-3xl p-8 shadow-card">
+          <div class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-card">
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 text-sm sm:text-base">
-              <ul class="space-y-3">
+              <ul class="space-y-3 text-white/90">
                 <li>
-                  <strong>Aumente sua autoestima</strong> e autoconfiança sem precisar de um
+                  <strong class="text-brandGreen">Aumente sua autoestima</strong> e autoconfiança sem precisar de um
                   armário lotado
                 </li>
                 <li>
-                  <strong>Transmita a imagem que você quer</strong> em qualquer ocasião, com segurança
+                  <strong class="text-brandGreen">Transmita a imagem que você quer</strong> em qualquer ocasião, com segurança
                 </li>
               </ul>
-              <ul class="space-y-3">
+              <ul class="space-y-3 text-white/90">
                 <li>
-                  <strong>Multiplique seus looks</strong> com poucas peças estratégicas
+                  <strong class="text-brandGreen">Multiplique seus looks</strong> com poucas peças estratégicas
                 </li>
                 <li>
                   Tenha segurança e autonomia para escolher suas peças com consciência
                 </li>
               </ul>
-              <ul class="space-y-3">
+              <ul class="space-y-3 text-white/90">
                 <li>
-                  Aprenda a construir um <strong>guarda-roupa inteligente</strong>
+                  Aprenda a construir um <strong class="text-brandGreen">guarda-roupa inteligente</strong>
                 </li>
                 <li>
-                  Descubra como <strong>economizar tempo e dinheiro</strong> na hora de se vestir
+                  Descubra como <strong class="text-brandGreen">economizar tempo e dinheiro</strong> na hora de se vestir
                 </li>
               </ul>
             </div>
@@ -168,14 +177,14 @@
 
       <!-- Hero Section -->
       <section class="px-6 sm:px-10 lg:px-20">
-        <div class="max-w-6xl mx-auto bg-white/80 rounded-[40px] px-8 sm:px-12 py-12 lg:py-16 shadow-card">
+        <div class="max-w-6xl mx-auto bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[40px] px-8 sm:px-12 py-12 lg:py-16 shadow-card">
           <div class="flex flex-col lg:flex-row items-center gap-10">
             <div class="flex-1 space-y-6">
               <p class="uppercase tracking-[0.3em] text-xs font-semibold text-brandRed">
                 Método exclusivo
               </p>
-              <h2 class="text-4xl lg:text-5xl font-semibold text-neutral-900">SE ENXERGA©</h2>
-              <p class="text-lg text-neutral-700 leading-relaxed">
+              <h2 class="text-4xl lg:text-5xl font-semibold text-white">SE ENXERGA©</h2>
+              <p class="text-lg text-white/80 leading-relaxed">
                 Descubra o método para ter um armário inteligente: crie looks mais estilosos, mesmo
                 com poucas peças, e aumente sua autoestima.
               </p>
@@ -199,31 +208,31 @@
       <!-- Three Levels Section -->
       <section class="px-6 sm:px-10 lg:px-20">
         <div class="max-w-6xl mx-auto space-y-12">
-          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-center text-neutral-900">
+          <h3 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-center text-white">
             O PASSO A PASSO PARA ENCONTRAR SEU ESTILO, MUDAR A FORMA COMO VOCÊ E OS OUTROS VÃO TE ENXERGAR EM QUALQUER OCASIÃO
           </h3>
           <div class="grid gap-8 md:grid-cols-3">
-            <article class="bg-white/80 rounded-3xl p-8 shadow-card space-y-4">
+            <article class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-card space-y-4">
               <h4 class="text-xl text-brandRed font-semibold">Nível 1 – Moda que descobre</h4>
-              <ul class="space-y-3 text-sm sm:text-base">
+              <ul class="space-y-3 text-sm sm:text-base text-white/85">
                 <li>Autoconhecimento aplicado ao estilo</li>
                 <li>Tipos de corpo e proporções ideais</li>
                 <li>Identificação de cores que valorizam</li>
                 <li>Mapeamento dos estilos de vida</li>
               </ul>
             </article>
-            <article class="bg-white/80 rounded-3xl p-8 shadow-card space-y-4">
+            <article class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-card space-y-4">
               <h4 class="text-xl text-brandRed font-semibold">Nível 2 – Moda que descomplica</h4>
-              <ul class="space-y-3 text-sm sm:text-base">
+              <ul class="space-y-3 text-sm sm:text-base text-white/85">
                 <li>Guarda-roupa inteligente e funcional</li>
                 <li>Os básicos que transformam produções</li>
                 <li>Montagem de looks com método VIEW</li>
                 <li>Planejamento de compras consciente</li>
               </ul>
             </article>
-            <article class="bg-white/80 rounded-3xl p-8 shadow-card space-y-4">
+            <article class="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-card space-y-4">
               <h4 class="text-xl text-brandRed font-semibold">Nível 3 – Moda que comunica</h4>
-              <ul class="space-y-3 text-sm sm:text-base">
+              <ul class="space-y-3 text-sm sm:text-base text-white/85">
                 <li>Comunicação visual e presença marcante</li>
                 <li>Dress code para diferentes ocasiões</li>
                 <li>Estratégias para parecer mais jovem</li>
@@ -236,9 +245,9 @@
 
       <!-- Offer Section -->
       <section class="px-6 sm:px-10 lg:px-20">
-        <div class="max-w-6xl mx-auto bg-white/90 rounded-[36px] p-8 lg:p-12 shadow-card grid gap-10 lg:grid-cols-2 items-center">
-          <div class="space-y-4 text-sm sm:text-base">
-            <h4 class="text-2xl font-semibold text-brandRed">Tudo o que você precisa para desbloquear seu estilo</h4>
+        <div class="max-w-6xl mx-auto bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[36px] p-8 lg:p-12 shadow-card grid gap-10 lg:grid-cols-2 items-center">
+          <div class="space-y-4 text-sm sm:text-base text-white/85">
+            <h4 class="text-2xl font-semibold text-brandGreen">Tudo o que você precisa para desbloquear seu estilo</h4>
             <ul class="space-y-3">
               <li class="flex items-start gap-3">
                 <span class="text-brandGreen text-2xl leading-none">✓</span>
@@ -258,8 +267,8 @@
               </li>
             </ul>
           </div>
-          <div class="bg-brandRed text-white rounded-3xl p-8 space-y-6 relative overflow-hidden">
-            <div class="absolute -top-10 -right-10 bg-white/10 w-32 h-32 rounded-full"></div>
+          <div class="bg-brandRed text-white rounded-3xl p-8 space-y-6 relative overflow-hidden shadow-lg shadow-brandPurple/30">
+            <div class="absolute -top-10 -right-10 bg-white/20 w-32 h-32 rounded-full"></div>
             <p class="inline-block bg-white text-brandRed px-4 py-1 rounded-full text-xs font-semibold tracking-wide">
               DESCONTO DE R$200,00 POR TEMPO LIMITADO
             </p>
@@ -279,13 +288,13 @@
 
       <!-- Guarantee Section -->
       <section class="px-6 sm:px-10 lg:px-20">
-        <div class="max-w-5xl mx-auto bg-brandBeige rounded-[32px] border border-brandRed/20 p-10 text-center space-y-6">
-          <h4 class="text-3xl font-semibold text-brandRed">GARANTIA INCONDICIONAL</h4>
-          <p class="text-base leading-relaxed">
+        <div class="max-w-5xl mx-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-10 text-center space-y-6">
+          <h4 class="text-3xl font-semibold text-brandGreen">GARANTIA INCONDICIONAL</h4>
+          <p class="text-base leading-relaxed text-white/85">
             Você tem até 7 dias para testar o método e, se sentir que não foi feito para você,
             devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.
           </p>
-          <div class="mx-auto inline-flex items-center justify-center border border-brandRed rounded-full px-10 py-4 text-brandRed font-semibold tracking-[0.4em]">
+          <div class="mx-auto inline-flex items-center justify-center border border-brandGreen/30 rounded-full px-10 py-4 text-brandGreen font-semibold tracking-[0.4em]">
             RISCO ZERO
           </div>
         </div>
@@ -293,7 +302,7 @@
     </main>
 
     <footer class="px-6 sm:px-10 lg:px-20 py-12">
-      <div class="max-w-6xl mx-auto text-center text-xs text-neutral-600">
+      <div class="max-w-6xl mx-auto text-center text-xs text-white/60">
         © 2024 Tamara Kilpp. Todos os direitos reservados.
       </div>
     </footer>
