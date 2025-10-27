@@ -84,6 +84,53 @@
           transform: translateY(-2px);
         }
       }
+      .hover-card,
+      .scroll-reveal {
+        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease, box-shadow 0.45s ease,
+          border-color 0.45s ease, background-color 0.45s ease;
+      }
+      .hover-card {
+        position: relative;
+        will-change: transform, opacity;
+      }
+      .hover-card:hover,
+      .hover-card:focus-visible {
+        transform: translateY(-10px) scale(1.02);
+        border-color: rgba(214, 177, 106, 0.45);
+        background-color: rgba(46, 32, 26, 0.85);
+        box-shadow: 0 30px 60px -20px rgba(214, 177, 106, 0.4);
+      }
+      .hover-card:focus-visible {
+        outline: 2px solid rgba(214, 177, 106, 0.6);
+        outline-offset: 4px;
+      }
+      .hover-card--gold:hover,
+      .hover-card--gold:focus-visible {
+        background-color: rgba(214, 177, 106, 0.95);
+        box-shadow: 0 36px 72px -24px rgba(214, 177, 106, 0.5);
+      }
+      .scroll-reveal {
+        opacity: 0;
+        transform: translateY(32px) scale(0.98);
+      }
+      .scroll-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hover-card,
+        .scroll-reveal {
+          transition: none;
+        }
+        .scroll-reveal {
+          opacity: 1;
+          transform: none;
+        }
+        .hover-card:hover,
+        .hover-card:focus-visible {
+          transform: none;
+        }
+      }
     </style>
   </head>
   <body class="bg-brandEbony text-white">
@@ -105,22 +152,22 @@
       <section class="px-6 sm:px-10 lg:px-20">
         <div class="max-w-6xl mx-auto">
           <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-            <article class="col-span-1 lg:col-span-2 bg-white/10 backdrop-blur-lg border border-brandGold/20 rounded-3xl p-6 shadow-card">
+            <article class="col-span-1 lg:col-span-2 bg-white/10 backdrop-blur-lg border border-brandGold/20 rounded-3xl p-6 shadow-card hover-card scroll-reveal">
               <p class="font-display text-xl text-brandGold leading-snug">
                 AUMENTE SUA AUTOESTIMA E AUTOCONFIANÇA
               </p>
             </article>
-            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card">
+            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card hover-card scroll-reveal">
               <p class="text-base font-medium text-brandIvory/90">
                 MULTIPLIQUE SEUS LOOKS E TRANSFORME PEÇAS BÁSICAS EM PRODUÇÕES INCRÍVEIS
               </p>
             </article>
-            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card">
+            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card hover-card scroll-reveal">
               <p class="text-base font-medium text-brandIvory/90">
                 TENHA SEGURANÇA E AUTONOMIA PARA ESCOLHER AS SUAS PEÇAS SEM INSEGURANÇA
               </p>
             </article>
-            <article class="row-span-2 lg:row-span-2 bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-0 overflow-hidden shadow-card flex flex-col">
+            <article class="row-span-2 lg:row-span-2 bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-0 overflow-hidden shadow-card hover-card scroll-reveal flex flex-col">
               <img
                 src="./guardaroupa.webp"
                 alt="Mulher estilosa"
@@ -132,32 +179,32 @@
                 </p>
               </div>
             </article>
-            <article class="col-span-1 lg:col-span-2 bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card">
+            <article class="col-span-1 lg:col-span-2 bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card hover-card scroll-reveal">
               <p class="text-base font-medium text-brandIvory/90">
                 TRANSMITA A IMAGEM QUE VOCÊ QUER EM QUALQUER OCASIÃO
               </p>
             </article>
-            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card">
+            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card hover-card scroll-reveal">
               <p class="text-base font-medium text-brandIvory/90">
                 CRIE SEU GUARDA-ROUPA INTELIGENTE SEM EXCESSOS
               </p>
             </article>
-            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card">
+            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card hover-card scroll-reveal">
               <p class="text-base font-medium text-brandIvory/90">
                 DESCUBRA COMO COMPRAR MENOS E AINDA ASSIM SE VESTIR MELHOR
               </p>
             </article>
-            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card">
+            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card hover-card scroll-reveal">
               <p class="text-base font-medium text-brandIvory/90">
                 DESENVOLVA UM ESTILO QUE COMUNICA QUEM VOCÊ É
               </p>
             </article>
-            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card">
+            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card hover-card scroll-reveal">
               <p class="text-base font-medium text-brandIvory/90">
                 ORGANIZE SUA ROTINA DE LOOKS COM PRATICIDADE
               </p>
             </article>
-            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card">
+            <article class="bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card hover-card scroll-reveal">
               <p class="text-base font-medium text-brandIvory/90">
                 SINTA-SE SEGURA NA HORA DE SE OLHAR NO ESPELHO TODOS OS DIAS
               </p>
@@ -169,7 +216,7 @@
       <!-- Bullet Section -->
       <section class="px-6 sm:px-10 lg:px-20">
         <div class="max-w-6xl mx-auto">
-          <div class="bg-white/10 backdrop-blur-xl border border-brandGold/20 rounded-3xl p-8 shadow-card">
+          <div class="bg-white/10 backdrop-blur-xl border border-brandGold/20 rounded-3xl p-8 shadow-card hover-card scroll-reveal">
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 text-sm sm:text-base">
               <ul class="space-y-3 text-brandIvory/90">
                 <li>
@@ -203,7 +250,7 @@
 
       <!-- Hero Section -->
       <section class="px-6 sm:px-10 lg:px-20">
-        <div class="max-w-6xl mx-auto bg-white/10 backdrop-blur-2xl border border-brandGold/20 rounded-[40px] px-8 sm:px-12 py-12 lg:py-16 shadow-card">
+        <div class="max-w-6xl mx-auto bg-white/10 backdrop-blur-2xl border border-brandGold/20 rounded-[40px] px-8 sm:px-12 py-12 lg:py-16 shadow-card scroll-reveal">
           <div class="flex flex-col lg:flex-row items-center gap-10">
             <div class="flex-1 space-y-6">
               <p class="uppercase tracking-[0.3em] text-xs font-semibold text-brandGold/90">
@@ -238,7 +285,7 @@
             O PASSO A PASSO PARA ENCONTRAR SEU ESTILO, MUDAR A FORMA COMO VOCÊ E OS OUTROS VÃO TE ENXERGAR EM QUALQUER OCASIÃO
           </h3>
           <div class="grid gap-8 md:grid-cols-3">
-            <article class="bg-white/10 backdrop-blur-xl border border-brandGold/20 rounded-3xl p-8 shadow-card space-y-4">
+            <article class="bg-white/10 backdrop-blur-xl border border-brandGold/20 rounded-3xl p-8 shadow-card hover-card scroll-reveal space-y-4">
               <h4 class="text-xl text-brandGold font-semibold">Nível 1 – Moda que descobre</h4>
               <ul class="space-y-3 text-sm sm:text-base text-brandIvory/85">
                 <li>Autoconhecimento aplicado ao estilo</li>
@@ -247,7 +294,7 @@
                 <li>Mapeamento dos estilos de vida</li>
               </ul>
             </article>
-            <article class="bg-white/10 backdrop-blur-xl border border-brandGold/20 rounded-3xl p-8 shadow-card space-y-4">
+            <article class="bg-white/10 backdrop-blur-xl border border-brandGold/20 rounded-3xl p-8 shadow-card hover-card scroll-reveal space-y-4">
               <h4 class="text-xl text-brandGold font-semibold">Nível 2 – Moda que descomplica</h4>
               <ul class="space-y-3 text-sm sm:text-base text-brandIvory/85">
                 <li>Guarda-roupa inteligente e funcional</li>
@@ -256,7 +303,7 @@
                 <li>Planejamento de compras consciente</li>
               </ul>
             </article>
-            <article class="bg-white/10 backdrop-blur-xl border border-brandGold/20 rounded-3xl p-8 shadow-card space-y-4">
+            <article class="bg-white/10 backdrop-blur-xl border border-brandGold/20 rounded-3xl p-8 shadow-card hover-card scroll-reveal space-y-4">
               <h4 class="text-xl text-brandGold font-semibold">Nível 3 – Moda que comunica</h4>
               <ul class="space-y-3 text-sm sm:text-base text-brandIvory/85">
                 <li>Comunicação visual e presença marcante</li>
@@ -271,7 +318,7 @@
 
       <!-- Offer Section -->
       <section class="px-6 sm:px-10 lg:px-20">
-        <div class="max-w-6xl mx-auto bg-white/10 backdrop-blur-2xl border border-brandGold/20 rounded-[36px] p-8 lg:p-12 shadow-card grid gap-10 lg:grid-cols-2 items-center">
+        <div class="max-w-6xl mx-auto bg-white/10 backdrop-blur-2xl border border-brandGold/20 rounded-[36px] p-8 lg:p-12 shadow-card scroll-reveal grid gap-10 lg:grid-cols-2 items-center">
           <div class="space-y-4 text-sm sm:text-base text-brandIvory/85">
             <h4 class="text-2xl font-semibold text-brandGold">Tudo o que você precisa para desbloquear seu estilo</h4>
             <ul class="space-y-3">
@@ -293,7 +340,7 @@
               </li>
             </ul>
           </div>
-          <div class="bg-brandGold text-brandEbony rounded-3xl p-8 space-y-6 relative overflow-hidden shadow-lg shadow-[0_40px_70px_rgba(140,90,56,0.35)]">
+          <div class="bg-brandGold text-brandEbony rounded-3xl p-8 space-y-6 relative overflow-hidden shadow-lg shadow-[0_40px_70px_rgba(140,90,56,0.35)] hover-card hover-card--gold scroll-reveal">
             <div class="absolute -top-10 -right-10 bg-white/20 w-32 h-32 rounded-full"></div>
             <p class="inline-block bg-brandIvory text-brandEbony px-4 py-1 rounded-full text-xs font-semibold tracking-wide shadow-sm">
               DESCONTO DE R$200,00 POR TEMPO LIMITADO
@@ -314,7 +361,7 @@
 
       <!-- Guarantee Section -->
       <section class="px-6 sm:px-10 lg:px-20">
-        <div class="max-w-5xl mx-auto bg-white/5 backdrop-blur-xl border border-brandGold/20 rounded-[32px] p-10 text-center space-y-6">
+        <div class="max-w-5xl mx-auto bg-white/5 backdrop-blur-xl border border-brandGold/20 rounded-[32px] p-10 text-center space-y-6 hover-card scroll-reveal">
           <h4 class="text-3xl font-semibold text-brandGold">GARANTIA INCONDICIONAL</h4>
           <p class="text-base leading-relaxed text-brandIvory/85">
             Você tem até 7 dias para testar o método e, se sentir que não foi feito para você,
@@ -344,6 +391,33 @@
           button.classList.remove('button-active');
         });
       });
+
+      const scrollElements = document.querySelectorAll('.scroll-reveal');
+
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.2,
+            rootMargin: '0px 0px -10% 0px',
+          }
+        );
+
+        scrollElements.forEach((element) => {
+          revealObserver.observe(element);
+        });
+      } else {
+        scrollElements.forEach((element) => {
+          element.classList.add('is-visible');
+        });
+      }
     </script>
   </body>
 </html>
