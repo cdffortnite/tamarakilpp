@@ -84,6 +84,175 @@
           transform: translateY(-2px);
         }
       }
+
+      .hero {
+        position: relative;
+        width: min(100%, 100vw);
+        margin: 0 auto;
+        border-radius: clamp(20px, 4vw, 32px);
+        overflow: hidden;
+        border: 1px solid rgba(246, 239, 229, 0.12);
+        box-shadow: 0 40px 90px -45px rgba(0, 0, 0, 0.75);
+        background: linear-gradient(135deg, rgba(12, 7, 11, 0.4), rgba(22, 14, 12, 0.65));
+        display: flex;
+        flex-direction: column;
+        isolation: isolate;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, rgba(11, 6, 13, 0.15) 0%, rgba(20, 12, 11, 0.5) 55%, rgba(11, 6, 13, 0.55) 100%);
+        z-index: 1;
+      }
+
+      .hero-media {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: radial-gradient(circle at 30% 30%, rgba(214, 177, 106, 0.18), rgba(11, 6, 13, 0.85));
+        overflow: hidden;
+        z-index: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-media picture,
+      .hero-media img {
+        display: block;
+        width: 100%;
+      }
+
+      .hero-media img {
+        height: auto;
+        object-fit: contain;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: clamp(28px, 6vw, 64px);
+        display: grid;
+        gap: clamp(16px, 3vw, 32px);
+      }
+
+      .hero-eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        font-size: 0.75rem;
+        color: rgba(214, 177, 106, 0.9);
+        font-weight: 600;
+      }
+
+      .hero-title {
+        font-size: clamp(2rem, 4vw, 3.25rem);
+        line-height: 1.2;
+        color: #f6efe5;
+        text-align: left;
+      }
+
+      .hero-description {
+        font-size: clamp(1rem, 2.3vw, 1.2rem);
+        color: rgba(254, 249, 241, 0.85);
+        max-width: 46ch;
+      }
+
+      .hero-cta {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .hero-cta .btn-primary {
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        background: linear-gradient(135deg, #d6b16a, #f6efe5);
+        color: #1a0f14;
+        font-weight: 600;
+        padding: 0.85rem 1.9rem;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 18px 45px -20px rgba(246, 239, 229, 0.7);
+      }
+
+      .hero-cta .btn-primary:hover,
+      .hero-cta .btn-primary:focus-visible,
+      .hero-cta .btn-primary.button-active {
+        transform: translateY(-3px);
+        box-shadow: 0 28px 60px -18px rgba(214, 177, 106, 0.55);
+        outline: none;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(12px, 3vw, 24px);
+        max-width: 32rem;
+      }
+
+      .hero-stat {
+        padding: 14px 18px;
+        border-radius: 18px;
+        background: rgba(46, 32, 26, 0.65);
+        border: 1px solid rgba(214, 177, 106, 0.28);
+        display: grid;
+        gap: 4px;
+      }
+
+      .hero-stat strong {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+        color: #f6efe5;
+      }
+
+      .hero-stat span {
+        font-size: 0.9rem;
+        color: rgba(254, 249, 241, 0.72);
+      }
+
+      @media (min-width: 768px) {
+        .hero {
+          flex-direction: row;
+          align-items: center;
+        }
+
+        .hero-media,
+        .hero-content {
+          flex: 1 1 50%;
+        }
+
+        .hero-media {
+          aspect-ratio: 16 / 9;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hero {
+          border-radius: 0;
+          box-shadow: none;
+          border-left: none;
+          border-right: none;
+        }
+      }
+
+      @media (max-width: 639px) {
+        .hero-content {
+          padding: 24px;
+        }
+
+        .hero-stats {
+          grid-template-columns: 1fr;
+        }
+      }
+
       .hover-card,
       .scroll-reveal {
         transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease, box-shadow 0.45s ease,
@@ -134,17 +303,51 @@
     </style>
   </head>
   <body class="bg-brandEbony text-white">
-    <header class="px-6 sm:px-10 lg:px-20 py-10">
-      <div class="max-w-5xl mx-auto text-center">
-        <p class="text-xs uppercase tracking-[0.3em] text-brandGold/90 font-semibold">
-          Método Tamara Kilpp
-        </p>
-        <h1 class="mt-6 text-2xl sm:text-3xl lg:text-4xl leading-snug font-semibold text-brandIvory">
-          VOCÊ <span class="font-bold text-white">NÃO</span> PRECISA DE MUITAS ROUPAS, VOCÊ SÓ PRECISA DAS
-          <span class="text-brandGold font-semibold">PEÇAS CERTAS</span> PARA VOCÊ
-        </h1>
-        <div class="mt-6 h-px w-24 bg-brandGold/50 mx-auto"></div>
-      </div>
+      <header class="px-6 sm:px-10 lg:px-0 py-10">
+        <section class="hero">
+          <div class="hero-media">
+            <picture>
+              <source srcset="TELA (1).jpg" media="(min-width: 1024px)" />
+              <img src="TELA (1).jpg" alt="Mulher organizando roupas com um tablet" loading="lazy" />
+            </picture>
+          </div>
+          <div class="hero-content">
+            <span class="hero-eyebrow">Método Tamara Kilpp</span>
+            <h1 class="hero-title">
+              VOCÊ <span class="font-bold text-white">NÃO</span> PRECISA DE MUITAS ROUPAS, VOCÊ SÓ PRECISA DAS
+              <span class="text-brandGold font-semibold">PEÇAS CERTAS</span> PARA VOCÊ
+            </h1>
+            <p class="hero-description">
+              Estruture um guarda-roupa inteligente, potencialize suas combinações e conquiste a confiança para se vestir
+              com autonomia todos os dias.
+            </p>
+            <div class="hero-cta">
+              <a class="btn-primary" href="#inscreva-se">Quero meu guarda-roupa inteligente</a>
+              <p class="text-sm sm:text-base text-brandIvory/75 max-w-xl">
+                Garanta uma jornada guiada para descobrir seu estilo, planejar compras conscientes e transformar sua imagem
+                com peças que realmente funcionam.
+              </p>
+            </div>
+            <div class="hero-stats">
+              <div class="hero-stat">
+                <strong>+1200</strong>
+                <span>alunas guiadas na construção de um armário funcional</span>
+              </div>
+              <div class="hero-stat">
+                <strong>8 semanas</strong>
+                <span>para transformar a forma como você se vê e é vista</span>
+              </div>
+              <div class="hero-stat">
+                <strong>100%</strong>
+                <span>online com encontros ao vivo e apoio contínuo</span>
+              </div>
+              <div class="hero-stat">
+                <strong>Bônus</strong>
+                <span>guia de compras inteligentes e checklist sazonal</span>
+              </div>
+            </div>
+          </div>
+        </section>
     </header>
 
     <main class="space-y-24 pb-24">
@@ -317,7 +520,7 @@
       </section>
 
       <!-- Offer Section -->
-      <section class="px-6 sm:px-10 lg:px-20">
+      <section id="inscreva-se" class="px-6 sm:px-10 lg:px-20">
         <div class="max-w-6xl mx-auto bg-white/10 backdrop-blur-2xl border border-brandGold/20 rounded-[36px] p-8 lg:p-12 shadow-card scroll-reveal grid gap-10 lg:grid-cols-2 items-center">
           <div class="space-y-4 text-sm sm:text-base text-brandIvory/85">
             <h4 class="text-2xl font-semibold text-brandGold">Tudo o que você precisa para desbloquear seu estilo</h4>
@@ -382,7 +585,7 @@
 
     <script>
       // Exemplo de animação suave nos botões ao passar o mouse
-      const buttons = document.querySelectorAll('button');
+      const buttons = document.querySelectorAll('button, .btn-primary');
       buttons.forEach((button) => {
         button.addEventListener('mouseenter', () => {
           button.classList.add('button-active');
