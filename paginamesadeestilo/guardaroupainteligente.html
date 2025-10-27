@@ -97,6 +97,7 @@
         display: flex;
         flex-direction: column;
         isolation: isolate;
+        color: #f6efe5;
       }
 
       .hero::before {
@@ -148,7 +149,7 @@
       }
 
       .hero-title {
-        font-size: clamp(2rem, 4vw, 3.25rem);
+        font-size: clamp(2rem, 4vw, 3.2rem);
         line-height: 1.2;
         color: #f6efe5;
         text-align: left;
@@ -191,33 +192,6 @@
         outline: none;
       }
 
-      .hero-stats {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: clamp(12px, 3vw, 24px);
-        max-width: 32rem;
-      }
-
-      .hero-stat {
-        padding: 14px 18px;
-        border-radius: 18px;
-        background: rgba(46, 32, 26, 0.65);
-        border: 1px solid rgba(214, 177, 106, 0.28);
-        display: grid;
-        gap: 4px;
-      }
-
-      .hero-stat strong {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(1.25rem, 2.6vw, 1.75rem);
-        color: #f6efe5;
-      }
-
-      .hero-stat span {
-        font-size: 0.9rem;
-        color: rgba(254, 249, 241, 0.72);
-      }
-
       @media (min-width: 768px) {
         .hero {
           flex-direction: row;
@@ -248,9 +222,61 @@
         .hero-content {
           padding: 24px;
         }
+      }
 
-        .hero-stats {
-          grid-template-columns: 1fr;
+      @media (min-width: 1024px) {
+        header {
+          padding: 0;
+        }
+
+        header > div {
+          max-width: none;
+          width: 100%;
+        }
+
+        .hero {
+          min-height: 100vh;
+          border-radius: 0;
+          border: none;
+          box-shadow: none;
+          background: url('TELA (1).jpg') center/cover no-repeat;
+          margin: 0;
+          align-items: center;
+          justify-content: center;
+          padding: clamp(40px, 10vw, 120px);
+          color: #fff;
+        }
+
+        .hero::before {
+          background: rgba(0, 0, 0, 0.55);
+        }
+
+        .hero-media {
+          display: none;
+        }
+
+        .hero-content {
+          max-width: 600px;
+          padding: 0;
+          margin: 0 auto;
+          gap: clamp(18px, 3vw, 32px);
+        }
+
+        .hero-cta {
+          align-items: flex-start;
+        }
+
+        .hero-cta .btn-primary {
+          background: linear-gradient(90deg, #d4af37, #b38b2e);
+          color: #0b060d;
+          padding: 0.95rem 2.4rem;
+          transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        }
+
+        .hero-cta .btn-primary:hover,
+        .hero-cta .btn-primary:focus-visible,
+        .hero-cta .btn-primary.button-active {
+          filter: brightness(1.2);
         }
       }
 
@@ -316,8 +342,8 @@
           <div class="hero-content">
             <span class="hero-eyebrow">Método Tamara Kilpp</span>
             <h1 class="hero-title">
-              VOCÊ <span class="font-bold text-white">NÃO</span> PRECISA DE MUITAS ROUPAS, VOCÊ SÓ PRECISA DAS
-              <span class="text-brandGold font-semibold">PEÇAS CERTAS</span> PARA VOCÊ
+              VOCÊ <span class="font-bold text-white">NÃO</span> PRECISA DE MUITAS ROUPAS,<br />
+              VOCÊ SÓ PRECISA DAS <span class="text-brandGold font-semibold">PEÇAS CERTAS</span> PARA VOCÊ
             </h1>
             <p class="hero-description">
               Estruture um guarda-roupa inteligente, potencialize suas combinações e conquiste a confiança para se vestir
@@ -329,24 +355,6 @@
                 Garanta uma jornada guiada para descobrir seu estilo, planejar compras conscientes e transformar sua imagem
                 com peças que realmente funcionam.
               </p>
-            </div>
-            <div class="hero-stats">
-              <div class="hero-stat">
-                <strong>+1200</strong>
-                <span>alunas guiadas na construção de um armário funcional</span>
-              </div>
-              <div class="hero-stat">
-                <strong>8 semanas</strong>
-                <span>para transformar a forma como você se vê e é vista</span>
-              </div>
-              <div class="hero-stat">
-                <strong>100%</strong>
-                <span>online com encontros ao vivo e apoio contínuo</span>
-              </div>
-              <div class="hero-stat">
-                <strong>Bônus</strong>
-                <span>guia de compras inteligentes e checklist sazonal</span>
-              </div>
             </div>
           </div>
         </section>
