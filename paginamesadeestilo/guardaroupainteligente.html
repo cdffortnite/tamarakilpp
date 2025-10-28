@@ -211,11 +211,14 @@
         inset-inline: 0;
         bottom: 0;
         padding: clamp(16px, 4vw, 28px);
-        background: linear-gradient(180deg, rgba(11, 6, 13, 0) 0%, rgba(11, 6, 13, 0.8) 75%);
+        background: linear-gradient(135deg, rgba(11, 6, 13, 0.05) 0%, rgba(11, 6, 13, 0.35) 75%);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
+        border: 1px solid rgba(246, 239, 229, 0.1);
       }
 
       .card-overlay__text {
@@ -224,6 +227,10 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: #f1d59a;
+      }
+
+      main > section:first-of-type {
+        margin-top: clamp(40px, 6vw, 96px);
       }
 
       @media (min-width: 768px) {
@@ -248,13 +255,50 @@
         }
 
         .hero-media img {
-          object-fit: contain;
+          object-fit: cover;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hero {
+          min-height: clamp(640px, 80vh, 880px);
+        }
+
+        .hero-media {
+          aspect-ratio: auto;
+          min-height: 100%;
+        }
+
+        .hero-media picture,
+        .hero-media img {
+          height: 100%;
+        }
+
+        .hero-media img {
+          object-position: center top;
+        }
+
+        .hero-content {
+          padding: clamp(48px, 5vw, 88px);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
       }
 
       @media (max-width: 639px) {
         .hero-content {
           padding: 24px;
+        }
+
+        .card-overlay {
+          top: 0;
+          bottom: auto;
+          align-items: flex-start;
+          justify-content: flex-start;
+          text-align: left;
+          background: linear-gradient(180deg, rgba(11, 6, 13, 0.4) 0%, rgba(11, 6, 13, 0) 75%);
+          padding-block: clamp(18px, 6vw, 28px);
         }
       }
 
