@@ -199,6 +199,34 @@
         color: #fde68a;
       }
 
+      .attention-band__accent--center {
+        display: block;
+        text-align: center;
+        margin-inline: auto;
+        color: #f2d99f;
+        text-shadow: 0 0 18px rgba(214, 177, 106, 0.45);
+      }
+
+      .card-overlay {
+        position: absolute;
+        inset-inline: 0;
+        bottom: 0;
+        padding: clamp(16px, 4vw, 28px);
+        background: linear-gradient(180deg, rgba(11, 6, 13, 0) 0%, rgba(11, 6, 13, 0.8) 75%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .card-overlay__text {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #f1d59a;
+      }
+
       @media (min-width: 768px) {
         .hero {
           flex-direction: row;
@@ -331,14 +359,16 @@
               </p>
             </article>
             <article class="row-span-2 lg:row-span-2 bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-0 overflow-hidden shadow-card hover-card scroll-reveal">
-              <img
-                src="./guardaroupa.webp"
-                alt="Mulher estilosa"
-                class="h-72 sm:h-56 lg:h-64 w-full object-cover object-top sm:object-center"
-                  <p class="text-base font-medium text-brandIvory/90">
-                SINTA-SE SEGURA NA HORA DE SE OLHAR NO ESPELHO TODOS OS DIAS
-              </p>
-              />
+              <div class="relative h-full">
+                <img
+                  src="./guardaroupa.webp"
+                  alt="Mulher estilosa"
+                  class="h-72 sm:h-56 lg:h-64 w-full object-cover object-top sm:object-center"
+                />
+                <div class="card-overlay">
+                  <p class="card-overlay__text">Sinta-se segura na hora de se olhar no espelho todos os dias</p>
+                </div>
+              </div>
             </article>
             <article class="col-span-1 lg:col-span-2 bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-6 shadow-card hover-card scroll-reveal">
               <p class="text-base font-medium text-brandIvory/90">
@@ -373,7 +403,9 @@
 
       <!-- Bullet Section -->
       <section class="px-6 sm:px-10 lg:px-20">
-          <p class="attention-band__accent">Faça uso inteligente do próprio tempo e dinheiro</p>
+        <div class="max-w-6xl mx-auto text-center mb-10">
+          <p class="attention-band__accent attention-band__accent--center">Faça uso inteligente do próprio tempo e dinheiro</p>
+        </div>
         <div class="max-w-6xl mx-auto">
           <div class="bg-white/10 backdrop-blur-xl border border-brandGold/20 rounded-3xl p-8 shadow-card hover-card scroll-reveal">
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 text-sm sm:text-base">
