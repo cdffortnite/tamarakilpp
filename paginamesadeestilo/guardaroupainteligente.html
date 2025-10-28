@@ -97,7 +97,6 @@
         display: flex;
         flex-direction: column;
         isolation: isolate;
-        min-height: clamp(28rem, 75vh, 48rem);
       }
 
       .hero::before {
@@ -110,12 +109,12 @@
       .hero-media {
         position: relative;
         width: 100%;
-        flex: 1 1 50%;
+        aspect-ratio: 16 / 9;
         background: radial-gradient(circle at 30% 30%, rgba(214, 177, 106, 0.18), rgba(11, 6, 13, 0.85));
         overflow: hidden;
         z-index: 0;
         display: flex;
-        align-items: stretch;
+        align-items: center;
         justify-content: center;
       }
 
@@ -123,12 +122,11 @@
       .hero-media img {
         display: block;
         width: 100%;
-        height: 100%;
       }
 
       .hero-media img {
-        object-fit: cover;
-        object-position: center;
+        height: auto;
+        object-fit: contain;
       }
 
       .hero-content {
@@ -242,6 +240,16 @@
 
         .hero-media {
           min-height: 100%;
+          aspect-ratio: auto;
+        }
+
+        .hero-media picture,
+        .hero-media img {
+          height: 100%;
+        }
+
+        .hero-media img {
+          object-fit: contain;
         }
       }
 
@@ -353,7 +361,7 @@
             <article class="row-span-2 lg:row-span-2 bg-white/10 backdrop-blur-lg border border-brandGold/15 rounded-3xl p-0 overflow-hidden shadow-card hover-card scroll-reveal">
               <div class="relative h-full">
                 <img
-                  src="./TAMAESPELHO.webp"
+                  src="./guardaroupa.webp"
                   alt="Mulher estilosa"
                   class="h-72 sm:h-56 lg:h-64 w-full object-cover object-top sm:object-center"
                 />
