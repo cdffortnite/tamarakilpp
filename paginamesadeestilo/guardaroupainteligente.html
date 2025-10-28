@@ -191,33 +191,6 @@
         outline: none;
       }
 
-      .hero-stats {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: clamp(12px, 3vw, 24px);
-        max-width: 32rem;
-      }
-
-      .hero-stat {
-        padding: 14px 18px;
-        border-radius: 18px;
-        background: rgba(46, 32, 26, 0.65);
-        border: 1px solid rgba(214, 177, 106, 0.28);
-        display: grid;
-        gap: 4px;
-      }
-
-      .hero-stat strong {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(1.25rem, 2.6vw, 1.75rem);
-        color: #f6efe5;
-      }
-
-      .hero-stat span {
-        font-size: 0.9rem;
-        color: rgba(254, 249, 241, 0.72);
-      }
-
       @media (min-width: 768px) {
         .hero {
           flex-direction: row;
@@ -247,10 +220,6 @@
       @media (max-width: 639px) {
         .hero-content {
           padding: 24px;
-        }
-
-        .hero-stats {
-          grid-template-columns: 1fr;
         }
       }
 
@@ -329,24 +298,6 @@
                 Garanta uma jornada guiada para descobrir seu estilo, planejar compras conscientes e transformar sua imagem
                 com peças que realmente funcionam.
               </p>
-            </div>
-            <div class="hero-stats">
-              <div class="hero-stat">
-                <strong>+500</strong>
-                <span>alunas guiadas na construção de um armário funcional</span>
-              </div>
-              <div class="hero-stat">
-                <strong>8 semanas</strong>
-                <span>para transformar a forma como você se vê e é vista</span>
-              </div>
-              <div class="hero-stat">
-                <strong>100%</strong>
-                <span>online com encontros ao vivo e apoio contínuo</span>
-              </div>
-              <div class="hero-stat">
-                <strong>Bônus</strong>
-                <span>guia de compras inteligentes e checklist sazonal</span>
-              </div>
             </div>
           </div>
         </section>
