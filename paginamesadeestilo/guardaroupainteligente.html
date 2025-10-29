@@ -309,18 +309,24 @@
 
       @media (min-width: 1024px) {
         .benefits-grid {
-          grid-template-columns: repeat(4, minmax(0, 1fr));
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           align-items: stretch;
+          grid-auto-rows: minmax(168px, 1fr);
         }
 
         .benefits-card {
           min-height: 168px;
+          height: 100%;
         }
 
         .benefits-card--media {
           grid-column: span 2;
           grid-row: span 2;
           border-radius: 30px;
+        }
+
+        .card-tamaespelho {
+          display: none;
         }
       }
 
