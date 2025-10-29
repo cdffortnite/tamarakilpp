@@ -295,37 +295,6 @@
         padding-inline: clamp(18px, 3vw, 32px);
       }
 
-      .benefits-card--center {
-        margin-inline: auto;
-        width: 100%;
-        max-width: 360px;
-        justify-self: center;
-      }
-
-      .card-tamaespelho {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .card-tamaespelho img {
-        width: 100%;
-        height: clamp(140px, 38vw, 220px);
-        object-fit: cover;
-        object-position: top;
-        filter: brightness(0.55) saturate(0.8);
-        opacity: 0.6;
-      }
-
-      .card-tamaespelho .card-overlay {
-        position: static;
-        flex: 1 1 auto;
-        padding: clamp(24px, 4vw, 32px);
-        background: rgba(11, 6, 13, 0.78);
-        border: 0;
-        border-top: 1px solid rgba(241, 213, 154, 0.24);
-        box-shadow: none;
-      }
-
       @media (min-width: 768px) {
         .benefits-card--media {
           min-height: 100%;
@@ -335,10 +304,6 @@
       @media (min-width: 640px) {
         .benefits-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .benefits-card--center {
-          max-width: 420px;
         }
       }
 
@@ -360,9 +325,8 @@
           border-radius: 30px;
         }
 
-        .benefits-card--center {
-          grid-column: 2;
-          max-width: 460px;
+        .card-tamaespelho {
+          display: none;
         }
       }
 
@@ -546,9 +510,7 @@
             <article class="benefits-card hover-card scroll-reveal">
               <p class="benefits-card__text">DESENVOLVA UM ESTILO QUE COMUNICA QUEM VOCÊ É</p>
             </article>
-            <article class="benefits-card benefits-card--center hover-card scroll-reveal">
-              <p class="benefits-card__text">ORGANIZE SUA ROTINA DE LOOKS COM PRATICIDADE</p>
-            </article>
+  
           </div>
         </div>
       </section>
