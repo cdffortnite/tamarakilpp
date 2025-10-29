@@ -411,15 +411,20 @@
         .card-tamaespelho .card-overlay {
           top: auto;
           bottom: 0;
-          background: rgba(6, 5, 12, 0.55);
+          background: rgba(46, 32, 26, 0.85);
           backdrop-filter: blur(6px);
           align-items: center;
           justify-content: center;
         }
 
         .card-tamaespelho .card-overlay__text {
-          color: rgba(250, 248, 255, 0.92);
-          text-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f6efe5; /* bege suave */
+  text-shadow: 0 0 18px rgba(0, 0, 0, 0.5);
+
         }
       }
 
