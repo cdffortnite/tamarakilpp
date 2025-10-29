@@ -395,6 +395,32 @@
           text-align: center;
           padding-block: clamp(18px, 6vw, 28px);
         }
+
+        .card-tamaespelho {
+          max-height: 240px;
+          min-height: auto;
+        }
+
+        .card-tamaespelho img {
+          height: 100%;
+          object-fit: cover;
+          object-position: center 35%;
+          filter: brightness(0.55);
+        }
+
+        .card-tamaespelho .card-overlay {
+          top: auto;
+          bottom: 0;
+          background: rgba(6, 5, 12, 0.55);
+          backdrop-filter: blur(6px);
+          align-items: center;
+          justify-content: center;
+        }
+
+        .card-tamaespelho .card-overlay__text {
+          color: rgba(250, 248, 255, 0.92);
+          text-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+        }
       }
 
       .hover-card,
