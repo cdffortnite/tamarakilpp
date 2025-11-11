@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Imersão de Estilo · Aula com Tamara Kilpp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="./logo-TAMARA.png" />
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: radial-gradient(circle at 20% 20%, #333332 0%, #07050c 55%, #5a5a5e 100%);
+            --card: rgba(51, 51, 50, 0.7);
+            --accent: #ffcb70;
+            --accent-soft: rgba(255, 203, 112, 0.18);
+            --text: #f9f5ff;
+            --muted: rgba(249, 245, 255, 0.7);
+            --border: rgba(255, 255, 255, 0.12);
+            font-family: 'Poppins', 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Poppins', 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 28px 16px 12px;
+        }
+
+        .header-inner {
+            max-width: 920px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand img {
+            width: 56px;
+            height: auto;
+            filter: drop-shadow(0 12px 22px rgba(199, 81, 192, 0.4));
+        }
+
+        .brand span {
+            display: block;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+        }
+
+        main {
+            flex: 1;
+            padding: 32px 16px 64px;
+        }
+
+        .hero {
+            max-width: 920px;
+            margin: 0 auto 36px;
+            display: grid;
+            gap: 24px;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            font-weight: 600;
+        }
+
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        .hero strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .form-card {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 32px clamp(20px, 5vw, 40px);
+            background: var(--card);
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            box-shadow: 0 35px 80px -45px rgba(0, 0, 0, 0.85);
+            display: grid;
+            gap: 24px;
+        }
+
+        .form-card h2 {
+            margin: 0;
+            font-size: 1.6rem;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.35);
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        input[aria-invalid='true'] {
+            border-color: #ff7a7a;
+            box-shadow: 0 0 0 3px rgba(255, 122, 122, 0.2);
+        }
+
+        .form-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        button {
+            appearance: none;
+            border: none;
+            border-radius: 999px;
+            padding: 16px 28px;
+            background: linear-gradient(135deg, #f1d27b, #d9a441);
+            color: #0d081b;
+            font-weight: 600;
+            font-size: 1.05rem;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 40px -25px rgba(255, 203, 112, 0.8);
+        }
+
+        .helper-text {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .helper-text strong {
+            color: var(--accent);
+        }
+
+        .message {
+            min-height: 24px;
+            font-size: 0.9rem;
+        }
+
+        .message[data-state='info'] {
+            color: var(--muted);
+        }
+
+        .message[data-state='success'] {
+            color: #bdf5c0;
+        }
+
+        .message[data-state='error'] {
+            color: #ff9c9c;
+        }
+
+        footer {
+            padding: 32px 16px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding-top: 20px;
+            }
+
+            .hero {
+                text-align: center;
+            }
+
+            .form-card {
+                padding: 28px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a class="brand" href="https://tamarakilpp.com" target="_blank" rel="noopener">
+                <img src="tamaravertical.webp" alt="Tamara Kilpp" />
+                <span>Estilo com inteligência</span>
+            </a>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Aula Exclusiva · <strong>Imersão Método Tamara</strong></h1>
+            <p>
+                Garanta seu acesso preenchendo os dados abaixo. Após o envio, direcionamos você automaticamente para o
+                grupo exclusivo no WhatsApp onde o link da aula ao vivo gratuita será liberado pela Tamara Kilpp.
+            </p>
+        </section>
+        <section class="form-card" aria-labelledby="lead-form-title">
+            <div>
+                <h2 id="lead-form-title">Preencha para liberar a aula no grupo</h2>
+                <p class="helper-text">
+                    Usamos suas informações para compartilhar materiais e novidades sobre experiências de estilo, e
+                    levamos você direto para a comunidade oficial no WhatsApp.
+                </p>
+            </div>
+            <form
+                class="form-grid"
+                id="lead-form"
+                data-lead-form
+                data-redirect-url="https://chat.whatsapp.com/ConviteImersaoMetodoTamara"
+                novalidate
+            >
+                <div>
+                    <label for="lead-name">Nome completo</label>
+                    <input
+                        type="text"
+                        id="lead-name"
+                        name="name"
+                        placeholder="Como gostaria de ser chamada"
+                        autocomplete="name"
+                        required
+                        aria-invalid="false"
+                    />
+                </div>
+                <div>
+                    <label for="lead-phone">Telefone</label>
+                    <input
+                        type="tel"
+                        id="lead-phone"
+                        name="phone"
+                        placeholder="(51) 99999-9999"
+                        autocomplete="tel"
+                        inputmode="tel"
+                        required
+                        aria-invalid="false"
+                    />
+                </div>
+                <div>
+                    <label for="lead-email">E-mail</label>
+                    <input
+                        type="email"
+                        id="lead-email"
+                        name="email"
+                        placeholder="voce@email.com"
+                        autocomplete="email"
+                        required
+                        aria-invalid="false"
+                    />
+                </div>
+                <div>
+                    <label for="lead-instagram">Instagram (opcional)</label>
+                    <input
+                        type="text"
+                        id="lead-instagram"
+                        name="instagram"
+                        placeholder="@seuusuario"
+                        autocomplete="username"
+                        aria-invalid="false"
+                    />
+                </div>
+                <div class="form-actions">
+                    <button type="submit">Liberar acesso</button>
+                    <p class="message" data-lead-message aria-live="polite"></p>
+                    <p class="helper-text">
+                        Ao confirmar, você concorda em receber comunicações do Método Tamara e será levado(a) para o
+                        grupo oficial no WhatsApp. Cancelamento a qualquer momento.
+                    </p>
+                </div>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 Tamara Kilpp · Imersão Método Tamara</p>
+    </footer>
+    <script src="lead-storage.js"></script>
+    <script>
+        (function () {
+            const form = document.querySelector('[data-lead-form]');
+            const message = form ? form.querySelector('[data-lead-message]') : null;
+            const nameInput = form ? form.querySelector('#lead-name') : null;
+            const phoneInput = form ? form.querySelector('#lead-phone') : null;
+            const emailInput = form ? form.querySelector('#lead-email') : null;
+            const instagramInput = form ? form.querySelector('#lead-instagram') : null;
+            const inputs = [nameInput, phoneInput, emailInput, instagramInput].filter(Boolean);
+            const leadStorage = window.tkLeadStorage || {};
+            const { registerLead = async () => {}, getPhoneDigits = (value = '') => value.replace(/\D/g, '') } =
+                leadStorage;
+
+            if (!form || inputs.length < 3) {
+                return;
+            }
+
+            const setError = (input, text) => {
+                if (!message) {
+                    return;
+                }
+
+                message.dataset.state = 'error';
+                message.textContent = text;
+
+                inputs.forEach((field) => {
+                    field.setAttribute('aria-invalid', field === input ? 'true' : 'false');
+                });
+
+                if (input) {
+                    input.focus({ preventScroll: true });
+                }
+            };
+
+            const clearMessage = () => {
+                if (!message) {
+                    return;
+                }
+
+                message.dataset.state = '';
+                message.textContent = '';
+                inputs.forEach((field) => field.setAttribute('aria-invalid', 'false'));
+            };
+
+            inputs.forEach((input) => {
+                input.addEventListener('input', clearMessage);
+            });
+
+            const isValidEmail = (value = '') => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value);
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const nameValue = nameInput ? nameInput.value.trim() : '';
+                const phoneValue = phoneInput ? phoneInput.value.trim() : '';
+                const emailValue = emailInput ? emailInput.value.trim() : '';
+                const instagramValue = instagramInput ? instagramInput.value.trim() : '';
+
+                if (!nameValue) {
+                    setError(nameInput, 'Informe seu nome para começarmos.');
+                    return;
+                }
+
+                if (!phoneValue || getPhoneDigits(phoneValue).length < 10) {
+                    setError(phoneInput, 'Digite um telefone com DDD.');
+                    return;
+                }
+
+                if (!emailValue || !isValidEmail(emailValue)) {
+                    setError(emailInput, 'Precisamos de um e-mail válido.');
+                    return;
+                }
+
+                try {
+                    await registerLead(
+                        {
+                            name: nameValue,
+                            phone: phoneValue,
+                            email: emailValue,
+                            instagram: instagramValue,
+                        },
+                        {
+                            formElement: form,
+                            messageElement: message,
+                        }
+                    );
+                } catch (error) {
+                    console.error('Não foi possível enviar os dados do lead.', error);
+
+                    if (message && !message.textContent) {
+                        message.dataset.state = 'error';
+                        message.textContent = 'Algo deu errado. Tente novamente em instantes.';
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
