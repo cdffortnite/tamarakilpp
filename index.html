@@ -435,10 +435,6 @@
         }
 
         @media (max-width: 600px) {
-            .hero {
-                min-height: 624px;
-            }
-
             .hero-content {
                 padding: 28px;
                 gap: 18px;
@@ -446,44 +442,6 @@
 
             .hero-actions {
                 gap: 12px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            header {
-                padding-left: clamp(48px, 6vw, 96px);
-                padding-right: clamp(48px, 6vw, 96px);
-            }
-
-            .header-inner {
-                max-width: none;
-                width: 100%;
-            }
-
-            .hero {
-                padding-inline: clamp(48px, 6vw, 96px);
-            }
-
-            .hero-inner {
-                max-width: none;
-            }
-
-            main {
-                max-width: none;
-                width: 100%;
-                padding-left: clamp(48px, 6vw, 96px);
-                padding-right: clamp(48px, 6vw, 96px);
-            }
-
-            section {
-                width: 100%;
-            }
-
-            .footer-inner {
-                max-width: none;
-                width: 100%;
-                padding-left: clamp(48px, 6vw, 96px);
-                padding-right: clamp(48px, 6vw, 96px);
             }
         }
 
@@ -542,7 +500,6 @@
             flex-direction: column;
             box-shadow: 0 30px 70px -40px rgba(68, 63, 75, 0.75);
             backdrop-filter: blur(18px);
-            transition: transform 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
         }
 
         .course-image {
@@ -557,7 +514,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
         }
 
         .course-content {
@@ -601,28 +557,6 @@
             height: 8px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--cta-gold-light) 0%, var(--cta-gold-dark) 100%);
-        }
-
-        @media (hover: hover) {
-            .course-card:hover,
-            .course-card:focus-within {
-                transform: translateY(-12px) scale(1.01);
-                box-shadow: 0 40px 90px -40px rgba(217, 164, 65, 0.65);
-                border-color: rgba(255, 203, 112, 0.45);
-            }
-
-            .course-card:hover .course-image img,
-            .course-card:focus-within .course-image img {
-                transform: scale(1.06);
-            }
-        }
-
-        .course-card:focus-within {
-            outline: none;
-        }
-
-        .course-card:focus-within .button {
-            box-shadow: 0 18px 38px -20px rgba(241, 210, 123, 0.8);
         }
 
         .button {
@@ -672,20 +606,6 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            transition: transform 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
-        }
-
-        @media (hover: hover) {
-            .detail-card:hover,
-            .detail-card:focus-within {
-                transform: translateY(-10px);
-                box-shadow: 0 36px 92px -48px rgba(217, 164, 65, 0.5);
-                border-color: rgba(255, 203, 112, 0.35);
-            }
-        }
-
-        .detail-card:focus-within {
-            outline: none;
         }
 
         .detail-card h3 {
@@ -870,27 +790,6 @@
         .whatsapp-floating img {
             width: 44px;
             height: 44px;
-        }
-
-        .reveal-section {
-            opacity: 0;
-            transform: translateY(70px);
-            filter: blur(10px);
-            transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
-        }
-
-        .reveal-section.is-visible {
-            opacity: 1;
-            transform: none;
-            filter: none;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .reveal-section {
-                opacity: 1;
-                transform: none;
-                filter: none;
-            }
         }
 
 
@@ -1133,7 +1032,7 @@
                             <li>Aulas em vídeo com passo a passo para criar combinações inteligentes e funcionais.</li>
                             <li>Bônus de organização, lista de essenciais e calendário para manter o estilo em dia.</li>
                         </ul>
-                        <a class="button purchase-button" href="/preco-guarda-roupa" data-redirect="/preco-guarda-roupa">
+                        <a class="button purchase-button" href="/guardaroupainteligente" data-redirect="/guardaroupainteligente">
                             Comprar agora
                         </a>
                     </div>
@@ -1226,9 +1125,7 @@
                     <h2>Olá, eu sou Tamara Kilpp</h2>
                     <p>
                         Especialista em estilo pessoal, comportamento e estratégia de imagem. Minha missão é conectar autenticidade e
-                        funcionalidade para que você vista quem é com clareza, criatividade e autonomia. Há mais de 10 anos atuo com
-                        consultoria individual, cursos e mentorias para mulheres que querem protagonizar a própria história através do
-                        vestir.
+                        funcionalidade para que você vista quem é com clareza, criatividade e autonomia. Após uma década inserida no mundo da moda, encontrei nos últimos anos meu propósito em orientar mulheres por meio de consultorias, cursos e mentorias que unem estilo e autoconhecimento.
                     </p>
                     <p>
                         No Método Tamara, tecnologia, sensibilidade e metodologia caminham juntas para te entregar ferramentas práticas e
@@ -1339,42 +1236,6 @@
     <script>
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');
-        const revealTargets = document.querySelectorAll('.hero, main section');
-
-        if (revealTargets.length) {
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-            revealTargets.forEach((section) => {
-                section.classList.add('reveal-section');
-            });
-
-            if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
-                revealTargets.forEach((section) => section.classList.add('is-visible'));
-            } else {
-                const observer = new IntersectionObserver(
-                    (entries, observerInstance) => {
-                        entries.forEach((entry) => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('is-visible');
-                                observerInstance.unobserve(entry.target);
-                            }
-                        });
-                    },
-                    {
-                        threshold: 0.15,
-                        rootMargin: '0px 0px -10% 0px',
-                    },
-                );
-
-                revealTargets.forEach((section) => {
-                    if (section.getBoundingClientRect().top <= window.innerHeight * 0.85) {
-                        section.classList.add('is-visible');
-                    } else {
-                        observer.observe(section);
-                    }
-                });
-            }
-        }
 
         if (navToggle && navLinks) {
             navToggle.addEventListener('click', () => {
